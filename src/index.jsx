@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-/* ------------- Reset Default CSS ------------- */
+import { Provider, connect } from 'react-redux'
+import { Route, Switch } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
+import { bindActionCreators } from 'redux';
+/* ---------- Data/Redux ---------- */
+import configureStore, { history, defaultState } from './redux/store';
+import * as actionCreators from './redux/actions';
+/* ---------- Reset Default CSS ---------- */
 import './reset.css';
 
-function Coddit() {
+const Coddit = (props) => {
   const settingsChanged = (event) => {
     console.log('local storage settings changed', event);
   }
@@ -13,15 +20,96 @@ function Coddit() {
       // Add event to listen for local storage changes
       window.addEventListener('storage', settingsChanged)
       return function cleanup() {
-         // Clean-up event listeners
+        // Clean-up event listeners
         window.removeEventListener('storage', settingsChanged);
       };
     }
   });
 
   return (
-    <div>coddit</div>
+    <React.Fragment>
+      <Route
+        exact
+        path="/about"
+        component={() => <div>about page</div>}
+      />
+      <Route
+        exact
+        path="/"
+        render={(props) => <div>home page</div>}
+      />
+      <Route
+        exact
+        path="/r/"
+        render={(props) => <div>empty subreddit page</div>}
+      />
+      <Route
+        exact
+        path="/r/:subreddit_id"
+        render={(props) => {
+          const {match} = props;
+          const {params} = match;
+          const {subreddit_id} = params;
+          return (
+            <div>{subreddit_id} subreddit page</div>
+          )
+        }}
+      />
+      <Route
+        exact
+        path="/r/:subreddit_id/comments/:post_id/:post_title?"
+        render={(props) => {
+          const {match} = props;
+          const {params} = match;
+          const {post_id, post_title, subreddit_id} = params;
+          return(
+          <div>{post_id}<br/>{post_title}<br/>{subreddit_id}<br/>post page</div>
+          )
+        }}
+      />
+      <Route
+        exact
+        path="/user/:user_id"
+        render={(props) => {
+          const {match} = props;
+          const {params} = match;
+          const {user_id} = params;
+          return(
+            <div>{user_id} user page</div>
+          )
+        }}
+      />
+    </React.Fragment>
+  )
+};
+
+const Routing = () => {
+  /* This maps state to props that will be used by the application*/
+  const mapStateToProps = (state) => {
+    return {
+      sort: state.sort,
+      settings: state.settings,
+      data: state.data,
+      isLoading: state.isLoading,
+    };
+  }
+
+  /* This binds our actions to dispatch (make them fire-able) and makes the actions available via props*/
+  const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(actionCreators, dispatch);
+  }
+  const store = configureStore(defaultState);
+  const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(Coddit);
+
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <ConnectedApp />
+        </Switch>
+      </ConnectedRouter>
+    </Provider>
   )
 }
 
-ReactDOM.render(<Coddit />, document.getElementById('root'));
+ReactDOM.render(<Routing />, document.getElementById('root'));
