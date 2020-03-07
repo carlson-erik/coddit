@@ -6,17 +6,16 @@ import createRootReducer from '../reducers';
 
 export const defaultState = {
     sort: {
-        sfunction : 'hot',
+        method : 'hot',
         timeFrame : '24hours',
     },
     settings: {
+        showAllPreviews : false,
         itemLimit : "25",
         progLang : localStorage.getItem('coddit_prog_lang') || 'python',
-        showAllPreviews : false,
         colorTheme : localStorage.getItem('coddit_theme_name') || 'oneDark',
     },
     data: {
-        subreddit: 'all',
         itemCount : 0,
         after : '',
         headerData : {}, // PostView and UserView

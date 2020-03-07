@@ -6,9 +6,9 @@ import { connectRouter } from 'connected-react-router';
 function sort(state={}, action ){
     switch(action.type){
         case 'UPDATE_SORT':
-            const {sfunction, timeFrame} = action;
+            const {method, timeFrame} = action;
             return {
-                sfunction,
+                method,
                 timeFrame
             };
         default: 
@@ -32,13 +32,12 @@ function settings(state={}, action ){
 }
 
 function data(state={}, action ){
-    const {itemCount, after, subreddit, page} = action;
+    const {itemCount, after, page} = action;
     switch(action.type){
         case 'CREATE_PAGE':
             return {
                 itemCount,
                 after,
-                subreddit,
                 headerData: action.headerData,
                 pageList : [
                     page
@@ -48,7 +47,6 @@ function data(state={}, action ){
             return {
                 itemCount,
                 after,
-                subreddit,
                 headerData : action.headerData,
                 pageList : [
                     ...state.pageList,
@@ -59,7 +57,6 @@ function data(state={}, action ){
             return {
                 itemCount,
                 after,
-                subreddit,
                 headerData : {},
                 pageList : [
                     page
@@ -69,7 +66,6 @@ function data(state={}, action ){
             return {
                 itemCount,
                 after,
-                subreddit,
                 headerData : {},
                 pageList : [
                     ...state.pageList,
