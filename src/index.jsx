@@ -8,7 +8,10 @@ import { bindActionCreators } from 'redux';
 import configureStore, { history, defaultState } from './redux/store';
 import * as actionCreators from './redux/actions';
 /* ---------- Views ---------- */
+import About from './views/about';
+import Post from './views/post';
 import Subreddit from './views/subreddit';
+import User from './views/user';
 /* ---------- Reset Default CSS ---------- */
 import './reset.css';
 
@@ -33,7 +36,7 @@ const Coddit = (props) => {
       <Route
         exact
         path="/about"
-        component={() => <div>about page</div>}
+        component={() => <About />}
       />
       <Route
         exact
@@ -53,26 +56,12 @@ const Coddit = (props) => {
       <Route
         exact
         path="/r/:subreddit_id/comments/:post_id/:post_title?"
-        render={(routeprops) => {
-          const {match} = routeprops;
-          const {params} = match;
-          const {post_id, post_title, subreddit_id} = params;
-          return(
-          <div>{post_id}<br/>{post_title}<br/>{subreddit_id}<br/>post page</div>
-          )
-        }}
+        render={(routeprops) => <Post {...props} {...routeprops} />}
       />
       <Route
         exact
-        path="/user/:user_id"
-        render={(routeprops) => {
-          const {match} = routeprops;
-          const {params} = match;
-          const {user_id} = params;
-          return(
-            <div>{user_id} user page</div>
-          )
-        }}
+        path="/u/:user_id"
+        render={(routeprops) => <User {...props} {...routeprops} />}
       />
     </React.Fragment>
   )
