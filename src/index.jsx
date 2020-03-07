@@ -7,6 +7,11 @@ import { bindActionCreators } from 'redux';
 /* ---------- Data/Redux ---------- */
 import configureStore, { history, defaultState } from './redux/store';
 import * as actionCreators from './redux/actions';
+/* ---------- Views ---------- */
+import About from './views/about';
+import Post from './views/post';
+import Subreddit from './views/subreddit';
+import User from './views/user';
 /* ---------- Reset Default CSS ---------- */
 import './reset.css';
 
@@ -20,7 +25,7 @@ const Coddit = (props) => {
       // Add event to listen for local storage changes
       window.addEventListener('storage', settingsChanged)
       return function cleanup() {
-        // Clean-up event listeners
+        // Remove event listeners
         window.removeEventListener('storage', settingsChanged);
       };
     }
@@ -31,53 +36,32 @@ const Coddit = (props) => {
       <Route
         exact
         path="/about"
-        component={() => <div>about page</div>}
+        component={() => <About />}
       />
       <Route
         exact
         path="/"
-        render={(props) => <div>home page</div>}
+        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/"
-        render={(props) => <div>empty subreddit page</div>}
+        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/:subreddit_id"
-        render={(props) => {
-          const {match} = props;
-          const {params} = match;
-          const {subreddit_id} = params;
-          return (
-            <div>{subreddit_id} subreddit page</div>
-          )
-        }}
+        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/:subreddit_id/comments/:post_id/:post_title?"
-        render={(props) => {
-          const {match} = props;
-          const {params} = match;
-          const {post_id, post_title, subreddit_id} = params;
-          return(
-          <div>{post_id}<br/>{post_title}<br/>{subreddit_id}<br/>post page</div>
-          )
-        }}
+        render={(routeprops) => <Post {...props} {...routeprops} />}
       />
       <Route
         exact
-        path="/user/:user_id"
-        render={(props) => {
-          const {match} = props;
-          const {params} = match;
-          const {user_id} = params;
-          return(
-            <div>{user_id} user page</div>
-          )
-        }}
+        path="/u/:user_id"
+        render={(routeprops) => <User {...props} {...routeprops} />}
       />
     </React.Fragment>
   )
