@@ -7,12 +7,12 @@ import JavaScriptComment from "./languages/javascript";
 import PythonComment from "./languages/python";
 
 // Gets all the replies for a given comment, if there are any
-function getReplyList(commentData) {
-  return (commentData
-    && commentData.replies
-    && commentData.replies.data
-    && commentData.replies.data.children
-    && commentData.replies.data.children.map(child => child.data))
+function getReplyList(data) {
+  return (data
+    && data.replies
+    && data.replies.data
+    && data.replies.data.children
+    && data.replies.data.children.map(child => child.data))
     || [];
 }
 
@@ -27,6 +27,8 @@ function Comment(props) {
   const hideShowComment = () => {
     setCollapsed(!collapsed);
   };
+
+  // Update the props that will be passed down to proglang renderer
   const commentProps = {
     ...props,
     data: { ...data, body: cleanText(data.body) },
