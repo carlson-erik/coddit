@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 // ---------- Data/Redux ----------
 import configureStore, { history, defaultState } from './redux/store';
 import * as actionCreators from './redux/actions';
+// ---------- Components ----------
+import EditorSettings from './components/editor-settings';
 // ---------- Views ----------
 import About from './views/about';
 import Post from './views/post';
@@ -33,6 +35,7 @@ const Coddit = (props) => {
 
   return (
     <React.Fragment>
+      <EditorSettings {...props}/>
       <Route
         exact
         path="/about"

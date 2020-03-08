@@ -3,7 +3,7 @@ import Dropdown from 'react-dropdown';
 // ---------- Components ----------
 import Preview from '../../../../components/preview';
 import Checkbox from '../../../../components/checkbox';
-import LoadingButton from "../../../../components/loading_button";
+import LoadingButton from "../../../../components/loading-button";
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from "../../../../utils/time";
 import { isImageLink } from "../../../../utils/image";
