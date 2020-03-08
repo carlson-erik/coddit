@@ -15,7 +15,7 @@ function getPostURL(match, sort) {
 }
 
 function Post(props) {
-  const { match, isLoading, settings, sort } = props;
+  const { match, settings, sort } = props;
   const { progLang } = settings;
 
   const sortChange = (option) => {
