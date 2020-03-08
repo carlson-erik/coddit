@@ -1,14 +1,13 @@
 import React from "react";
-import classNames from 'classnames';
 import Dropdown from 'react-dropdown';
-// ---------- component imports ----------
-import Preview from '../../../../shared/preview';
-import Checkbox from '../../../../shared/checkbox';
-import LoadingButton from "../../../../shared/loading_button";
-// ---------- utility imports ----------
-import {getTimeDifferenceString} from "../../../../../utilities/time";
-import {isImageLink} from "../../../../../utilities/image";
-import {sortValues, postLimitValues, linksFromDisplayNames } from '../../../../utils/constants;
+// ---------- Components ----------
+import Preview from '../../../../components/preview';
+import Checkbox from '../../../../components/checkbox';
+import LoadingButton from "../../../../components/loading_button";
+// ---------- JS Utilities ----------
+import {getTimeDifferenceString} from "../../../../utils/time";
+import {isImageLink} from "../../../../utils/image";
+import {sortValues, postLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 
 const JavaScriptHeader = (props) => {
     const { propValues, dropdownFunctions } = props;
@@ -89,7 +88,7 @@ const JavaScriptPageList = (props) => {
                 <Page key={page.pageID} page={page} showAllPreviews={showAllPreviews}/>
             )}
             <LoadingButton loadFunc={() => fetchNextPage() } isLoading={isLoading} postLimit={postLimit} />
-            <div className={classNames("line", "jsClass")}>{"}"}</div>
+            <div className='line jsClass'>{"}"}</div>
         </>	
     );
 }
@@ -162,7 +161,7 @@ const Post = (props) => {
                 <div className="line">
                     <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>
                     (
-                    <span className={classNames("parameterName", "first")}>score</span>=
+                    <span className='parameterName first'>score</span>=
                     <span className="parameter">{ups}</span>,
                      <span className="parameterName">subreddit</span>=
                      <a href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</a>

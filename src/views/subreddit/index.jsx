@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { batch } from "react-redux";
 import axios from 'axios';
+// ---------- JS Utilities ----------
 import { getSubredditURL } from '../../utils/url';
+// ---------- Prog Lang Renderers ----------
+import { PythonPageList, PythonHeader } from './languages/python';
+import { JavaScriptPageList, JavaScriptHeader } from './languages/javascript';
+import { CSharpPageList, CSharpHeader } from './languages/csharp';
 
 function getSubreddit(match) {
   const subreddit_id = match && match.params && match.params.subreddit_id;
@@ -66,18 +71,39 @@ function Subreddit(props) {
     fetchPage();// eslint-disable-next-line
   }, []);
 
+
+  /*
+    PythonHeader
+    PythonPageList
+    
+    JavaScriptHeader
+    JavaScriptPageList
+
+    CSharpHeader
+    CSharpPageList
+  */
+
   switch (progLang) {
     case 'javascript':
       return (
-        <div>javascript</div>
+        <React.Fragment>
+          <JavaScriptHeader />
+          <JavaScriptPageList />
+        </React.Fragment>
       );
     case 'csharp':
       return (
-        <div>csharp</div>
+        <React.Fragment>
+          <CSharpHeader />
+          <CSharpPageList />
+        </React.Fragment>
       );
     case 'python':
       return (
-        <div>python</div>
+        <React.Fragment>
+          <PythonHeader />
+          <PythonPageList />
+        </React.Fragment>
       );
     default:
       return null

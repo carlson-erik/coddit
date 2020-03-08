@@ -54,4 +54,9 @@ const linksFromMap = {
 	"all time" : "all" 
 };
 
+// Default values
+const sortDefault = sortValues[0];
+const timeFrameDefault = linksFromValues[1];
+const postLimitDefault = postLimitValues[1];
+
 export {sortDefault, timeFrameDefault, postLimitDefault, sortValues, postLimitValues, linksFromValues, linksFromDisplayNames, linksFromMap};

@@ -1,13 +1,12 @@
-// ---------- js imports ----------
 import React from "react";
 import Dropdown from 'react-dropdown';
-// ---------- component imports ----------
-import Preview from '../../../../shared/preview';
-import Checkbox from '../../../../shared/checkbox';
-import LoadingButton from "../../../../shared/loading_button"
-// ---------- utility imports ----------
-import {getTimeDifferenceString} from "../../../../../utilities/time";
-import {isImageLink} from "../../../../../utilities/image";
+// ---------- Components ----------
+import Preview from '../../../../components/preview';
+import Checkbox from '../../../../components/checkbox';
+import LoadingButton from "../../../../components/loading_button"
+// ---------- JS Utilities ----------
+import {getTimeDifferenceString} from "../../../../utils/time";
+import {isImageLink} from "../../../../utils/image";
 import {sortValues, postLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 
 const CSharpHeader = (props) => {
