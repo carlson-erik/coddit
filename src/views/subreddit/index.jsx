@@ -18,7 +18,7 @@ function getSubreddit(match) {
 }
 
 function Subreddit(props) {
-  const { match, settings, sort } = props;
+  const { match, settings } = props;
   const { progLang } = settings;
   const subreddit = getSubreddit(match);
   // This method handles checkbox changes
