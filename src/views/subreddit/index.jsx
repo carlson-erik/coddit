@@ -122,22 +122,22 @@ function Subreddit(props) {
     case 'javascript':
       return (
         <React.Fragment>
-          <JavaScriptHeader dropdownFunctions={dropdownFunctions} settings={settings} sort={sort} subreddit={subreddit}/>
-          <JavaScriptPageList />
+          <JavaScriptHeader {...props} dropdownFunctions={dropdownFunctions} subreddit={subreddit}/>
+          <JavaScriptPageList {...props} />
         </React.Fragment>
       );
     case 'csharp':
       return (
         <React.Fragment>
-          <CSharpHeader dropdownFunctions={dropdownFunctions} settings={settings} sort={sort} subreddit={subreddit}/>
-          <CSharpPageList />
+          <CSharpHeader {...props} dropdownFunctions={dropdownFunctions} subreddit={subreddit}/>
+          <CSharpPageList {...props} />
         </React.Fragment>
       );
     case 'python':
       return (
         <React.Fragment>
-          <PythonHeader dropdownFunctions={dropdownFunctions} settings={settings} sort={sort} subreddit={subreddit}/>
-          <PythonPageList />
+          <PythonHeader {...props} dropdownFunctions={dropdownFunctions} subreddit={subreddit}/>
+          <PythonPageList {...props} />
         </React.Fragment>
       );
     default:

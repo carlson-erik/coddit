@@ -62,7 +62,9 @@ const PythonHeader = (props) => {
 }
 
 const PythonPageList = (props) => {
-  const { pageList, itemLimit, isLoading, showAllPreviews, fetchNextPage } = props;
+  const { data, settings, isLoading, fetchNextPage } = props;
+  const { showAllPreviews, itemLimit } = settings;
+  const { pageList } = data;
   return (
     <>
       {pageList.map(page =>

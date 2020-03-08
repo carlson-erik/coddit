@@ -5,13 +5,14 @@ import Preview from '../../../../components/preview';
 import Checkbox from '../../../../components/checkbox';
 import LoadingButton from "../../../../components/loading_button";
 // ---------- JS Utilities ----------
-import {getTimeDifferenceString} from "../../../../utils/time";
-import {isImageLink} from "../../../../utils/image";
-import {sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
+import { getTimeDifferenceString } from "../../../../utils/time";
+import { isImageLink } from "../../../../utils/image";
+import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 
 const JavaScriptHeader = (props) => {
-    const { propValues, dropdownFunctions } = props;
-    const { subreddit, showAllPreviews, itemLimit, sortFunction, sortTimeFrame } = propValues;
+    const { dropdownFunctions, settings, sort, subreddit } = props;
+    const { showAllPreviews, itemLimit, } = settings;
+    const { method, timeFrame } = sort;
     const { onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = dropdownFunctions;
     return (
         <div className="redditSettings">
@@ -38,18 +39,18 @@ const JavaScriptHeader = (props) => {
                 <Dropdown 
                     options={sortValues} 
                     onChange={onChangeSortBy} 
-                    placeholder={ `"${sortFunction}"`} 
+                    placeholder={ `"${method}"`} 
                 />
                 ;
             </div>
-            { sortFunction === "controversial" || sortFunction === "top"
+            { method === "controversial" || method === "top"
                 ?   <div className="line">
                         <span className="const">const</span>
                         <span className="constName">links_from</span>=
                         <Dropdown 
                             options={linksFromDisplayNames} 
                             onChange={onChangeTimeFrame} 
-                            placeholder={ `'${sortTimeFrame}'`} 
+                            placeholder={ `'${timeFrame}'`} 
                         />
                         ;
                     </div>
@@ -72,7 +73,9 @@ const JavaScriptHeader = (props) => {
 }
 
 const JavaScriptPageList = (props) => {
-    const { pageList, itemLimit, isLoading, showAllPreviews, fetchNextPage } = props;
+    const { data, settings, isLoading, fetchNextPage } = props;
+    const { showAllPreviews, itemLimit } = settings;
+    const { pageList } = data;
     return (
         <>
             <div className="line"></div>

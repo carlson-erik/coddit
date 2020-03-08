@@ -1,13 +1,18 @@
 // sort dropdown values
-const sortValues = [
+export const sortValues = [
 	"hot",
 	"top",
 	"new",
 	"controversial",
 ];
 
+export const commentSortDisplayNames = [
+	...sortValues,
+	"q&a"
+];
+
 // post limit dropdown values
-const itemLimitValues = [
+export const itemLimitValues = [
 	"10",
 	"25",
 	"50",
@@ -15,7 +20,7 @@ const itemLimitValues = [
 ];
 
 // time frame dropdown values
-const linksFromValues = [
+export const linksFromValues = [
 	"hour",
 	"24hours",
 	"week",
@@ -25,7 +30,7 @@ const linksFromValues = [
 ];
 
 // links_from dropdown values
-const linksFromDisplayNames = [
+export const linksFromDisplayNames = [
 	"past hour",
 	"past 24 hours",
 	"past week",
@@ -37,7 +42,7 @@ const linksFromDisplayNames = [
 // Map containing all the values needed to convert between 
 // the display string values for "time_frame" and it's corresponding
 // api string value.
-const linksFromMap = {
+export const linksFromMap = {
 	// -------- api string to display value --------
 	"hour" : "past hour",
 	"24hours" : "past 24 hours",
@@ -54,9 +59,26 @@ const linksFromMap = {
 	"all time" : "all" 
 };
 
-// Default values
-const sortDefault = sortValues[0];
-const timeFrameDefault = linksFromValues[1];
-const itemLimitDefault = itemLimitValues[1];
+// translate from sort display -> sort function
+export const commentSortDisplayTranslateObject = {
+	"best" : "confidence",
+	"top" : "top",
+	"new" : "new",
+	"controversial" : "controversial",
+	"q&a" : "qa",
+}
 
-export {sortDefault, timeFrameDefault, itemLimitDefault, sortValues, itemLimitValues, linksFromValues, linksFromDisplayNames, linksFromMap};
+// translate from sort function -> display
+export const commentSortFunctionTranslateObject = {
+	"confidence" : "best",
+	"top" : "top",
+	"new" : "new",
+	"controversial" : "controversial",
+	"qa" : "q&a",
+}
+
+// Default values
+export const sortDefault = sortValues[0];
+export const timeFrameDefault = linksFromValues[1];
+export const itemLimitDefault = itemLimitValues[1];
+
