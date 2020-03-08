@@ -3,6 +3,7 @@ import { batch } from "react-redux";
 import axios from 'axios';
 // ---------- JS Utilities ----------
 import { getSubredditURL } from '../../utils/url';
+import { linksFromMap } from '../../utils/constants';
 // ---------- Prog Lang Renderers ----------
 import { PythonPageList, PythonHeader } from './languages/python';
 import { JavaScriptPageList, JavaScriptHeader } from './languages/javascript';
@@ -17,9 +18,48 @@ function getSubreddit(match) {
 }
 
 function Subreddit(props) {
-  const { match, settings } = props;
+  const { match, settings, sort } = props;
   const { progLang } = settings;
   const subreddit = getSubreddit(match);
+  // This method handles checkbox changes
+  const onChangeShowPreviews = (event) => {
+    const { settings, updateSettings } = props;
+    const { showAllPreviews } = settings;
+    if (updateSettings) {
+      // updateSettings(itemLimit, progLang, !showAllPreviews, colorTheme);
+      console.log(`change showAllPreviews to ${!showAllPreviews}`);
+    }
+  }
+  // function for onChange of the method dropdown
+  const onChangeSortBy = (option) => {
+    const { sort } = props;
+    const { method } = sort;
+    const value = `${option.value}`;
+    if (value !== method) {
+      // this.fetchNextPage(value, timeFrame, itemLimit)
+      console.log(`change method to ${value}`);
+    }
+  }
+  // function for onChange of the timeFrame dropdown
+  const onChangeTimeFrame = (option) => {
+    const { sort } = props;
+    const { timeFrame } = sort;
+    const value = `${option.value}`;
+    if (value !== linksFromMap[timeFrame]) {
+      // this.fetchNextPage(method, linksFromMap[value], itemLimit)  
+      console.log(`change timeFrame to ${linksFromMap[value]}`);
+    }
+  }
+  // function for onChange of the itemLimit dropdown
+  const onChangePostCount = (option) => {
+    const { settings } = props;
+    const { itemLimit } = settings;
+    const value = `${option.value}`;
+    if (value !== itemLimit) {
+      // this.fetchNextPage(method, timeFrame, value)
+      console.log(`change itemLimit to ${value}`);
+    }
+  }
 
   const updateStore = (responseData) => {
     // Get current values and update funcs from store
@@ -71,37 +111,32 @@ function Subreddit(props) {
     fetchPage();// eslint-disable-next-line
   }, []);
 
-
-  /*
-    PythonHeader
-    PythonPageList
-    
-    JavaScriptHeader
-    JavaScriptPageList
-
-    CSharpHeader
-    CSharpPageList
-  */
+  const dropdownFunctions = {
+    onChangeShowPreviews,
+    onChangeSortBy,
+    onChangeTimeFrame,
+    onChangePostCount,
+  }
 
   switch (progLang) {
     case 'javascript':
       return (
         <React.Fragment>
-          <JavaScriptHeader />
+          <JavaScriptHeader dropdownFunctions={dropdownFunctions} settings={settings} sort={sort} subreddit={subreddit}/>
           <JavaScriptPageList />
         </React.Fragment>
       );
     case 'csharp':
       return (
         <React.Fragment>
-          <CSharpHeader />
+          <CSharpHeader dropdownFunctions={dropdownFunctions} settings={settings} sort={sort} subreddit={subreddit}/>
           <CSharpPageList />
         </React.Fragment>
       );
     case 'python':
       return (
         <React.Fragment>
-          <PythonHeader />
+          <PythonHeader dropdownFunctions={dropdownFunctions} settings={settings} sort={sort} subreddit={subreddit}/>
           <PythonPageList />
         </React.Fragment>
       );

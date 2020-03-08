@@ -7,7 +7,7 @@ const sortValues = [
 ];
 
 // post limit dropdown values
-const postLimitValues = [
+const itemLimitValues = [
 	"10",
 	"25",
 	"50",
@@ -57,6 +57,6 @@ const linksFromMap = {
 // Default values
 const sortDefault = sortValues[0];
 const timeFrameDefault = linksFromValues[1];
-const postLimitDefault = postLimitValues[1];
+const itemLimitDefault = itemLimitValues[1];
 
-export {sortDefault, timeFrameDefault, postLimitDefault, sortValues, postLimitValues, linksFromValues, linksFromDisplayNames, linksFromMap};
+export {sortDefault, timeFrameDefault, itemLimitDefault, sortValues, itemLimitValues, linksFromValues, linksFromDisplayNames, linksFromMap};

@@ -7,11 +7,11 @@ import LoadingButton from "../../../../components/loading_button"
 // ---------- JS Utilities ----------
 import {getTimeDifferenceString} from "../../../../utils/time";
 import {isImageLink} from "../../../../utils/image";
-import {sortValues, postLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
+import {sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 
 const CSharpHeader = (props) => {
     const { propValues, dropdownFunctions } = props;
-    const { subreddit,showAllPreviews, postLimit, sortFunction, sortTimeFrame } = propValues;
+    const { subreddit,showAllPreviews, itemLimit, sortFunction, sortTimeFrame } = propValues;
     const { onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = dropdownFunctions;
     return (
         <div className="redditSettings">
@@ -51,9 +51,9 @@ const CSharpHeader = (props) => {
             <div className="line">
                 <span className="using">using</span>PostCount. 
                 <Dropdown 
-                    options={postLimitValues} 
+                    options={itemLimitValues} 
                     onChange={onChangePostCount} 
-                    placeholder={postLimit + ";"} 
+                    placeholder={itemLimit + ";"} 
                 />
             </div>
         </div>
@@ -61,7 +61,7 @@ const CSharpHeader = (props) => {
 }
 
 const CSharpPageList = (props) => {
-    const { pageList, postLimit, isLoading, showAllPreviews, fetchNextPage } = props;
+    const { pageList, itemLimit, isLoading, showAllPreviews, fetchNextPage } = props;
     return (
         <>
             <div className="line"></div>
@@ -81,7 +81,7 @@ const CSharpPageList = (props) => {
             { pageList.map(page =>
                 <Page key={page.pageID} page={page} showAllPreviews={showAllPreviews}/>
             )}
-            <LoadingButton loadFunc={() => fetchNextPage() } isLoading={isLoading} postLimit={postLimit} />
+            <LoadingButton loadFunc={() => fetchNextPage() } isLoading={isLoading} itemLimit={itemLimit} />
             <div className="line"></div>
             <div className="csharp_public_class">
                 {"}"}
