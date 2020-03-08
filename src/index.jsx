@@ -4,15 +4,15 @@ import { Provider, connect } from 'react-redux'
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
-/* ---------- Data/Redux ---------- */
+// ---------- Data/Redux ----------
 import configureStore, { history, defaultState } from './redux/store';
 import * as actionCreators from './redux/actions';
-/* ---------- Views ---------- */
+// ---------- Views ----------
 import About from './views/about';
 import Post from './views/post';
 import Subreddit from './views/subreddit';
 import User from './views/user';
-/* ---------- Reset Default CSS ---------- */
+// ---------- Reset Default CSS ----------
 import './reset.css';
 
 const Coddit = (props) => {
