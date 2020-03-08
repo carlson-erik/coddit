@@ -4,18 +4,11 @@ import axios from 'axios';
 // ---------- JS Utilities ----------
 import { getSubredditURL } from '../../utils/url';
 import { linksFromMap } from '../../utils/constants';
+import { getSubreddit } from "../../utils/route-params";
 // ---------- Prog Lang Renderers ----------
 import { PythonPageList, PythonHeader } from './languages/python';
 import { JavaScriptPageList, JavaScriptHeader } from './languages/javascript';
 import { CSharpPageList, CSharpHeader } from './languages/csharp';
-
-function getSubreddit(match) {
-  const subreddit_id = match && match.params && match.params.subreddit_id;
-  if (subreddit_id && subreddit_id !== '') {
-    return subreddit_id;
-  }
-  return 'all';
-}
 
 function Subreddit(props) {
   const { match, settings } = props;
@@ -107,7 +100,7 @@ function Subreddit(props) {
   };
 
   useEffect(() => {
-    // fetch page on load of this view
+    // fetch page on load of the view
     fetchPage();// eslint-disable-next-line
   }, []);
 
