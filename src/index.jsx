@@ -18,8 +18,13 @@ import User from './views/user';
 import './reset.css';
 
 const Coddit = (props) => {
-  const settingsChanged = (event) => {
-    console.log('local storage settings changed', event);
+  const settingsChanged = () => {
+    const {updateSettings, settings} = props;
+		const newThemeName = localStorage.getItem("coddit_theme_name");
+		const newProgLang = localStorage.getItem("coddit_prog_lang");
+    // update the settings in state
+    const {itemLimit, showAllPreviews} = settings;
+    updateSettings(itemLimit, newProgLang, showAllPreviews, newThemeName);
   }
 
   useEffect(() => {
