@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 // ---------- Data/Redux ----------
 import configureStore, { history, defaultState } from './redux/store';
 import * as actionCreators from './redux/actions';
+// ---------- Components ----------
+import EditorSettings from './components/editor-settings';
 // ---------- Views ----------
 import About from './views/about';
 import Post from './views/post';
@@ -16,8 +18,13 @@ import User from './views/user';
 import './reset.css';
 
 const Coddit = (props) => {
-  const settingsChanged = (event) => {
-    console.log('local storage settings changed', event);
+  const settingsChanged = () => {
+    const {updateSettings, settings} = props;
+		const newThemeName = localStorage.getItem("coddit_theme_name");
+		const newProgLang = localStorage.getItem("coddit_prog_lang");
+    // update the settings in state
+    const {itemLimit, showAllPreviews} = settings;
+    updateSettings(itemLimit, newProgLang, showAllPreviews, newThemeName);
   }
 
   useEffect(() => {
@@ -33,6 +40,7 @@ const Coddit = (props) => {
 
   return (
     <React.Fragment>
+      <EditorSettings {...props}/>
       <Route
         exact
         path="/about"
