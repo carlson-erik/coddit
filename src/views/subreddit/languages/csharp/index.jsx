@@ -25,6 +25,8 @@ const CSharpHeader = (props) => {
                 <Checkbox 
                     checked={showAllPreviews}
                     onChange={onChangeShowPreviews}
+                    bgColor='#282C34'
+                    checkCheckedColor='#A1EF9D'
                 />
             </div>
             <div className="line">
