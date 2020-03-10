@@ -15,42 +15,45 @@ function Subreddit(props) {
   const { progLang } = settings;
   const subreddit = getSubreddit(match);
   // This method handles checkbox changes
-  const onChangeShowPreviews = (event) => {
+  const onChangeShowPreviews = () => {
     const { settings, updateSettings } = props;
-    const { showAllPreviews } = settings;
-    if (updateSettings) {
-      // updateSettings(itemLimit, progLang, !showAllPreviews, colorTheme);
-      console.log(`change showAllPreviews to ${!showAllPreviews}`);
-    }
+    const { showAllPreviews, itemLimit, colorTheme } = settings;
+    updateSettings(itemLimit, progLang, !showAllPreviews, colorTheme);
   }
   // function for onChange of the method dropdown
   const onChangeSortBy = (option) => {
-    const { sort } = props;
-    const { method } = sort;
+    const { sort, updateSort, clearPageData } = props;
+    const { method, timeFrame } = sort;
     const value = `${option.value}`;
     if (value !== method) {
-      // this.fetchNextPage(value, timeFrame, itemLimit)
-      console.log(`change method to ${value}`);
+      batch(() => {
+        updateSort(value, timeFrame);
+        clearPageData();
+      })
     }
   }
   // function for onChange of the timeFrame dropdown
   const onChangeTimeFrame = (option) => {
-    const { sort } = props;
-    const { timeFrame } = sort;
+    const { sort, updateSort, clearPageData } = props;
+    const { method, timeFrame } = sort;
     const value = `${option.value}`;
     if (value !== linksFromMap[timeFrame]) {
-      // this.fetchNextPage(method, linksFromMap[value], itemLimit)  
-      console.log(`change timeFrame to ${linksFromMap[value]}`);
+      batch(() => {
+        updateSort(method, linksFromMap[value]);
+        clearPageData();
+      })
     }
   }
   // function for onChange of the itemLimit dropdown
   const onChangePostCount = (option) => {
-    const { settings } = props;
-    const { itemLimit } = settings;
+    const { settings, updateSettings, clearPageData } = props;
+    const { itemLimit, showAllPreviews, colorTheme } = settings;
     const value = `${option.value}`;
     if (value !== itemLimit) {
-      // this.fetchNextPage(method, timeFrame, value)
-      console.log(`change itemLimit to ${value}`);
+      batch(() => {
+        updateSettings( value, progLang, showAllPreviews, colorTheme);
+        clearPageData();
+      })
     }
   }
 
@@ -101,8 +104,13 @@ function Subreddit(props) {
 
   useEffect(() => {
     // fetch page on load of the view
-    fetchPage();// eslint-disable-next-line
-  }, []);
+    const {after, itemCount, pageList} = props.data;
+    const {isLoading} = props;
+    // only fetch a page onload when we're in an empty state and not currently fetching data
+    if(itemCount === 0 && after === '' && pageList.length === 0 && !isLoading){
+      fetchPage();// eslint-disable-next-line
+    }
+  });
 
   const dropdownFunctions = {
     onChangeShowPreviews,
