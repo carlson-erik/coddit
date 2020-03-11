@@ -47,17 +47,6 @@ const Checkmark = styled.span`
 		transform: rotate(45deg);
 	}`;
 
-/* 
-	------- Color Props -------
-	bgColor => required
-	checkCheckedColor => required 
-	bgColorHover => optional
-	checkColor => optional
-	checkColorHover => optional
-	outlineColor => optional
-	------- Color Props -------
-*/
-
 const Checkbox = (props) => {
 	const {bgColor, checkCheckedColor} = props;
 	const defaultedProps = {
