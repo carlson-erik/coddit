@@ -1,4 +1,15 @@
 import React from "react";
+import styled from 'styled-components';
+
+const SizedImage = styled.img`
+  max-width: 60%;
+  max-height: 60%;
+`;
+
+const SizedVideo = styled.video`
+  max-width: 60%;
+  max-height: 60%;
+`;
 
 const Image = ({ imageURL, imageTitle }) => {
   let image;
@@ -6,13 +17,13 @@ const Image = ({ imageURL, imageTitle }) => {
     // gifvs should be rendered as an mp4
     const updatedLink = imageURL.replace("gifv", "mp4");
     image = (
-      <video preload="auto" autoPlay="autoplay" loop="loop">
+      <SizedVideo preload="auto" autoPlay="autoplay" loop="loop">
         <source src={updatedLink} type="video/mp4"></source>
-      </video>
+      </SizedVideo>
     );
   } else {
     image = (
-      <img src={imageURL} alt={imageTitle} />
+      <SizedImage src={imageURL} alt={imageTitle} />
     );
   }
   return (
