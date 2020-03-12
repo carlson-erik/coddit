@@ -1,5 +1,9 @@
 import React from "react";
-import Dropdown from 'react-dropdown';
+// ---------- Components ----------
+import Dropdown from '../../../dropdown';
+// ---------- Styled-Components ----------
+import Line from '../../../../styled-components/line';
+import ListItem from '../../../../styled-components/editor-settings/list-item';
 // ---------- Constants ----------
 import {themeOptions, progLangList} from '../../../../utils/constants';
 
@@ -8,11 +12,11 @@ const CSharpEditorSettings = (props) => {
 	const {progLang, colorTheme} = settings;
 	return(
 		<header>
-			<div className="listItem">
-				<div className="line">
+			<ListItem>
+				<Line>
 						<span className="codeComment">{"// Editor Settings"}</span>
-				</div>
-				<div className="line">
+				</Line>
+				<Line>
 					<span className="using">using</span>
 					ProgLang.
 					<Dropdown 
@@ -20,8 +24,8 @@ const CSharpEditorSettings = (props) => {
 						onChange={(option) => dropdownSelect(option, 'progLang')} 
 						placeholder={progLang + ";"}
 					/>
-				</div>
-				<div className="line">
+				</Line>
+				<Line>
 					<span className="using">using</span>
 					ThemeName.
 					<Dropdown 
@@ -29,8 +33,8 @@ const CSharpEditorSettings = (props) => {
 						onChange={(option) => dropdownSelect(option, 'theme')} 
 						placeholder={colorTheme + ";"}
 					/>					
-				</div>
-			</div>
+				</Line>
+			</ListItem>
 		</header>
 	);
 }
