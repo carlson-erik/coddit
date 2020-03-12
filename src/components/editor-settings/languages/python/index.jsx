@@ -1,5 +1,5 @@
 import React from "react";
-import Dropdown from 'react-dropdown';
+import Dropdown from '../../../dropdown';
 // ---------- Constants ----------
 import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
 
@@ -10,7 +10,7 @@ const PythonEditorSettings = (props) => {
 		<header>
 			<div className="listItem">
 				<div className="line">
-						<span className="codeComment"># Editor Settings</span>
+					<span className="codeComment"># Editor Settings</span>
 				</div>
 				<div className="line">
 					prog_lang = 
