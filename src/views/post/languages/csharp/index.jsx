@@ -154,14 +154,14 @@ function Body(props) {
   const { postHeaderData, pageList } = props;
   return (
     <React.Fragment>
-      <Indentation depth={1}>
+      <Indentation depth={2}>
         <span className="public">public</span>
         <span className="class">class</span>
         <span className="class_name">Post</span>
         {"{"}
       </Indentation>
       <Line />
-      <Indentation depth={1}>
+      <Indentation depth={2}>
         <Header postHeaderData={postHeaderData} />
         <Line>
           <span className="public">public</span>

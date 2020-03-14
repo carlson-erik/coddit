@@ -106,7 +106,7 @@ function Header({ postHeaderData }) {
           <a href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</a>
           ) {"{"}
         </Line>
-        <div className="postBody">
+        <Indentation depth={1}>
           <PostInformation>
             <Line>
               <span className="const">const</span>
@@ -140,9 +140,9 @@ function Header({ postHeaderData }) {
             }
             {postContent}
           </PostInformation>
-        </div>
+        </Indentation>
+        <Line>{"}"}</Line>
       </Indentation>
-      <Line>{"}"}</Line>
     </React.Fragment>
   );
 }
@@ -159,10 +159,12 @@ export default function PostView(props) {
         ? <Indentation depth={1}>
             <Header postHeaderData={postHeaderData} />
             <Line>
-              <span className="codeComment">{"//  Rendering comments below"}</span>
+              <span className="codeComment">
+                {"//  All available comments"}
+              </span>
             </Line>
             {pageList.map(page =>
-              <Page key={page.pageID}>
+              <Page key={page.pageID} depth={1}>
                 {page.itemList.map(comment =>
                   <div key={comment.id}>
                     <Comment data={comment} progLang="javascript" />

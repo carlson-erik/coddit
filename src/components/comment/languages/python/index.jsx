@@ -4,8 +4,14 @@ import ReactMarkdown from 'react-markdown';
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
+// ---------- Styled Components ----------
+import Line from '../../../../styled-components/line';
+import Indentation from '../../../../styled-components/indentation';
+import CodeComment from '../../../../styled-components/comment/code-comment';
+import MarkdownText from '../../../../styled-components/comment/markdown-text';
+import CommentToggle from '../../../../styled-components/comment/comment-toggle';
 
-const PythonComment = (props) => {
+export default function PythonComment(props) {
   const { data, replyList, collapsed, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -23,11 +29,11 @@ const PythonComment = (props) => {
     </a>
   )
   return (
-    <div className="comment">
-      <div className="line toggleLine">
-        <div onClick={() => { hideShowComment() }} className="commentToggle">
+    <React.Fragment>
+      <Line>
+        <CommentToggle onClick={() => { hideShowComment() }}>
           {collapsed ? "[+]" : "[-]"}
-        </div>
+        </CommentToggle>
         author, score, age, gildings =
         {authorName},
         <span className={scoreStyles}>{score}</span>,
@@ -42,21 +48,27 @@ const PythonComment = (props) => {
             </span>
           : ' []'
         }
-      </div>
+      </Line>
       {collapsed
         ? null
         : <React.Fragment>
-            <div className="line">
-              <ul className="codeComment">
-                <li className="commentLine">'''</li>
-                <li className="commentLine">
-                  <div className="markdownText">
-                    <ReactMarkdown source={body} />
-                  </div>
+            <Line>
+              <CodeComment>
+                <li>
+                  '''
                 </li>
-                <li className="commentLine">'''</li>
-              </ul>
-            </div>
+                <li>
+                  <Indentation depth={1}>
+                    <MarkdownText>
+                      <ReactMarkdown source={body} />
+                    </MarkdownText>
+                  </Indentation>
+                </li>
+                <li>
+                  '''
+                </li>
+              </CodeComment>
+            </Line>
             {replyList.map(child =>
               <div key={child.id}>
                 {child.body
@@ -67,8 +79,6 @@ const PythonComment = (props) => {
             )}
           </React.Fragment>
       }
-    </div>
+    </React.Fragment>
   );
-}
-
-export default PythonComment;
+};

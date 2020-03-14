@@ -20,8 +20,8 @@ const CSharpHeader = (props) => {
     <Indentation depth={1}>
       <Line>
         <span className="using">using</span>CurrentSubreddit.
-                <a href={"/r/" + subreddit} className="string cancelMargin">{subreddit}</a>;
-            </Line>
+        <a href={"/r/" + subreddit} className="string cancelMargin">{subreddit}</a>;
+      </Line>
       <Line>
         <span className="using">using</span>ShowAllPreviews.
                 <Checkbox

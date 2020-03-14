@@ -91,7 +91,9 @@ const JavaScriptPageList = (props) => {
         <JavaScriptPage key={page.pageID} page={page} showAllPreviews={showAllPreviews} />
       )}
       <LoadingButton loadFunc={() => fetchNextPage()} isLoading={isLoading} itemLimit={itemLimit} />
-      <div className='line jsClass'>{"}"}</div>
+      <Indentation depth={1}>
+        <Line>{"}"}</Line>
+      </Indentation>
     </React.Fragment>
   );
 }

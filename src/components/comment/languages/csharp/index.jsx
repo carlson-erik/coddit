@@ -5,7 +5,7 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 
-const CSharpComment = (props) => {
+export default function CSharpComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -105,6 +105,4 @@ const CSharpComment = (props) => {
       </div>
     </React.Fragment>
   );
-}
-
-export default CSharpComment;
+};

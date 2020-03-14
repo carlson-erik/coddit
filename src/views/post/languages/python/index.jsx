@@ -82,15 +82,13 @@ function Header({ postHeaderData: data }) {
 
   return (
     <React.Fragment>
+      <Line>
+        <span className="keyword">def</span>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="function">{shortTitle}</a>
+        (score=<span className="parameter">{score}</span>,
+        sub=<a href={subredditLink} className="parameter_string">"{subreddit}"</a><span className="symbol">):</span>
+      </Line>
       <Indentation depth={1}>
-        <Line>
-          <span className="keyword">def</span>
-          <a href={url} target="_blank" rel="noopener noreferrer" className="function">{shortTitle}</a>
-          (score=<span className="parameter">{score}</span>,
-          sub=<a href={subredditLink} className="parameter_string">"{subreddit}"</a><span className="symbol">):</span>
-        </Line>
-      </Indentation>
-      <Indentation depth={2}>
         <PostInformation>
           <Line>
             full_title =
@@ -121,7 +119,7 @@ function Header({ postHeaderData: data }) {
           {postContent}
         </PostInformation>
       </Indentation>
-      <Indentation depth={2}>
+      <Indentation depth={1}>
         <Line>
           <span className="codeComment"># Rendering comments below</span>
         </Line>
@@ -148,7 +146,7 @@ export default function PostView(props) {
           ? <Indentation depth={1}>
               <Header postHeaderData={postHeaderData} />
               {pageList.map(page =>
-                <Page key={page.pageID} depth={3}>
+                <Page key={page.pageID} depth={2}>
                   {page.itemList.map(comment =>
                     <div key={comment.id}>
                       <Comment data={comment} progLang="python" />

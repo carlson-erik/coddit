@@ -4,8 +4,14 @@ import ReactMarkdown from 'react-markdown';
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
+// ---------- Styled Components ----------
+import Line from '../../../../styled-components/line';
+import Indentation from '../../../../styled-components/indentation';
+import CodeComment from '../../../../styled-components/comment/code-comment';
+import MarkdownText from '../../../../styled-components/comment/markdown-text';
+import CommentToggle from '../../../../styled-components/comment/comment-toggle';
 
-const JavaScriptComment = (props) => {
+export default function JavaScriptComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -41,26 +47,25 @@ const JavaScriptComment = (props) => {
 
   return (
     <React.Fragment>
-      <div className="comment">
-        <div className="line toggleLine">
-          <div onClick={() => { hideShowComment() }} className="commentToggle">
+        <Line>
+          <CommentToggle onClick={() => {hideShowComment()}}>
             {collapsed ? "[+]" : "[-]"}
-          </div>
+          </CommentToggle>
           {!isChild
             ? <span className="commentConst">const</span>
             : null
           }
           <span className={commentTypeStyle}>{commentType}</span> {commentAssignmentText} {"{"}
-        </div>
+        </Line>
         <div className="commentHeader">
-          <div className='line'>
+          <Line>
             <span className="commentVarName">author</span>: {authorName},
-          </div>
-          <div className='line'>
+          </Line>
+          <Line>
             <span className="commentVarName">score</span>: <span className={scoreStyles}>{score}</span>,
-          </div>
+          </Line>
           {all_awardings.length > 0
-            ? <div className='line'>
+            ? <Line>
                 <span className="commentVarName">gildings</span>: [
                   <span className="awardings">
                     {all_awardings.map((award, index) =>
@@ -70,43 +75,40 @@ const JavaScriptComment = (props) => {
                     )}
                 </span>
                 ],
-              </div>
+              </Line>
             : null
           }
-          <div className='line'>
+          <Line>
             <span className="commentVarName">commentAge</span>: <span className='string'>"{commentAge}"</span>,
-          </div>
+          </Line>
         </div>
         {collapsed
           ? null
           : <React.Fragment>
-              <div className="line">
-                <ul className="codeComment">
+              <Line>
+                <CodeComment>
                   <li className="commentLine">{"/*"}</li>
                   <li className="commentLine">
-                    <div className="markdownText commentBody">
+                    <MarkdownText>
                       <ReactMarkdown source={body} />
-                    </div>
+                    </MarkdownText>
                   </li>
                   <li className="commentLine">{"*/"}</li>
-                </ul>
-              </div>
+                </CodeComment>
+              </Line>
               {replyList.map(child =>
-                <div key={child.id}>
+                <Indentation key={child.id} depth={1}>
                   {child.body
                     ? <Comment {...props} data={child} isChild={true} />
                     : null
                   }
-                </div>
+                </Indentation>
               )}
             </React.Fragment>
         }
-      </div>
       <div className={closingLineStyles}>
         {closingLineText}
       </div>
     </React.Fragment>
   );
-}
-
-export default JavaScriptComment;
+};
