@@ -8,6 +8,9 @@ import LoadingButton from "../../../../components/loading-button";
 import { getTimeDifferenceString } from "../../../../utils/time";
 import { isImageLink } from "../../../../utils/image";
 import { sortValues, itemLimitValues, linksFromDisplayNames, linksFromMap } from '../../../../utils/constants';
+// ---------- Styled Components ----------
+import Line from '../../../../styled-components/line';
+import Indentation from '../../../../styled-components/indentation';
 
 const PythonHeader = (props) => {
   const { dropdownFunctions, settings, sort, subreddit } = props;
@@ -15,12 +18,12 @@ const PythonHeader = (props) => {
   const { method, timeFrame } = sort;
   const { onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = dropdownFunctions;
   return (
-    <div className="redditSettings">
-      <div className="line">
+    <Indentation depth={1}>
+      <Line>
         curr_subreddit =
         <a href={"/r/" + subreddit} className="string">"{subreddit}"</a>
-      </div>
-      <div className="line">
+      </Line>
+      <Line>
         show_all_previews =
         <Checkbox
             checked={showAllPreviews}
@@ -28,38 +31,38 @@ const PythonHeader = (props) => {
             bgColor='#282C34'
             checkCheckedColor='#A1EF9D'
         />
-      </div>
-      <div className="line">
+      </Line>
+      <Line>
         <span className="codeComment"># Reddit Settings</span>
-      </div>
-      <div className="line">
+      </Line>
+      <Line>
         sort_by =
                 <Dropdown
           options={sortValues}
           onChange={onChangeSortBy}
           placeholder={"\"" + method + "\""}
         />
-      </div>
+      </Line>
       {method === "controversial" || method === "top"
-        ? <div className="line">
-          links_from =
-                        <Dropdown
-            options={linksFromDisplayNames}
-            onChange={onChangeTimeFrame}
-            placeholder={"\"" + linksFromMap[timeFrame] + "\""}
-          />
-        </div>
+        ? <Line>
+            links_from =
+            <Dropdown
+              options={linksFromDisplayNames}
+              onChange={onChangeTimeFrame}
+              placeholder={"\"" + linksFromMap[timeFrame] + "\""}
+            />
+          </Line>
         : null
       }
-      <div className="line">
+      <Line>
         post_count =
-                <Dropdown
+        <Dropdown
           options={itemLimitValues}
           onChange={onChangePostCount}
           placeholder={"\"" + itemLimit + "\""}
         />
-      </div>
-    </div>
+      </Line>
+    </Indentation>
   );
 }
 
@@ -107,7 +110,7 @@ const Post = (props) => {
     postContent = (
       <div className="line">
         image_link =
-                <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
         <span className="string" >
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={true} useSemicolon={false} />
         </span>
@@ -119,7 +122,7 @@ const Post = (props) => {
       postContent = (
         <div className="line">
           self_text =
-                    <span className="string" >
+          <span className="string" >
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={false} markdownText={`"${selftext}"`} />
           </span>
         </div>
@@ -130,7 +133,7 @@ const Post = (props) => {
     postContent = (
       <div className="line">
         post_link =
-                <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
       </div>
     );
   }
