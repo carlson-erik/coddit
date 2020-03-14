@@ -1,11 +1,15 @@
-import React from "react";
+import React from 'react';
 import Dropdown from 'react-dropdown';
 // ---------- Components ----------
 import Checkbox from '../../../../components/checkbox';
-import Post from '../../../../components/post';
-import LoadingButton from "../../../../components/loading-button";
+import LoadingButton from '../../../../components/loading-button';
+import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
+// ---------- Styled Components ----------
+import Line from '../../../../styled-components/line';
+import Page from '../../../../styled-components/page';
+import Indentation from '../../../../styled-components/indentation';
 
 const CSharpHeader = (props) => {
   const { dropdownFunctions, settings, sort, subreddit } = props;
@@ -13,12 +17,12 @@ const CSharpHeader = (props) => {
   const { method, timeFrame } = sort;
   const { onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = dropdownFunctions;
   return (
-    <div className="redditSettings">
-      <div className="line">
+    <Indentation depth={1}>
+      <Line>
         <span className="using">using</span>CurrentSubreddit.
                 <a href={"/r/" + subreddit} className="string cancelMargin">{subreddit}</a>;
-            </div>
-      <div className="line">
+            </Line>
+      <Line>
         <span className="using">using</span>ShowAllPreviews.
                 <Checkbox
           checked={showAllPreviews}
@@ -26,38 +30,38 @@ const CSharpHeader = (props) => {
           bgColor='#282C34'
           checkCheckedColor='#A1EF9D'
         />
-      </div>
-      <div className="line">
+      </Line>
+      <Line>
         <span className="codeComment">{"// Reddit Settings"}</span>
-      </div>
-      <div className="line">
+      </Line>
+      <Line>
         <span className="using">using</span>SortBy.
                 <Dropdown
           options={sortValues}
           onChange={onChangeSortBy}
           placeholder={method + ";"}
         />
-      </div>
+      </Line>
       {method === "controversial" || method === "top"
-        ? <div className="line">
-          <span className="using">using</span>LinksFromLast.
-                        <Dropdown
-            options={linksFromDisplayNames}
-            onChange={onChangeTimeFrame}
-            placeholder={timeFrame + ";"}
-          />
-        </div>
+        ? <Line>
+            <span className="using">using</span>LinksFromLast.
+            <Dropdown
+              options={linksFromDisplayNames}
+              onChange={onChangeTimeFrame}
+              placeholder={timeFrame + ";"}
+            />
+          </Line>
         : null
       }
-      <div className="line">
+      <Line>
         <span className="using">using</span>PostCount.
-                <Dropdown
+        <Dropdown
           options={itemLimitValues}
           onChange={onChangePostCount}
           placeholder={itemLimit + ";"}
         />
-      </div>
-    </div>
+      </Line>
+    </Indentation>
   );
 }
 
@@ -66,49 +70,50 @@ const CSharpPageList = (props) => {
   const { showAllPreviews, itemLimit } = settings;
   const { pageList } = data;
   return (
-    <>
-      <div className="line"></div>
-      <div className="csharp_namespace">
+    <React.Fragment>
+      <Line/>
+      <Indentation depth={1}>
         <span className="namespace">namespace</span>
         <span className="class_name">Coddit</span>
         {"{"}
-      </div>
-      <div className="line"></div>
-      <div className="csharp_public_class">
+      </Indentation>
+      <Line/>
+      <Indentation depth={2}>
         <span className="public">public</span>
         <span className="class">class</span>
         <span className="class_name">Subreddit</span>
         {"{"}
-      </div>
-      <div className="line"></div>
-      {pageList.map(page =>
-        <Page key={page.pageID} page={page} showAllPreviews={showAllPreviews} />
-      )}
+      </Indentation>
+      <Line/>
+      <Indentation depth={3}>
+        {pageList.map(page =>
+          <CSharpPage key={page.pageID} page={page} showAllPreviews={showAllPreviews} />
+        )}
+      </Indentation>
       <LoadingButton loadFunc={() => fetchNextPage()} isLoading={isLoading} itemLimit={itemLimit} />
-      <div className="line"></div>
-      <div className="csharp_public_class">
+      <Line/>
+      <Indentation depth={2}>
         {"}"}
-      </div>
-      <div className="line"></div>
-      <div className="csharp_namespace">
+      </Indentation>
+      <Line/>
+      <Indentation depth={1}>
         {"}"}
-      </div>
-
-    </>
+      </Indentation>
+    </React.Fragment>
   );
 }
 
-const Page = (props) => {
+const CSharpPage = (props) => {
   const { page, showAllPreviews } = props;
   return (
-    <div className="page">
+    <Page>
       {page.itemList.map(post =>
         <Post key={post.id} post={post} progLang='csharp' showAllPreviews={showAllPreviews} />
       )}
-      <div className="line">
+      <Line>
         <span className="codeComment">{`//  ------------ END OF PAGE ${page.pageNumber} ------------`}</span>
-      </div>
-    </div>
+      </Line>
+    </Page>
   );
 };
 
