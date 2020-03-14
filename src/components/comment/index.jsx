@@ -28,6 +28,9 @@ function Comment(props) {
     setCollapsed(!collapsed);
   };
 
+  // Normal comments don't have children attribute, return nothing if present
+  if(data.children) return null;
+
   // Update the props that will be passed down to proglang renderer
   const commentProps = {
     ...props,

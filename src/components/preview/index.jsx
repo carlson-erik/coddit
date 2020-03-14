@@ -8,7 +8,7 @@ import { replaceAll } from '../../utils/string';
 
 function Preview(props) {
   // pull needed values from props
-  const { isImage, showAllPreviews, url, title, markdownText, useSemicolon } = props;
+  const { isImage, showAllPreviews, url, title, markdownText, useSemicolon, hideIcon } = props;
   // set initial show state to be showAllPreviews
   const [showPreview, togglePreview] = useState(showAllPreviews);
   const shown = showAllPreviews === true ? showAllPreviews : showPreview;
@@ -16,7 +16,7 @@ function Preview(props) {
   // remove bad characters sometimes sent by reddit
   const updatedMarkdown = markdownText && markdownText !== '' ? replaceAll(markdownText, '&amp;#x200B;', '') : "";
 
-  const checkbox = (
+  const checkbox = !hideIcon && (
     <Checkbox
       checked={shown}
       onChange={() => togglePreview(!showPreview)}
