@@ -3,7 +3,7 @@ import React from "react";
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
 import Line from '../../../../styled-components/line';
-import ListItem from '../../../../styled-components/editor-settings/list-item';
+import Indentation from '../../../../styled-components/indentation';
 // ---------- Constants ----------
 import {themeOptions, progLangList} from '../../../../utils/constants';
 
@@ -12,7 +12,7 @@ const JavaScriptEditorSettings = (props) => {
 	const {progLang, colorTheme} = settings;
 	return(
 		<header>
-			<ListItem noMarginBottom={true}>
+			<Indentation depth={1}>
 				<Line>
 						<span className="codeComment">{"// Editor Settings"}</span>
 				</Line>
@@ -36,7 +36,7 @@ const JavaScriptEditorSettings = (props) => {
 					/>
 					;
 				</Line>
-			</ListItem>
+			</Indentation>
 		</header>
 	);
 }

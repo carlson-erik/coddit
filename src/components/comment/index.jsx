@@ -38,17 +38,11 @@ function Comment(props) {
   };
   switch (progLang) {
     case "javascript":
-      return (
-        <JavaScriptComment {...commentProps} />
-      );
+      return <JavaScriptComment {...commentProps}/>;
     case "csharp":
-      return (
-        <CSharpComment  {...commentProps} />
-      );
+      return <CSharpComment  {...commentProps}/>;
     default:
-      return (
-        <PythonComment {...commentProps} />
-      );
+      return <PythonComment {...commentProps}/>;
   };
 }
 
