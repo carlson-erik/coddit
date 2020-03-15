@@ -19,10 +19,9 @@ const StringLink = styled(KeywordLink)`
 `;
 
 const CSharpHeader = (props) => {
-  const { dropdownFunctions, settings, sort, subreddit } = props;
+  const { settings, sort, subreddit, onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = props;
   const { showAllPreviews, itemLimit, } = settings;
   const { method, timeFrame } = sort;
-  const { onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = dropdownFunctions;
   return (
     <Indentation depth={1}>
       <Line>

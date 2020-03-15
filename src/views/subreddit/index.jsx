@@ -119,26 +119,28 @@ function Subreddit(props) {
     onChangePostCount,
   }
 
+  // const fetchNextPage = () => fetchPage();
+
   switch (progLang) {
     case 'javascript':
       return (
         <React.Fragment>
-          <JavaScriptHeader {...props} dropdownFunctions={dropdownFunctions} subreddit={subreddit}/>
-          <JavaScriptPageList {...props} />
+          <JavaScriptHeader {...props} {...dropdownFunctions} subreddit={subreddit}/>
+          <JavaScriptPageList {...props} fetchNextPage={fetchPage}/>
         </React.Fragment>
       );
     case 'csharp':
       return (
         <React.Fragment>
-          <CSharpHeader {...props} dropdownFunctions={dropdownFunctions} subreddit={subreddit}/>
-          <CSharpPageList {...props} />
+          <CSharpHeader {...props} {...dropdownFunctions} subreddit={subreddit}/>
+          <CSharpPageList {...props} fetchNextPage={fetchPage}/>
         </React.Fragment>
       );
     case 'python':
       return (
         <React.Fragment>
-          <PythonHeader {...props} dropdownFunctions={dropdownFunctions} subreddit={subreddit}/>
-          <PythonPageList {...props} />
+          <PythonHeader {...props} {...dropdownFunctions} subreddit={subreddit}/>
+          <PythonPageList {...props} fetchNextPage={fetchPage} />
         </React.Fragment>
       );
     default:
