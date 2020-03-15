@@ -1,11 +1,17 @@
-import React from "react";
+import React from 'react';
+import styled from 'styled-components'
 // ---------- Components ----------
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
 import Line from '../../../../styled-components/line';
+import Keyword from '../../../../styled-components/keyword';
 import Indentation from '../../../../styled-components/indentation';
 // ---------- Constants ----------
 import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
+
+const String = styled(Keyword)`
+  color: green;
+`;
 
 const PythonEditorSettings = (props) => {
 	const {settings, dropdownSelect} = props;
@@ -18,19 +24,23 @@ const PythonEditorSettings = (props) => {
 				</Line>
 				<Line>
 					prog_lang = 
-					<Dropdown 
-						options={progLangList} 
-						onChange={(option) => dropdownSelect(option, 'progLang')} 
-						placeholder={"\"" + progLang + "\""}
-					/>
+					<String leftSpace={true}>
+						<Dropdown 
+							options={progLangList} 
+							onChange={(option) => dropdownSelect(option, 'progLang')} 
+							placeholder={"\"" + progLang + "\""}
+						/>
+					</String>
 				</Line>
 				<Line>
 					theme_name = 
-					<Dropdown 
-						options={themeSpacedOptions} 
-						onChange={(option) => dropdownSelect(option, 'theme')} 
-						placeholder={"\"" + themeMap[colorTheme] + "\""}
-					/>
+					<String leftSpace={true}>
+						<Dropdown 
+							options={themeSpacedOptions} 
+							onChange={(option) => dropdownSelect(option, 'theme')} 
+							placeholder={"\"" + themeMap[colorTheme] + "\""}
+						/>
+					</String>
 				</Line>
 			</Indentation>
 		</header>

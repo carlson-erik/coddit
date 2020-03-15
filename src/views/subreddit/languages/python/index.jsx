@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // ---------- Components ----------
 import Checkbox from '../../../../components/checkbox';
@@ -7,9 +8,15 @@ import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames, linksFromMap } from '../../../../utils/constants';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Page from '../../../../styled-components/page';
 import Indentation from '../../../../styled-components/indentation';
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 const PythonHeader = (props) => {
   const { dropdownFunctions, settings, sort, subreddit } = props;
@@ -20,7 +27,7 @@ const PythonHeader = (props) => {
     <Indentation depth={1}>
       <Line>
         curr_subreddit =
-        <a href={"/r/" + subreddit} className="string">"{subreddit}"</a>
+        <StringLink leftSpace={true} href={"/r/" + subreddit}>"{subreddit}"</StringLink>
       </Line>
       <Line>
         show_all_previews =
@@ -36,11 +43,13 @@ const PythonHeader = (props) => {
       </Line>
       <Line>
         sort_by =
-                <Dropdown
-          options={sortValues}
-          onChange={onChangeSortBy}
-          placeholder={"\"" + method + "\""}
-        />
+        <Keyword leftSpace={true}>
+          <Dropdown
+            options={sortValues}
+            onChange={onChangeSortBy}
+            placeholder={"\"" + method + "\""}
+          />
+        </Keyword>
       </Line>
       {method === "controversial" || method === "top"
         ? <Line>
@@ -55,11 +64,14 @@ const PythonHeader = (props) => {
       }
       <Line>
         post_count =
-        <Dropdown
-          options={itemLimitValues}
-          onChange={onChangePostCount}
-          placeholder={"\"" + itemLimit + "\""}
-        />
+        <Keyword leftSpace={true}>
+          <Dropdown
+            options={itemLimitValues}
+            onChange={onChangePostCount}
+            placeholder={"\"" + itemLimit + "\""}
+          />
+        </Keyword>
+        
       </Line>
     </Indentation>
   );

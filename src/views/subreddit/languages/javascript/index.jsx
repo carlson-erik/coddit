@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // ---------- Components ----------
 import Checkbox from '../../../../components/checkbox';
@@ -7,9 +8,19 @@ import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Page from '../../../../styled-components/page';
 import Indentation from '../../../../styled-components/indentation';
+
+const Integer = styled(Keyword)`
+  color: orange!important;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 const JavaScriptHeader = (props) => {
   const { dropdownFunctions, settings, sort, subreddit } = props;
@@ -20,12 +31,12 @@ const JavaScriptHeader = (props) => {
     <Indentation depth={1}>
       <Line>
         <span className="const">const</span>
-        <span className="constName">curr_subreddit</span>=
-        <a href={"/r/" + subreddit} className="string">"{subreddit}"</a>;
+        <Keyword leftSpace={true} rightSpace={true}>curr_subreddit</Keyword>=
+        <StringLink href={"/r/" + subreddit} leftSpace={true}>"{subreddit}"</StringLink>;
       </Line>
       <Line>
         <span className="const">const</span>
-        <span className="constName">show_all_previews</span>=
+        <Keyword leftSpace={true} rightSpace={true}>show_all_previews</Keyword>=
         <Checkbox
           checked={showAllPreviews}
           onChange={onChangeShowPreviews}
@@ -38,36 +49,42 @@ const JavaScriptHeader = (props) => {
       </Line>
       <Line>
         <span className="const">const</span>
-        <span className="constName">sort_by</span>=
-        <Dropdown
-          options={sortValues}
-          onChange={onChangeSortBy}
-          placeholder={`"${method}"`}
-        />
-        ;
+        <Keyword leftSpace={true} rightSpace={true}>sort_by</Keyword>=
+        <Keyword leftSpace={true}>
+          <Dropdown
+            options={sortValues}
+            onChange={onChangeSortBy}
+            placeholder={`"${method}"`}
+          />
+          ;
+        </Keyword>
+        
       </Line>
       {method === "controversial" || method === "top"
         ? <Line>
             <span className="const">const</span>
             <span className="constName">links_from</span>=
-              <Dropdown
+            <Keyword leftSpace={true}><Dropdown
               options={linksFromDisplayNames}
               onChange={onChangeTimeFrame}
               placeholder={`'${timeFrame}'`}
-            />;
+              />
+              ;
+            </Keyword>
+              
           </Line>
         : null
       }
       <Line>
         <span className="const">const</span>
-        <span className="constName">post_count</span>=
-        <span className="integer">
+        <Keyword leftSpace={true} rightSpace={true}>post_count</Keyword>=
+        <Integer leftSpace={true}>
           <Dropdown
             options={itemLimitValues}
             onChange={onChangePostCount}
             placeholder={itemLimit}
           />
-        </span>;
+        </Integer>;
       </Line>
     </Indentation>
   );
@@ -81,10 +98,10 @@ const JavaScriptPageList = (props) => {
     <React.Fragment>
       <Line></Line>
       <Indentation depth={1}>
-        <span className="class">class</span>
-        <span className="className">Coddit</span>
-        <span className="extends">extends</span>
-        <span className="className">Post</span>
+        <Keyword rightSpace={true}>class</Keyword>
+        <Keyword rightSpace={true}>Coddit</Keyword>
+        <Keyword rightSpace={true}>extends</Keyword>
+        <Keyword rightSpace={true}>Post</Keyword>
         {"{"}
       </Indentation>
       {pageList.map(page =>

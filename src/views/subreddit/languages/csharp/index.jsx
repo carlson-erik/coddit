@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // ---------- Components ----------
 import Checkbox from '../../../../components/checkbox';
@@ -7,9 +8,15 @@ import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Page from '../../../../styled-components/page';
 import Indentation from '../../../../styled-components/indentation';
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 const CSharpHeader = (props) => {
   const { dropdownFunctions, settings, sort, subreddit } = props;
@@ -19,12 +26,12 @@ const CSharpHeader = (props) => {
   return (
     <Indentation depth={1}>
       <Line>
-        <span className="using">using</span>CurrentSubreddit.
-        <a href={"/r/" + subreddit} className="string cancelMargin">{subreddit}</a>;
+        usingCurrentSubreddit.
+        <StringLink href={"/r/" + subreddit} >{subreddit}</StringLink>;
       </Line>
       <Line>
-        <span className="using">using</span>ShowAllPreviews.
-                <Checkbox
+        usingShowAllPreviews.
+        <Checkbox
           checked={showAllPreviews}
           onChange={onChangeShowPreviews}
           bgColor='#282C34'
@@ -35,8 +42,8 @@ const CSharpHeader = (props) => {
         <span className="codeComment">{"// Reddit Settings"}</span>
       </Line>
       <Line>
-        <span className="using">using</span>SortBy.
-                <Dropdown
+        usingSortBy.
+        <Dropdown
           options={sortValues}
           onChange={onChangeSortBy}
           placeholder={method + ";"}
@@ -44,7 +51,7 @@ const CSharpHeader = (props) => {
       </Line>
       {method === "controversial" || method === "top"
         ? <Line>
-            <span className="using">using</span>LinksFromLast.
+            usingLinksFromLast.
             <Dropdown
               options={linksFromDisplayNames}
               onChange={onChangeTimeFrame}
@@ -54,7 +61,7 @@ const CSharpHeader = (props) => {
         : null
       }
       <Line>
-        <span className="using">using</span>PostCount.
+        usingPostCount.
         <Dropdown
           options={itemLimitValues}
           onChange={onChangePostCount}
@@ -73,15 +80,15 @@ const CSharpPageList = (props) => {
     <React.Fragment>
       <Line/>
       <Indentation depth={1}>
-        <span className="namespace">namespace</span>
-        <span className="class_name">Coddit</span>
+        <Keyword rightSpace={true}>namespace</Keyword>
+        <Keyword rightSpace={true}>Coddit</Keyword>
         {"{"}
       </Indentation>
       <Line/>
       <Indentation depth={2}>
-        <span className="public">public</span>
-        <span className="class">class</span>
-        <span className="class_name">Subreddit</span>
+        <Keyword rightSpace={true}>public</Keyword>
+        <Keyword rightSpace={true}>class</Keyword>
+        <Keyword rightSpace={true}>Subreddit</Keyword>
         {"{"}
       </Indentation>
       <Line/>
