@@ -25,6 +25,10 @@ const StringLink = styled(KeywordLink)`
   color: green;
 `;
 
+const Submitter = styled(Keyword)`
+  color: red;
+`;
+
 function Configuration ({ subreddit, sort, sortChange }) {
   const { method } = sort;
   return (
@@ -107,7 +111,7 @@ function Header({ postHeaderData: data }) {
           </Line>
           <Line>
             author =
-						<StringLink href={`/user/${author.toLowerCase()}`} leftSpace={true}>"{author}"</StringLink>
+						<StringLink href={`/user/${author.toLowerCase()}`} leftSpace={true}>"<Submitter>{author}</Submitter>"</StringLink>
           </Line>
           <Line>
             post_age =

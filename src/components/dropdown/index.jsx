@@ -6,7 +6,6 @@ import './index.css';
 const Dropdown = (props) => {
   const {options, onChange, placeholder} = props;
   const dropdownOptions = options && options.length >= 1 ? options : [];
-  console.log('rendering custom dropdown')
   return (
     <ReactDropdown
       options={dropdownOptions}

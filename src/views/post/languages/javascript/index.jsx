@@ -24,6 +24,10 @@ const String = styled(Keyword)`
 const StringLink = styled(KeywordLink)`
   color: green;
 `;
+
+const Submitter = styled(Keyword)`
+  color: red;
+`;
 function Configuration({ subreddit, sort, sortChange }) {
   const { method } = sort;
   return (
@@ -126,7 +130,7 @@ function Header({ postHeaderData }) {
             <Line>
               <span className="const">const</span>
               <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-              <String leftSpace={true}>"<span className="submitter">{author}</span>"</String>;
+              <String leftSpace={true}>"<Submitter>{author}</Submitter>"</String>;
             </Line>
             <Line>
               <span className="const">const</span>

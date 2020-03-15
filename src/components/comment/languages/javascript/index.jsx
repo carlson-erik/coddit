@@ -7,7 +7,6 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 import Comment from '../../index';
 // ---------- Styled Components ----------
 import Keyword from '../../../../styled-components/keyword';
-import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Indentation from '../../../../styled-components/indentation';
 import CodeComment from '../../../../styled-components/comment/code-comment';
@@ -18,9 +17,6 @@ const String = styled(Keyword)`
   color: green;
 `;
 
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
 
 const CommentListItem = styled.li`
   color: grey;

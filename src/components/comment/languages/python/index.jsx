@@ -9,7 +9,6 @@ import Comment from '../../index';
 import Keyword from '../../../../styled-components/keyword';
 import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
-import Indentation from '../../../../styled-components/indentation';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
@@ -36,7 +35,7 @@ const Submitter = styled(Keyword)`
 export default function PythonComment(props) {
   const { data, replyList, collapsed, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
-  const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
+  // const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
   let authorName;
   if (is_submitter) {

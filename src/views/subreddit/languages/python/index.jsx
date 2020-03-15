@@ -81,7 +81,6 @@ const PythonPageList = (props) => {
   const { data, settings, isLoading, fetchNextPage } = props;
   const { showAllPreviews, itemLimit } = settings;
   const { pageList } = data;
-  console.log('PythonPageList Props:', props)
   return (
     <React.Fragment>
       {pageList.map(page =>

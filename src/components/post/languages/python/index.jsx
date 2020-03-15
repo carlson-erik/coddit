@@ -20,6 +20,10 @@ const StringLink = styled(KeywordLink)`
   color: green;
 `;
 
+const Submitter = styled(Keyword)`
+  color: red;
+`;
+
 export default function PythonPost(props) {
   const { post, showAllPreviews } = props;
   // Hide NSFW/over_18 content until toggle has been introduced
@@ -60,7 +64,7 @@ export default function PythonPost(props) {
     postContent = (
       <Line>
         post_link =
-        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
+        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>
       </Line>
     );
   }
@@ -80,7 +84,7 @@ export default function PythonPost(props) {
           </Line>
           <Line>
             author =
-            <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</StringLink>
+            <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"<Submitter>{author}</Submitter>"</StringLink>
           </Line>
           <Line>
             post_age =

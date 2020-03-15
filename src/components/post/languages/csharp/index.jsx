@@ -20,6 +20,10 @@ const StringLink = styled(KeywordLink)`
   color: green;
 `;
 
+const Submitter = styled(Keyword)`
+  color: red;
+`;
+
 export default function CSharpPost(props) {
   const { post, showAllPreviews } = props;
   // Hide NSFW/over_18 content until toggle has been introduced
@@ -90,7 +94,7 @@ export default function CSharpPost(props) {
           <Line>
             <span className="var">var</span>
             <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-            <String leftSpace={true} rightSpace={true}>"{author}"</String>;
+            <String leftSpace={true} rightSpace={true}>"<Submitter>{author}</Submitter>"</String>;
           </Line>
           <Line>
             <span className="var">var</span>

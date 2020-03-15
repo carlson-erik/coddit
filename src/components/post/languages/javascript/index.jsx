@@ -20,6 +20,10 @@ const StringLink = styled(KeywordLink)`
   color: green;
 `;
 
+const Submitter = styled(Keyword)`
+  color: red;
+`;
+
 export default function JavaScriptPost(props) {
   const { post, showAllPreviews } = props;
   // Hide NSFW/over_18 content until toggle has been introduced
@@ -88,7 +92,7 @@ export default function JavaScriptPost(props) {
           <Line>
             <span className="const">const</span>
             <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-						<String leftSpace={true}>"{author}"</String>;
+						<String leftSpace={true}>"<Submitter>{author}</Submitter>"</String>;
           </Line>
           <Line>
             <span className="const">const</span>

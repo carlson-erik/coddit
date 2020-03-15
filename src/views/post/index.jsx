@@ -19,9 +19,8 @@ function Post(props) {
   const { progLang } = settings;
 
   const sortChange = (option) => {
-		// const newSortFunction = sortDisplayTranslateObject[option.value];
-    // this.fetchPage(newSortFunction);
-    console.log(`sortChange: ${option}`)
+		// TODO: const newSortFunction = sortDisplayTranslateObject[option.value];
+    // TODO: this.fetchPage(newSortFunction);
 	}
 
   const fetchPage = () => {
@@ -57,8 +56,6 @@ function Post(props) {
     // fetch page on load of the view
     fetchPage();// eslint-disable-next-line
   }, []);
-
-  // console.log(`Post View (${isLoading}):`, props.data);
 
   // Render the Post is the correct language
   switch(progLang) {
