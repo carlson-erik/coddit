@@ -1,15 +1,37 @@
 import React from 'react';
+import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Indentation from '../../../../styled-components/indentation';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
+
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
+
+const StringListItem = styled.li`
+  color: green;
+  & a {
+    color: green;
+  }
+`;
+
+const Submitter = styled(Keyword)`
+  color: red;
+`;
 
 export default function PythonComment(props) {
   const { data, replyList, collapsed, hideShowComment } = props;
@@ -19,14 +41,14 @@ export default function PythonComment(props) {
   let authorName;
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <span className="string">"<span className="submitter">{author}</span>"</span>
+    authorName = <String>"<Submitter>{author}</Submitter>"</String>
   } else {
-    authorName = <span className="string">"{author}"</span>
+    authorName = <String>"{author}"</String>
   }
   authorName = (
-    <a href={`/user/${author.toLowerCase()}`} className="string">
+    <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>
       {authorName}
-    </a>
+    </StringLink>
   )
   return (
     <React.Fragment>
@@ -36,17 +58,17 @@ export default function PythonComment(props) {
         </CommentToggle>
         author, score, age, gildings =
         {authorName},
-        <span className={scoreStyles}>{score}</span>,
-        <span className="string">"{commentAge}"</span>,
+        <Keyword leftSpace={true}>{score}</Keyword>,
+        <String leftSpace={true}>"{commentAge}"</String>,
         {all_awardings.length > 0
-          ? <span className="awardings">
+          ? <Keyword leftSpace={true}>
               [{all_awardings.map((award, index) =>
                 <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
                   {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                 </span>
               )}],
-            </span>
-          : ' []'
+            </Keyword>
+          : '  []'
         }
       </Line>
       {collapsed
@@ -54,19 +76,17 @@ export default function PythonComment(props) {
         : <React.Fragment>
             <Line>
               <CodeComment>
-                <li>
+                <StringListItem>
                   '''
-                </li>
-                <li>
-                  <Indentation depth={1}>
-                    <MarkdownText>
-                      <ReactMarkdown source={body} />
-                    </MarkdownText>
-                  </Indentation>
-                </li>
-                <li>
+                </StringListItem>
+                <StringListItem>
+                  <MarkdownText>
+                    <ReactMarkdown source={body} />
+                  </MarkdownText>
+                </StringListItem>
+                <StringListItem>
                   '''
-                </li>
+                </StringListItem>
               </CodeComment>
             </Line>
             {replyList.map(child =>

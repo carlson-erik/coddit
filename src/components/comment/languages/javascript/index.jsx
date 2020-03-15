@@ -1,15 +1,37 @@
 import React from 'react';
+import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Indentation from '../../../../styled-components/indentation';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
+
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
+
+const CommentListItem = styled.li`
+  color: grey;
+  & a {
+    color: grey;
+  }
+`;
+
+const Submitter = styled(Keyword)`
+  color: red;
+`;
 
 export default function JavaScriptComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
@@ -21,9 +43,9 @@ export default function JavaScriptComment(props) {
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <span className="string">"<span className="submitter">{author}</span>"</span>
+    authorName = <String>"<Submitter>{author}</Submitter>"</String>
   } else {
-    authorName = <span className="string">"{author}"</span>
+    authorName = <String>"{author}"</String>
   }
 
   // Change presentation based on whether or not we're a child comment
@@ -52,21 +74,21 @@ export default function JavaScriptComment(props) {
             {collapsed ? "[+]" : "[-]"}
           </CommentToggle>
           {!isChild
-            ? <span className="commentConst">const</span>
+            ? <Keyword rightSpace={true}>const</Keyword>
             : null
           }
           <span className={commentTypeStyle}>{commentType}</span> {commentAssignmentText} {"{"}
         </Line>
         <div className="commentHeader">
           <Line>
-            <span className="commentVarName">author</span>: {authorName},
+            <Keyword leftSpace={true}>author</Keyword>: {authorName},
           </Line>
           <Line>
-            <span className="commentVarName">score</span>: <span className={scoreStyles}>{score}</span>,
+            <Keyword leftSpace={true}>score</Keyword>: <span className={scoreStyles}>{score}</span>,
           </Line>
           {all_awardings.length > 0
             ? <Line>
-                <span className="commentVarName">gildings</span>: [
+                <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>: [
                   <span className="awardings">
                     {all_awardings.map((award, index) =>
                       <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
@@ -79,7 +101,7 @@ export default function JavaScriptComment(props) {
             : null
           }
           <Line>
-            <span className="commentVarName">commentAge</span>: <span className='string'>"{commentAge}"</span>,
+            <Keyword leftSpace={true}>commentAge</Keyword>: <String>"{commentAge}"</String>,
           </Line>
         </div>
         {collapsed
@@ -87,13 +109,13 @@ export default function JavaScriptComment(props) {
           : <React.Fragment>
               <Line>
                 <CodeComment>
-                  <li className="commentLine">{"/*"}</li>
-                  <li className="commentLine">
+                  <CommentListItem>{"/*"}</CommentListItem>
+                  <CommentListItem>
                     <MarkdownText>
                       <ReactMarkdown source={body} />
                     </MarkdownText>
-                  </li>
-                  <li className="commentLine">{"*/"}</li>
+                  </CommentListItem>
+                  <CommentListItem>{"*/"}</CommentListItem>
                 </CodeComment>
               </Line>
               {replyList.map(child =>
