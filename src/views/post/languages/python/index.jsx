@@ -1,18 +1,29 @@
-import React from "react";
+import React from 'react';
+import styled from 'styled-components'
 import Dropdown from 'react-dropdown';
 // ---------- JS Utilities ----------
 import { isImageLink } from '../../../../utils/image';
-import { getTimeDifferenceString } from "../../../../utils/time";
+import { getTimeDifferenceString } from '../../../../utils/time';
 import { commentSortDisplayNames } from '../../../../utils/constants';
-import { getSubreddit } from "../../../../utils/route-params";
+import { getSubreddit } from '../../../../utils/route-params';
 // ---------- Components ----------
 import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Page from '../../../../styled-components/page';
 import Indentation from '../../../../styled-components/indentation';
 import PostInformation from '../../../../styled-components/post/post-information';
+
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 function Configuration ({ subreddit, sort, sortChange }) {
   const { method } = sort;
@@ -20,18 +31,20 @@ function Configuration ({ subreddit, sort, sortChange }) {
     <Indentation depth={1}>
       <Line>
         curr_subreddit =
-        <a href={"/r/" + subreddit} className="string">"{subreddit}"</a>
+        <StringLink href={"/r/" + subreddit} leftSpace={true} >"{subreddit}"</StringLink>
       </Line>
       <Line>
         <span className="codeComment"># Reddit Settings</span>
       </Line>
       <Line>
         sort_by =
-        <Dropdown
-          options={commentSortDisplayNames}
-          onChange={(option) => sortChange(option)}
-          placeholder={"\"" + method + "\""}
-        />
+        <String leftSpace={true}>
+          <Dropdown
+            options={commentSortDisplayNames}
+            onChange={(option) => sortChange(option)}
+            placeholder={"\"" + method + "\""}
+          />
+        </String>
       </Line>
     </Indentation>
   );
@@ -50,10 +63,10 @@ function Header({ postHeaderData: data }) {
     postContent = (
       <Line>
         image_link =
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
-        <span className="string" >
+        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
+        <String>
           <Preview url={url} title={title} showAllPreviews={true} isImage={true} hideIcon={true} useSemicolon={false} />
-        </span>
+        </String>
       </Line>
     );
   } else if (is_self) {
@@ -61,12 +74,10 @@ function Header({ postHeaderData: data }) {
     if (selftext !== '') {
       postContent = (
         <Line>
-          <div className="declarationLine">
-            self_text =
-          </div>
-          <div className="string preview_string" >
+          self_text =
+          <String>
             <Preview url={url} title={title} showAllPreviews={true} isImage={false} hideIcon={true} useSemicolon={false} markdownText={`"${selftext}"`} />
-          </div>
+          </String>
         </Line>
       )
     }
@@ -75,7 +86,7 @@ function Header({ postHeaderData: data }) {
     postContent = (
       <Line>
         post_link =
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
+        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
       </Line>
     );
   }
@@ -83,36 +94,37 @@ function Header({ postHeaderData: data }) {
   return (
     <React.Fragment>
       <Line>
-        <span className="keyword">def</span>
+        <Keyword rightSpace={true}>def</Keyword>
         <a href={url} target="_blank" rel="noopener noreferrer" className="function">{shortTitle}</a>
         (score=<span className="parameter">{score}</span>,
-        sub=<a href={subredditLink} className="parameter_string">"{subreddit}"</a><span className="symbol">):</span>
+        sub=<StringLink href={subredditLink}>"{subreddit}"</StringLink><span className="symbol">):</span>
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             full_title =
-						<span className="string">"{title}"</span>
+						<String leftSpace={true}>"{title}"</String>
           </Line>
           <Line>
             author =
-						<a href={`/user/${author.toLowerCase()}`} className="string">"{author}"</a>
+						<StringLink href={`/user/${author.toLowerCase()}`} leftSpace={true}>"{author}"</StringLink>
           </Line>
           <Line>
             post_age =
-						<span className="string">"{postAge}"</span>
+						<String leftSpace={true}>"{postAge}"</String>
           </Line>
           {all_awardings.length > 0
             ? <Line>
-                gildings = [
-                <span className="awardings">
+                gildings =
+                <Keyword leftSpace={true}>
+                  [
                   {all_awardings.map((award, index) =>
                     <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
                       {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                     </span>
                   )}
-                </span>
-                ]
+                  ]
+                </Keyword>
               </Line>
             : null
           }
@@ -124,9 +136,9 @@ function Header({ postHeaderData: data }) {
           <span className="codeComment"># Rendering comments below</span>
         </Line>
         <Line>
-          <span className="keyword">for</span>
+          <Keyword rightSpace={true}>for</Keyword>
           comment
-					<span className="keyword">in</span>
+					<Keyword rightSpace={true} leftSpace={true}>in</Keyword>
           <span className="range">range</span>(<span className="parameter">0</span>, {num_comments}):
 				</Line>
       </Indentation>

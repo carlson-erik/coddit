@@ -1,18 +1,29 @@
-import React from "react";
+import React from 'react';
+import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // ---------- JS Utilities ----------
 import { isImageLink } from '../../../../utils/image';
-import { getTimeDifferenceString } from "../../../../utils/time";
+import { getTimeDifferenceString } from '../../../../utils/time';
 import { commentSortDisplayNames } from '../../../../utils/constants';
-import { getSubreddit } from "../../../../utils/route-params";
+import { getSubreddit } from '../../../../utils/route-params';
 // ---------- Components ----------
 import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Page from '../../../../styled-components/page';
 import Indentation from '../../../../styled-components/indentation';
 import PostInformation from '../../../../styled-components/post/post-information';
+
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 function Configuration ({ subreddit, sort, sortChange }) {
   const { method } = sort;
@@ -20,8 +31,8 @@ function Configuration ({ subreddit, sort, sortChange }) {
     <React.Fragment>
       <Indentation depth={1}>
         <Line>
-          <span className="using">using</span>CurrentSubreddit.
-          <a href={"/r/" + subreddit} className='string cancelMargin'>{subreddit}</a>;
+          usingCurrentSubreddit.
+          <StringLink href={"/r/" + subreddit}>{subreddit}</StringLink>;
         </Line>
         <Line>
           <span className="codeComment">{"// Reddit Settings"}</span>
@@ -38,7 +49,7 @@ function Configuration ({ subreddit, sort, sortChange }) {
       <Line />
       <Indentation depth={1}>
         <span className="namespace">namespace</span>
-        <span className="class_name">Coddit</span>
+        <Keyword leftSpace={true} rightSpace={true}>Coddit</Keyword>
         {"{"}
       </Indentation>
       <Line />
@@ -58,11 +69,11 @@ function Header({ postHeaderData }) {
     postContent = (
       <Line>
         <span className="var">var</span>
-        <span className="varName">image_link</span>=
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>;
-        <span className="string" >
+        <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
+        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
+        <String leftSpace={true}>
           <Preview url={url} title={title} showAllPreviews={true} useSemicolon={true} isImage={true} hideIcon={true} />
-        </span>
+        </String>
       </Line>
     );
   } else if (is_self) {
@@ -72,11 +83,11 @@ function Header({ postHeaderData }) {
         <Line>
           <div className="declarationLine">
             <span className="var">var</span>
-            <span className="varName">self_text</span>=
+            <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
           </div>
-          <span className="string preview_string" >
+          <String>
             <Preview url={url} title={title} showAllPreviews={true} useSemicolon={true} isImage={false} hideIcon={true} markdownText={`"${selftext}";`} />
-          </span>
+          </String>
         </Line>
       )
     }
@@ -85,8 +96,8 @@ function Header({ postHeaderData }) {
     postContent = (
       <Line>
         <span className="var">var</span>
-        <span className="varName">post_link</span>=
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>;
+        <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
+        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
       </Line>
     );
   }
@@ -94,46 +105,47 @@ function Header({ postHeaderData }) {
     <React.Fragment>
       <Indentation depth={1}>
         <Line>
-          <span className="public">public</span>
+          <Keyword rightSpace={true}>public</Keyword>
           <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>
           (
-          <span className="default_type">int</span>
-          <span className="parameterName">score</span>=
-          <span className="parameter">{score}</span>,
-          <span className="default_type notFirst">string</span>
-          <span className="parameterName">subreddit</span>=
-          <a href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</a>
+          <Keyword leftSpace={true} rightSpace={true}>int</Keyword>
+          <Keyword rightSpace={true}>score</Keyword>=
+          <Keyword leftSpace={true}>{score}</Keyword>,
+          <Keyword rightSpace={true} leftSpace={true}>string</Keyword>
+          <Keyword rightSpace={true}>subreddit</Keyword>=
+          <StringLink leftSpace={true} rightSpace={true} href={"/" + subreddit_name_prefixed}>"{subreddit}"</StringLink>
           ) {"{"}
         </Line>
         <Indentation depth={1}>
           <PostInformation>
             <Line>
               <span className="var">var</span>
-              <span className="varName">full_title</span>=
-              <span className="string">"{title}"</span>;
+              <Keyword leftSpace={true} rightSpace={true}>full_title</Keyword>=
+              <String leftSpace={true}>"{title}"</String>;
             </Line>
             <Line>
               <span className="var">var</span>
-              <span className="varName">author</span>=
-              <span className="string">"<span className="submitter">{author}"</span></span>;
+              <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
+              <String leftSpace={true}>"<span className="submitter">{author}"</span></String>;
             </Line>
             <Line>
               <span className="var">var</span>
-              <span className="varName">post_age</span>=
-              <span className="string">"{postAge}"</span>;
+              <Keyword leftSpace={true} rightSpace={true}>post_age</Keyword>=
+              <StringLink leftSpace={true}>"{postAge}"</StringLink>;
             </Line>
             {all_awardings.length > 0
               ? <Line>
                   <span className="var">var</span>
-                  <span className="varName">gildings</span>= [
-                  <span className="awardings">
+                  <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>=
+                  <Keyword leftSpace={true}>
+                  [
                     {all_awardings.map((award, index) =>
                       <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
                         {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                       </span>
                     )}
-                  </span>
                   ];
+                  </Keyword>
                 </Line>
               : null
             }
@@ -156,8 +168,8 @@ function Body(props) {
     <React.Fragment>
       <Indentation depth={2}>
         <span className="public">public</span>
-        <span className="class">class</span>
-        <span className="class_name">Post</span>
+        <Keyword leftSpace={true} rightSpace={true}>class</Keyword>
+        <Keyword rightSpace={true}>Post</Keyword>
         {"{"}
       </Indentation>
       <Line />
@@ -165,8 +177,8 @@ function Body(props) {
         <Header postHeaderData={postHeaderData} />
         <Line>
           <span className="public">public</span>
-          <span className="class">class</span>
-          <span className="class_name">CommentList</span>
+          <Keyword leftSpace={true} rightSpace={true}>class</Keyword>
+          <Keyword rightSpace={true}>CommentList</Keyword>
           {"{"}
         </Line>
         {pageList.map(page => 

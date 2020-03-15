@@ -1,13 +1,24 @@
 import React from "react";
+import styled from 'styled-components';
 // ---------- Components ----------
 import Preview from '../../../preview';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Indentation from '../../../../styled-components/indentation';
 import PostInformation from '../../../../styled-components/post/post-information';
+
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 export default function JavaScriptPost(props) {
   const { post, showAllPreviews } = props;
@@ -26,11 +37,11 @@ export default function JavaScriptPost(props) {
     postContent = (
       <Line>
         <span className="const">const</span>
-        <span className="varName">image_link</span>=
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>;
-        <span className="string" >
+        <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
+        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>;
+        <String leftSpace={true}>
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true} />
-        </span>
+        </String>
       </Line>
     );
   } else if (is_self) {
@@ -39,10 +50,10 @@ export default function JavaScriptPost(props) {
       postContent = (
         <Line>
           <span className="const">const</span>
-          <span className="varName">self_text</span>=
-          <span className="string" >
+          <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
+          <String leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={true} markdownText={`"${selftext}";`} />
-          </span>
+          </String>
         </Line>
       )
     }
@@ -51,8 +62,8 @@ export default function JavaScriptPost(props) {
     postContent = (
       <Line>
         <span className="const">const</span>
-        <span className="varName">post_link</span>=
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>;
+        <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
+        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>;
       </Line>
     );
   }
@@ -63,31 +74,31 @@ export default function JavaScriptPost(props) {
         (
         <span className='parameterName first'>score</span>=
         <span className="parameter">{ups}</span>,
-        <span className="parameterName">subreddit</span>=
-        <a href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</a>
+        <Keyword leftSpace={true}>subreddit</Keyword>=
+        <StringLink href={"/" + subreddit_name_prefixed}>"{subreddit}"</StringLink>
         ) {"{"}
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             <span className="const">const</span>
-            <span className="varName">full_title</span>=
-					  <span className="string">"{title}"</span>;
+            <Keyword leftSpace={true} rightSpace={true}>full_title</Keyword>=
+					  <String leftSpace={true}>"{title}"</String>;
           </Line>
           <Line>
             <span className="const">const</span>
-            <span className="varName">author</span>=
-						<span className="string">"{author}"</span>;
+            <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
+						<String leftSpace={true}>"{author}"</String>;
           </Line>
           <Line>
             <span className="const">const</span>
-            <span className="varName">post_age</span>=
-						<span className="string">"{postAge}"</span>;
+            <Keyword leftSpace={true} rightSpace={true}>post_age</Keyword>=
+						<String leftSpace={true}>"{postAge}"</String>;
           </Line>
           {all_awardings.length > 0
             ? <Line>
                 <span className="const">const</span>
-                <span className="varName">gildings</span>= [
+                <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>= [
                 <span className="awardings">
                   {all_awardings.map((award, index) =>
                     <span className={`${award.name.toLowerCase()}-award`} key={award.name}>

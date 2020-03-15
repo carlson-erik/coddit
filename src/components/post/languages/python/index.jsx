@@ -1,13 +1,24 @@
 import React from "react";
+import styled from 'styled-components';
 // ---------- Components ----------
 import Preview from '../../../preview';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
 import Indentation from '../../../../styled-components/indentation';
 import PostInformation from '../../../../styled-components/post/post-information';
+
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 export default function PythonPost(props) {
   const { post, showAllPreviews } = props;
@@ -24,56 +35,56 @@ export default function PythonPost(props) {
   if (isImageLink(url)) {
     // post is an image
     postContent = (
-      <div className="line">
+      <Line>
         image_link =
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
-        <span className="string" >
+        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
+        <String>
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={true} useSemicolon={false} />
-        </span>
-      </div>
+        </String>
+      </Line>
     );
   } else if (is_self) {
     // show selftext if there is text to show
     if (selftext !== '') {
       postContent = (
-        <div className="line">
+        <Line>
           self_text =
-          <span className="string" >
+          <String leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={false} markdownText={`"${selftext}"`} />
-          </span>
-        </div>
+          </String>
+        </Line>
       )
     }
   } else {
     // show link
     postContent = (
-      <div className="line">
+      <Line>
         post_link =
-        <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>
-      </div>
+        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
+      </Line>
     );
   }
   return (
     <div>
       <Line>
-        <span className="keyword">def</span>
+        <Keyword rightSpace={true}>def</Keyword>
         <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>(<span className="parameter_name">score</span>=<span
-          className="parameter">{ups}</span>, <span className="parameter_name">sub</span>=<a href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</a><span
+          className="parameter">{ups}</span>, <Keyword leftSpace={true}>sub</Keyword>=<StringLink href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</StringLink><span
             className="symbol">):</span>
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             full_title =
-            <span className="string">"{title}"</span>
+            <String leftSpace={true}>"{title}"</String>
           </Line>
           <Line>
             author =
-            <a href={`/user/${author.toLowerCase()}`} className="string">"{author}"</a>
+            <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</StringLink>
           </Line>
           <Line>
             post_age =
-            <span className="string">"{postAge}"</span>
+            <String leftSpace={true}>"{postAge}"</String>
           </Line>
           {all_awardings.length > 0
             ? <Line>

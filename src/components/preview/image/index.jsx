@@ -2,13 +2,21 @@ import React from "react";
 import styled from 'styled-components';
 
 const SizedImage = styled.img`
-  max-width: 60%;
-  max-height: 60%;
+  max-width: 90%;
+  max-height: 90%;
+
+  @media only screen and (max-width: 900px) {
+    max-width: 100%;
+  }
 `;
 
 const SizedVideo = styled.video`
-  max-width: 60%;
-  max-height: 60%;
+  max-width: 90%;
+  max-height: 90%;
+
+  @media only screen and (max-width: 900px) {
+    max-width: 100%;
+  }
 `;
 
 const Image = ({ imageURL, imageTitle }) => {
