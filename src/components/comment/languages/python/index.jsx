@@ -9,6 +9,7 @@ import Comment from '../../index';
 import Keyword from '../../../../styled-components/keyword';
 import KeywordLink from '../../../../styled-components/keyword-link';
 import Line from '../../../../styled-components/line';
+import Indentation from '../../../../styled-components/indentation';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
@@ -91,7 +92,9 @@ export default function PythonComment(props) {
             {replyList.map(child =>
               <div key={child.id}>
                 {child.body
-                  ? <Comment {...props} data={child} isChild={true}/>
+                  ? <Indentation key={child.id} depth={1}>
+                      <Comment {...props} data={child} isChild={true}/>
+                    </Indentation>
                   : null
                 }
               </div>

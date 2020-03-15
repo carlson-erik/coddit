@@ -4,6 +4,9 @@ import ReactMarkdown from 'react-markdown';
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
+// ---------- Styled Components ----------
+import Indentation from '../../../../styled-components/indentation';
+
 
 export default function CSharpComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
@@ -92,7 +95,9 @@ export default function CSharpComment(props) {
               {replyList.map(child =>
                 <div key={child.id}>
                   {child.body
-                    ? <Comment {...props} data={child} isChild={true} />
+                    ? <Indentation depth={1}>
+                        <Comment {...props} data={child} isChild={true} />
+                      </Indentation>
                     : null
                   }
                 </div>
