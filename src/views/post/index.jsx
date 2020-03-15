@@ -15,16 +15,14 @@ function getPostURL(match, sort) {
 }
 
 function Post(props) {
-  const { match, settings } = props;
+  const { settings } = props;
   const { progLang } = settings;
 
   const sortChange = (option) => {
     const { sort, updateSort, clearPageData } = props;
     const { method, timeFrame } = sort;
     const value = `${option.value}`;
-    
     if (value !== method) {
-      console.log('sortChange', value, value !== method)
       batch(() => {
         updateSort(value, timeFrame);
         clearPageData();
@@ -33,9 +31,8 @@ function Post(props) {
   }
 
   const fetchPage = () => {
-    const { setLoadingStatus, sort } = props;
+    const { setLoadingStatus, match, sort } = props;
     const postURL = getPostURL(match, sort);
-    console.log('postURL', postURL)
     // Update redux store to show the user that we're fetching data behind the scenes
     setLoadingStatus(true);
     axios.get(postURL).then((response) => {
@@ -67,12 +64,11 @@ function Post(props) {
     // fetch page on load of the view
     const {isLoading, data} = props;
     const {after, itemCount, pageList} = data;
-    console.log(itemCount, after, pageList.length, !isLoading)
     // only fetch a page onload when we're in an empty state and not currently fetching data
-    if(itemCount === 0 && after === '' && pageList.length === 0 && !isLoading)
-      console.log('fetchPage')
-      fetchPage(); // eslint-disable-next-line
-  }, []);
+    if(itemCount === 0 && after === '' && pageList.length === 0 && !isLoading){
+      fetchPage();
+    }
+  });
 
   // Render the Post is the correct language
   switch(progLang) {

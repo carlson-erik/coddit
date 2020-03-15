@@ -158,7 +158,7 @@ export default function PostView(props) {
   return (
     <React.Fragment>
       <Configuration subreddit={subreddit} sort={sort} sortChange={sortChange} />
-      {(headerData && (pageList && pageList.length !== 0)) && !isLoading
+      {(postHeaderData && (pageList && pageList.length !== 0)) && !isLoading
           ? <Indentation depth={1}>
               <Header postHeaderData={postHeaderData} />
               {pageList.map(page =>
