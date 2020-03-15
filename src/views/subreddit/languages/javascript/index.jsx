@@ -1,226 +1,131 @@
-import React from "react";
+import React from 'react';
+import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // ---------- Components ----------
-import Preview from '../../../../components/preview';
 import Checkbox from '../../../../components/checkbox';
-import LoadingButton from "../../../../components/loading-button";
+import LoadingButton from '../../../../components/loading-button';
+import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
-import { getTimeDifferenceString } from "../../../../utils/time";
-import { isImageLink } from "../../../../utils/image";
 import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
+// ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import KeywordLink from '../../../../styled-components/keyword-link';
+import Line from '../../../../styled-components/line';
+import Page from '../../../../styled-components/page';
+import Indentation from '../../../../styled-components/indentation';
+
+const Integer = styled(Keyword)`
+  color: orange!important;
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: green;
+`;
 
 const JavaScriptHeader = (props) => {
-    const { dropdownFunctions, settings, sort, subreddit } = props;
-    const { showAllPreviews, itemLimit, } = settings;
-    const { method, timeFrame } = sort;
-    const { onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = dropdownFunctions;
-    return (
-        <div className="redditSettings">
-            <div className="line">
-                <span className="const">const</span>
-                <span className="constName">curr_subreddit</span>=
-                <a href={"/r/" + subreddit} className="string">"{subreddit}"</a>;
-            </div>
-            <div className="line">
-                <span className="const">const</span>
-                <span className="constName">show_all_previews</span>=
-                <Checkbox 
-                    checked={showAllPreviews}
-                    onChange={onChangeShowPreviews}
-                />
-            </div>
-                
-            <div className="line">
-                <span className="codeComment">{"// Reddit Settings"}</span>
-            </div>
-            <div className="line">
-                <span className="const">const</span>
-                <span className="constName">sort_by</span>=
-                <Dropdown 
-                    options={sortValues} 
-                    onChange={onChangeSortBy} 
-                    placeholder={ `"${method}"`} 
-                />
-                ;
-            </div>
-            { method === "controversial" || method === "top"
-                ?   <div className="line">
-                        <span className="const">const</span>
-                        <span className="constName">links_from</span>=
-                        <Dropdown 
-                            options={linksFromDisplayNames} 
-                            onChange={onChangeTimeFrame} 
-                            placeholder={ `'${timeFrame}'`} 
-                        />
-                        ;
-                    </div>
-                : null
-            }
-            <div className="line">
-                <span className="const">const</span>
-                <span className="constName">post_count</span>=
-                <span className="integer">
-                    <Dropdown 
-                        options={itemLimitValues} 
-                        onChange={onChangePostCount} 
-                        placeholder={itemLimit} 
-                    />
-                </span>
-                ;
-            </div>
-        </div>
-    );
+  const { settings, sort, subreddit, onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = props;
+  const { showAllPreviews, itemLimit, } = settings;
+  const { method, timeFrame } = sort;
+  return (
+    <Indentation depth={1}>
+      <Line>
+        <span className="const">const</span>
+        <Keyword leftSpace={true} rightSpace={true}>curr_subreddit</Keyword>=
+        <StringLink href={"/r/" + subreddit} leftSpace={true}>"{subreddit}"</StringLink>;
+      </Line>
+      <Line>
+        <span className="const">const</span>
+        <Keyword leftSpace={true} rightSpace={true}>show_all_previews</Keyword>=
+        <Checkbox
+          checked={showAllPreviews}
+          onChange={onChangeShowPreviews}
+          bgColor='#282C34'
+          checkCheckedColor='#A1EF9D'
+        />
+      </Line>
+      <Line>
+        <span className="codeComment">{"// Reddit Settings"}</span>
+      </Line>
+      <Line>
+        <span className="const">const</span>
+        <Keyword leftSpace={true} rightSpace={true}>sort_by</Keyword>=
+        <Keyword leftSpace={true}>
+          <Dropdown
+            options={sortValues}
+            onChange={onChangeSortBy}
+            placeholder={`"${method}"`}
+          />
+          ;
+        </Keyword>
+        
+      </Line>
+      {method === "controversial" || method === "top"
+        ? <Line>
+            <span className="const">const</span>
+            <span className="constName">links_from</span>=
+            <Keyword leftSpace={true}><Dropdown
+              options={linksFromDisplayNames}
+              onChange={onChangeTimeFrame}
+              placeholder={`'${timeFrame}'`}
+              />
+              ;
+            </Keyword>
+              
+          </Line>
+        : null
+      }
+      <Line>
+        <span className="const">const</span>
+        <Keyword leftSpace={true} rightSpace={true}>post_count</Keyword>=
+        <Integer leftSpace={true}>
+          <Dropdown
+            options={itemLimitValues}
+            onChange={onChangePostCount}
+            placeholder={itemLimit}
+          />
+        </Integer>;
+      </Line>
+    </Indentation>
+  );
 }
 
 const JavaScriptPageList = (props) => {
-    const { data, settings, isLoading, fetchNextPage } = props;
-    const { showAllPreviews, itemLimit } = settings;
-    const { pageList } = data;
-    return (
-        <>
-            <div className="line"></div>
-            <div className="jsClass">
-                <span className="class">class</span>
-                <span className="className">Coddit</span>
-                <span className="extends">extends</span>
-                <span className="className">Post</span>
-                {"{"}
-            </div>
-            <div className="line"></div>
-            { pageList.map(page =>
-                <Page key={page.pageID} page={page} showAllPreviews={showAllPreviews}/>
-            )}
-            <LoadingButton loadFunc={() => fetchNextPage() } isLoading={isLoading} itemLimit={itemLimit} />
-            <div className='line jsClass'>{"}"}</div>
-        </>	
-    );
+  const { data, settings, isLoading, fetchNextPage } = props;
+  const { showAllPreviews, itemLimit } = settings;
+  const { pageList } = data;
+  return (
+    <React.Fragment>
+      <Line></Line>
+      <Indentation depth={1}>
+        <Keyword rightSpace={true}>class</Keyword>
+        <Keyword rightSpace={true}>Coddit</Keyword>
+        <Keyword rightSpace={true}>extends</Keyword>
+        <Keyword rightSpace={true}>Post</Keyword>
+        {"{"}
+      </Indentation>
+      {pageList.map(page =>
+        <JavaScriptPage key={page.pageID} page={page} showAllPreviews={showAllPreviews} />
+      )}
+      <LoadingButton loadFunc={() => fetchNextPage()} isLoading={isLoading} itemLimit={itemLimit} />
+      <Indentation depth={1}>
+        <Line>{"}"}</Line>
+      </Indentation>
+    </React.Fragment>
+  );
 }
 
-const Page = (props) => {
-	const {page, showAllPreviews} = props;
-	return (
-		<div className="page">
-			{page.itemList.map(post => 
-				<Post key={post.id} post={post} showAllPreviews={showAllPreviews}/>
-			)}
-			<div className="line">
-				<span className="codeComment">{`//  ------------ END OF PAGE ${page.pageNumber} ------------`}</span>
-			</div>
-		</div>
-	);
+const JavaScriptPage = (props) => {
+  const { page, showAllPreviews } = props;
+  return (
+    <Page depth={2}>
+      {page.itemList.map(post =>
+        <Post key={post.id} progLang='javascript' post={post} showAllPreviews={showAllPreviews} />
+      )}
+      <Line>
+        <span className="codeComment">{`//  ------------ END OF PAGE ${page.pageNumber} ------------`}</span>
+      </Line>
+    </Page>
+  );
 };
 
-const Post = (props) => {
-    const {post, showAllPreviews} = props;
-	// Hide NSFW/over_18 content until toggle has been introduced
-	if(post.over_18)
-		return(null);
-	// since the post is not over 18 (NSFW), pull needed values from the post\
-	const { all_awardings, url, author, title, permalink, num_comments, ups, subreddit_name_prefixed, subreddit, created_utc, is_self, selftext }  = post;
-	const postAge = getTimeDifferenceString(created_utc);
-	const shortTitleArray = permalink.split("/");
-    const showURL = url.length > 40 ? url.substring(0, 40) + "..." : url;
-    
-    let postContent;
-    if(isImageLink(url)){
-        // post is an image
-        postContent = (
-            <div className="line">
-                <span className="const">const</span>
-                <span className="varName">image_link</span>=
-                <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>;
-                <span className="string" >
-                    <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true}/>
-                </span>
-            </div>
-        );
-    } else if(is_self){
-        // show selftext if there is text to show
-        if(selftext !== '') {
-            postContent = (
-                <div className="line">
-                    <span className="const">const</span>
-                    <span className="varName">self_text</span>=
-                    <span className="string" >
-                        <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={true}markdownText={`"${selftext}";`}/>
-                    </span>
-                </div>
-            )
-        }
-    } else {
-        // show link
-        postContent = (
-            <div className="line">
-                <span className="const">const</span>
-                <span className="varName">post_link</span>=
-                <a href={url} target="_blank" rel="noopener noreferrer" className="string">"{showURL}"</a>;
-            </div>
-        );
-    }
-
-    return (
-        <div className="post">
-			<div className="postDeclaration" >
-                <div className="line">
-                    <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>
-                    (
-                    <span className='parameterName first'>score</span>=
-                    <span className="parameter">{ups}</span>,
-                     <span className="parameterName">subreddit</span>=
-                     <a href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</a>
-                    ) {"{"}
-                </div>
-            </div>
-            <div className="postBody">
-				<div className="postInformation">
-                    <div className="line">
-                        <span className="const">const</span>
-                        <span className="varName">full_title</span>= 
-					    <span className="string">"{title}"</span>;
-					</div>
-					<div className='line'>
-						<span className="const">const</span>
-                        <span className="varName">author</span>=
-						<span className="string">"{author}"</span>;
-					</div>
-					<div className="line">
-                        <span className="const">const</span>
-                        <span className="varName">post_age</span>=
-						<span className="string">"{postAge}"</span>;
-					</div>
-                    { all_awardings.length > 0
-                        ?   <div className='line'>
-                                <span className="const">const</span>
-                                <span className="varName">gildings</span>= [
-                                <span className="awardings">
-                                    {all_awardings.map((award, index) => 
-                                        <span className={`${award.name.toLowerCase()}-award` } key={award.name}>
-                                            {`${award.count}${award.name.substring(0,1).toLowerCase()}${index === all_awardings.length -1 ? '':','}`}
-                                        </span>
-                                    )}
-                                </span>
-                                ];
-                            </div>
-                        : null
-                    }
-                    {postContent}		
-				</div>		
-				<div className="postCommentsLink">
-					<div className="line">
-						<span className="codeComment">{"// Load comments in current tab"}</span>
-					</div>
-					<div className="line">
-						<a href={permalink} className="functionCall">loadComments
-                        <span className="paren">(<span className="numComments">{num_comments}</span>);</span></a>
-					</div>
-				</div>
-			</div>
-                <div className="line">
-                    {"}"}
-                </div>
-                <div className ="line"></div>
-		</div>
-    )
-}
-
-export {JavaScriptPageList, JavaScriptHeader};
+export { JavaScriptPageList, JavaScriptHeader };

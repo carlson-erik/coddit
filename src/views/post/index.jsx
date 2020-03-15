@@ -15,17 +15,23 @@ function getPostURL(match, sort) {
 }
 
 function Post(props) {
-  const { match, settings, sort } = props;
+  const { settings } = props;
   const { progLang } = settings;
 
   const sortChange = (option) => {
-		// const newSortFunction = sortDisplayTranslateObject[option.value];
-    // this.fetchPage(newSortFunction);
-    console.log(`sortChange: ${option}`)
-	}
+    const { sort, updateSort, clearPageData } = props;
+    const { method, timeFrame } = sort;
+    const value = `${option.value}`;
+    if (value !== method) {
+      batch(() => {
+        updateSort(value, timeFrame);
+        clearPageData();
+      })
+    }
+  }
 
   const fetchPage = () => {
-    const { setLoadingStatus } = props;
+    const { setLoadingStatus, match, sort } = props;
     const postURL = getPostURL(match, sort);
     // Update redux store to show the user that we're fetching data behind the scenes
     setLoadingStatus(true);
@@ -42,31 +48,35 @@ function Post(props) {
     const { setLoadingStatus, createPage } = props;
     const { children, after } = bodyData;
     const itemCount = children.length;
+    const pageID = after && after !== '' ? after : `commentPage-`;
     const page = {
       pageNumber: 1,
       itemList: children.map(child => child.data),
-      pageID: after && after !== '' ? after : `commentPage-1`,
+      pageID,
     };
     batch(() => {
       setLoadingStatus(false);
-      createPage(itemCount, '', headerData, page)
+      createPage(itemCount, pageID, headerData, page)
     });
   }
 
   useEffect(() => {
     // fetch page on load of the view
-    fetchPage();// eslint-disable-next-line
-  }, []);
-
-  // console.log(`Post View (${isLoading}):`, props.data);
+    const {isLoading, data} = props;
+    const {after, itemCount, pageList} = data;
+    // only fetch a page onload when we're in an empty state and not currently fetching data
+    if(itemCount === 0 && after === '' && pageList.length === 0 && !isLoading){
+      fetchPage();
+    }
+  });
 
   // Render the Post is the correct language
   switch(progLang) {
-    case "javascript":
+    case 'javascript':
       return (
         <JavaScriptPostView {...props} sortChange={sortChange}/>
       );
-    case "csharp":
+    case 'csharp':
       return (
         <CSharpPostView {...props} sortChange={sortChange}/>
       );

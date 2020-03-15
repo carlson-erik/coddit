@@ -1,34 +1,48 @@
-import React from "react";
-import Dropdown from 'react-dropdown';
+import React from 'react';
+import styled from 'styled-components'
+// ---------- Components ----------
+import Dropdown from '../../../dropdown';
+// ---------- Styled-Components ----------
+import Line from '../../../../styled-components/line';
+import Keyword from '../../../../styled-components/keyword';
+import Indentation from '../../../../styled-components/indentation';
 // ---------- Constants ----------
 import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
+
+const String = styled(Keyword)`
+  color: green;
+`;
 
 const PythonEditorSettings = (props) => {
 	const {settings, dropdownSelect} = props;
 	const {progLang, colorTheme} = settings;
 	return(
 		<header>
-			<div className="listItem">
-				<div className="line">
-						<span className="codeComment"># Editor Settings</span>
-				</div>
-				<div className="line">
+			<Indentation depth={1}>
+				<Line>
+					<span className="codeComment"># Editor Settings</span>
+				</Line>
+				<Line>
 					prog_lang = 
-					<Dropdown 
-						options={progLangList} 
-						onChange={(option) => dropdownSelect(option, 'progLang')} 
-						placeholder={"\"" + progLang + "\""}
-					/>
-				</div>
-				<div className="line">
+					<String leftSpace={true}>
+						<Dropdown 
+							options={progLangList} 
+							onChange={(option) => dropdownSelect(option, 'progLang')} 
+							placeholder={"\"" + progLang + "\""}
+						/>
+					</String>
+				</Line>
+				<Line>
 					theme_name = 
-					<Dropdown 
-						options={themeSpacedOptions} 
-						onChange={(option) => dropdownSelect(option, 'theme')} 
-						placeholder={"\"" + themeMap[colorTheme] + "\""}
-					/>
-				</div>
-			</div>
+					<String leftSpace={true}>
+						<Dropdown 
+							options={themeSpacedOptions} 
+							onChange={(option) => dropdownSelect(option, 'theme')} 
+							placeholder={"\"" + themeMap[colorTheme] + "\""}
+						/>
+					</String>
+				</Line>
+			</Indentation>
 		</header>
 	);
 }

@@ -1,11 +1,35 @@
 import React from 'react';
+import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
+// ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import Line from '../../../../styled-components/line';
+import Indentation from '../../../../styled-components/indentation';
+import CodeComment from '../../../../styled-components/comment/code-comment';
+import MarkdownText from '../../../../styled-components/comment/markdown-text';
+import CommentToggle from '../../../../styled-components/comment/comment-toggle';
 
-const JavaScriptComment = (props) => {
+const String = styled(Keyword)`
+  color: green;
+`;
+
+
+const CommentListItem = styled.li`
+  color: grey;
+  & a {
+    color: grey;
+  }
+`;
+
+const Submitter = styled(Keyword)`
+  color: red;
+`;
+
+export default function JavaScriptComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -15,9 +39,9 @@ const JavaScriptComment = (props) => {
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <span className="string">"<span className="submitter">{author}</span>"</span>
+    authorName = <String>"<Submitter>{author}</Submitter>"</String>
   } else {
-    authorName = <span className="string">"{author}"</span>
+    authorName = <String>"{author}"</String>
   }
 
   // Change presentation based on whether or not we're a child comment
@@ -41,27 +65,26 @@ const JavaScriptComment = (props) => {
 
   return (
     <React.Fragment>
-      <div className="comment">
-        <div className="line toggleLine">
-          <div onClick={() => { hideShowComment() }} className="commentToggle">
+        <Line>
+          <CommentToggle onClick={() => {hideShowComment()}}>
             {collapsed ? "[+]" : "[-]"}
-          </div>
+          </CommentToggle>
           {!isChild
-            ? <span className="commentConst">const</span>
+            ? <Keyword rightSpace={true}>const</Keyword>
             : null
           }
           <span className={commentTypeStyle}>{commentType}</span> {commentAssignmentText} {"{"}
-        </div>
+        </Line>
         <div className="commentHeader">
-          <div className='line'>
-            <span className="commentVarName">author</span>: {authorName},
-          </div>
-          <div className='line'>
-            <span className="commentVarName">score</span>: <span className={scoreStyles}>{score}</span>,
-          </div>
+          <Line>
+            <Keyword leftSpace={true}>author</Keyword>: {authorName},
+          </Line>
+          <Line>
+            <Keyword leftSpace={true}>score</Keyword>: <span className={scoreStyles}>{score}</span>,
+          </Line>
           {all_awardings.length > 0
-            ? <div className='line'>
-                <span className="commentVarName">gildings</span>: [
+            ? <Line>
+                <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>: [
                   <span className="awardings">
                     {all_awardings.map((award, index) =>
                       <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
@@ -70,43 +93,40 @@ const JavaScriptComment = (props) => {
                     )}
                 </span>
                 ],
-              </div>
+              </Line>
             : null
           }
-          <div className='line'>
-            <span className="commentVarName">commentAge</span>: <span className='string'>"{commentAge}"</span>,
-          </div>
+          <Line>
+            <Keyword leftSpace={true}>commentAge</Keyword>: <String>"{commentAge}"</String>,
+          </Line>
         </div>
         {collapsed
           ? null
           : <React.Fragment>
-              <div className="line">
-                <ul className="codeComment">
-                  <li className="commentLine">{"/*"}</li>
-                  <li className="commentLine">
-                    <div className="markdownText commentBody">
+              <Line>
+                <CodeComment>
+                  <CommentListItem>{"/*"}</CommentListItem>
+                  <CommentListItem>
+                    <MarkdownText>
                       <ReactMarkdown source={body} />
-                    </div>
-                  </li>
-                  <li className="commentLine">{"*/"}</li>
-                </ul>
-              </div>
+                    </MarkdownText>
+                  </CommentListItem>
+                  <CommentListItem>{"*/"}</CommentListItem>
+                </CodeComment>
+              </Line>
               {replyList.map(child =>
-                <div key={child.id}>
+                <Indentation key={child.id} depth={1}>
                   {child.body
                     ? <Comment {...props} data={child} isChild={true} />
                     : null
                   }
-                </div>
+                </Indentation>
               )}
             </React.Fragment>
         }
-      </div>
       <div className={closingLineStyles}>
         {closingLineText}
       </div>
     </React.Fragment>
   );
-}
-
-export default JavaScriptComment;
+};

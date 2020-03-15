@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+// import PropTypes from 'prop-types';
 import Image from "./image";
+import Checkbox from '../checkbox';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
 import { replaceAll } from '../../utils/string';
@@ -10,29 +12,34 @@ function Preview(props) {
   // set initial show state to be showAllPreviews
   const [showPreview, togglePreview] = useState(showAllPreviews);
   const shown = showAllPreviews === true ? showAllPreviews : showPreview;
-  const iconStyle = shown ? 'far fa-minus-square' : 'far fa-plus-square';
-  const icon = <i className={iconStyle} onClick={() => togglePreview(!showPreview)}></i>;
-
   const dotString = !useSemicolon ? '"..."' : '"...";';
-
-  const iconStyles = hideIcon ? "string selftext_preview hideIcon" : "string selftext_preview";
   // remove bad characters sometimes sent by reddit
   const updatedMarkdown = markdownText && markdownText !== '' ? replaceAll(markdownText, '&amp;#x200B;', '') : "";
+
+  const checkbox = !hideIcon && (
+    <Checkbox
+      checked={shown}
+      onChange={() => togglePreview(!showPreview)}
+      bgColor='#4A4E63'
+      checkCheckedColor='#A1EF9D'
+    />
+  );
+
   if (isImage) {
     if (shown) {
       return (
         <React.Fragment>
-          <span className={iconStyles}>{icon}</span>
+          {checkbox}
           <Image imageURL={url} imageTitle={title} />
         </React.Fragment>
       );
     }
-    return (icon);
+    return (checkbox);
   } else {
     if (shown) {
       return (
         <React.Fragment>
-          <span className={iconStyles}>{icon}</span>
+          {checkbox}
           <div className="cancelMargin string selftext_preview">
             <ReactMarkdown source={updatedMarkdown} />
           </div>
@@ -41,7 +48,7 @@ function Preview(props) {
     }
     return (
       <React.Fragment>
-        {dotString} {icon}
+        {dotString}{checkbox}
       </React.Fragment>
     );
   }

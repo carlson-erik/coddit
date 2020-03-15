@@ -4,8 +4,11 @@ import ReactMarkdown from 'react-markdown';
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
+// ---------- Styled Components ----------
+import Indentation from '../../../../styled-components/indentation';
 
-const CSharpComment = (props) => {
+
+export default function CSharpComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -92,7 +95,9 @@ const CSharpComment = (props) => {
               {replyList.map(child =>
                 <div key={child.id}>
                   {child.body
-                    ? <Comment {...props} data={child} isChild={true} />
+                    ? <Indentation depth={1}>
+                        <Comment {...props} data={child} isChild={true} />
+                      </Indentation>
                     : null
                   }
                 </div>
@@ -105,6 +110,4 @@ const CSharpComment = (props) => {
       </div>
     </React.Fragment>
   );
-}
-
-export default CSharpComment;
+};
