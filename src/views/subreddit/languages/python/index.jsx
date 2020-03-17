@@ -70,7 +70,6 @@ const PythonHeader = (props) => {
             placeholder={"\"" + itemLimit + "\""}
           />
         </Keyword>
-        
       </Line>
     </Indentation>
   );
