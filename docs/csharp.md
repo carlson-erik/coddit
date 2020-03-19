@@ -12,9 +12,8 @@
     * class
     * class -> name
 2. Post
-    * something
-3. Something
-    * something
+    * var
+    * String -> Preview
 
 ## Components
 1. Comment
