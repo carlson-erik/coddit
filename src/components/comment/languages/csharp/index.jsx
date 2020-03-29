@@ -1,113 +1,131 @@
 import React from 'react';
+import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
+import Keyword from '../../../../styled-components/keyword';
+import Line from '../../../../styled-components/line';
 import Indentation from '../../../../styled-components/indentation';
+import CodeComment from '../../../../styled-components/comment/code-comment';
+import MarkdownText from '../../../../styled-components/comment/markdown-text';
+import CommentToggle from '../../../../styled-components/comment/comment-toggle';
 
+const String = styled(Keyword)`
+  color: green;
+`;
+
+const CommentListItem = styled.li`
+  color: grey;
+  & a {
+    color: grey;
+  }
+`;
+
+const Submitter = styled(Keyword)`
+  color: red;
+`;
 
 export default function CSharpComment(props) {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName, commentType, closingLineStyles, commentTypeStyle, closingLineText;
+  let authorName, commentType, closingLineText, indentationDepth;
 
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <span className="string">"<span className="submitter">{author}</span>"</span>
+    authorName = <String>"<Submitter>{author}</Submitter>"</String>
   } else {
-    authorName = <span className="string">"{author}"</span>
+    authorName = <String>"{author}"</String>
   }
 
   // Change presentation based on whether or not we're a child comment
   if (isChild) {
     // set comment object name
     commentType = 'childComment';
-    commentTypeStyle = 'commentType';
     // set the closing line styles
     closingLineText = "},";
-    closingLineStyles = 'line';
+    indentationDepth = 0;
   } else {
     // set comment object name
     commentType = 'comment';
-    commentTypeStyle = `commentType initialComment`;
     // set the closing line styles
     closingLineText = "};";
-    closingLineStyles = `line closingLine`;
+    indentationDepth = 1;
   }
 
   return (
     <React.Fragment>
-      <div className="comment">
-        <div className={`line toggleLine`}>
-          <div onClick={() => { hideShowComment() }} className="commentToggle">
-            {collapsed ? "[+]" : "[-]"}
-          </div>
-          {!isChild
-            ? <span className="commentVar">var</span>
-            : null
-          }
-          <span className={commentTypeStyle}>{commentType}</span> = <span className="commentNew">new</span> {"{"}
-        </div>
-        <div className="commentHeader">
-          <div className='line'>
-            <span className="commentVarName">author</span>= {authorName},
-          </div>
-          <div className='line'>
-            <span className="commentVarName">score</span>= <span className={scoreStyles}>{score}</span>,
-          </div>
-          <div className='line'>
-            <span className="commentVarName">commentAge</span>= <span className='string'>"{commentAge}"</span>,
-          </div>
-          {all_awardings.length > 0
-            ? <div className='line'>
-                <span className="commentVarName">gildings</span> = [
-                                  <span className="awardings">
-                  {all_awardings.map((award, index) =>
+      <Line>
+        <CommentToggle onClick={() => {hideShowComment()}}>
+          {collapsed ? "[+]" : "[-]"}
+        </CommentToggle>
+        {!isChild
+          ? <Keyword rightSpace={true}>var</Keyword>
+          : null
+        }
+        <Keyword rightSpace={true}>{commentType}</Keyword> {'='} <Keyword leftSpace={true} rightSpace={true}>new</Keyword> {"{"}
+      </Line>
+      <div className="commentHeader">
+        <Line>
+          <Keyword rightSpace={true}>author</Keyword>= {authorName},
+        </Line>
+        <Line>
+          <Keyword rightSpace={true}>score</Keyword>= <span className={scoreStyles}>{score}</span>,
+        </Line>
+        <Line>
+          <Keyword rightSpace={true}>commentAge</Keyword>= <String>"{commentAge}"</String>,
+        </Line>
+        {all_awardings.length > 0
+          ? <Line>
+              <Keyword rightSpace={true}>gildings</Keyword> = [
+              <span className="awardings">
+                {all_awardings.map((award, index) =>
                     <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
                       {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                     </span>
                   )}
-                </span>
-                ],
-              </div>
-            : null
-          }
-        </div>
-        {collapsed
-          ? null
-          : <React.Fragment>
-              <div className="line">
-                <ul className="codeComment">
-                  <li className="commentLine">{"/*"}</li>
-                  <li className="commentLine">
-                    <div className={`markdownText commentBody`}>
-                      <ReactMarkdown source={body} />
-                    </div>
-                  </li>
-                  <li className="commentLine">{"*/"}</li>
-                </ul>
-              </div>
-              {replyList.map(child =>
-                <div key={child.id}>
-                  {child.body
-                    ? <Indentation depth={1}>
-                        <Comment {...props} data={child} isChild={true} />
-                      </Indentation>
-                    : null
-                  }
-                </div>
-              )}
-            </React.Fragment>
+              </span>
+              ],
+            </Line>
+          : null
         }
       </div>
-      <div className={closingLineStyles}>
-        {closingLineText}
-      </div>
+      {collapsed
+        ? null
+        : <React.Fragment>
+          <Line>
+            <CodeComment>
+              <CommentListItem>{"/*"}</CommentListItem>
+              <CommentListItem>
+                <MarkdownText>
+                  <ReactMarkdown source={body} />
+                </MarkdownText>
+              </CommentListItem>
+              <CommentListItem>{"*/"}</CommentListItem>
+            </CodeComment>
+          </Line>
+          {replyList.map(child =>
+            <div key={child.id}>
+              {child.body
+                ? <Indentation depth={1}>
+                  <Comment {...props} data={child} isChild={true} />
+                </Indentation>
+                : null
+              }
+            </div>
+          )}
+        </React.Fragment>
+      }
+      <Indentation depth={indentationDepth}>
+        <Line>
+          {closingLineText}
+        </Line>
+      </Indentation>
     </React.Fragment>
   );
 };
