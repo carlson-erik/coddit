@@ -188,7 +188,7 @@ function Body(props) {
             <Page key={page.pageID} depth={1}>
               {page.itemList.map(comment => 
                 <div key={comment.id}>
-                  <Comment data={comment} progLang="javascript" />
+                  <Comment data={comment} progLang="csharp" />
                 </div>
               )}
             </Page>
