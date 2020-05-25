@@ -28,12 +28,12 @@ const Submitter = styled(Keyword)`
   color: red;
 `;
 
-export default function CSharpComment(props) {
+const CSharpComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName, commentType, closingLineText, indentationDepth;
+  let authorName, commentType, closingLineText;
 
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
@@ -49,13 +49,11 @@ export default function CSharpComment(props) {
     commentType = 'childComment';
     // set the closing line styles
     closingLineText = "},";
-    indentationDepth = 0;
   } else {
     // set comment object name
     commentType = 'comment';
     // set the closing line styles
     closingLineText = "};";
-    indentationDepth = 1;
   }
 
   return (
@@ -70,7 +68,7 @@ export default function CSharpComment(props) {
         }
         <Keyword rightSpace={true}>{commentType}</Keyword> {'='} <Keyword leftSpace={true} rightSpace={true}>new</Keyword> {"{"}
       </Line>
-      <div className="commentHeader">
+      <Indentation depth={1}>
         <Line>
           <Keyword rightSpace={true}>author</Keyword>= {authorName},
         </Line>
@@ -94,8 +92,7 @@ export default function CSharpComment(props) {
             </Line>
           : null
         }
-      </div>
-      {collapsed
+        {collapsed
         ? null
         : <React.Fragment>
           <Line>
@@ -121,11 +118,12 @@ export default function CSharpComment(props) {
           )}
         </React.Fragment>
       }
-      <Indentation depth={indentationDepth}>
-        <Line>
-          {closingLineText}
-        </Line>
       </Indentation>
+      <Line>
+        {closingLineText}
+      </Line>
     </React.Fragment>
   );
 };
+
+export default CSharpComment;

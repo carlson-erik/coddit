@@ -21,7 +21,7 @@ function cleanText(text) {
   return replaceAll(text, '&amp;#x200B;', '')
 }
 
-function Comment(props) {
+const Comment = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const { data, progLang } = props;
   const hideShowComment = () => {

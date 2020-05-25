@@ -33,7 +33,7 @@ const Submitter = styled(Keyword)`
   color: red;
 `;
 
-export default function PythonComment(props) {
+const PythonComment = (props) => {
   const { data, replyList, collapsed, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   // const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -104,3 +104,5 @@ export default function PythonComment(props) {
     </React.Fragment>
   );
 };
+
+export default PythonComment;

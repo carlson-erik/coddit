@@ -29,7 +29,7 @@ const Submitter = styled(Keyword)`
   color: red;
 `;
 
-export default function JavaScriptComment(props) {
+const JavaScriptComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
@@ -65,68 +65,70 @@ export default function JavaScriptComment(props) {
 
   return (
     <React.Fragment>
+      <Line>
+        <CommentToggle onClick={() => { hideShowComment() }}>
+          {collapsed ? "[+]" : "[-]"}
+        </CommentToggle>
+        {!isChild
+          ? <Keyword rightSpace={true}>const</Keyword>
+          : null
+        }
+        <span className={commentTypeStyle}>{commentType}</span> {commentAssignmentText} {"{"}
+      </Line>
+      <Indentation depth={1}>
         <Line>
-          <CommentToggle onClick={() => {hideShowComment()}}>
-            {collapsed ? "[+]" : "[-]"}
-          </CommentToggle>
-          {!isChild
-            ? <Keyword rightSpace={true}>const</Keyword>
-            : null
-          }
-          <span className={commentTypeStyle}>{commentType}</span> {commentAssignmentText} {"{"}
-        </Line>
-        <div className="commentHeader">
-          <Line>
-            <Keyword leftSpace={true}>author</Keyword>: {authorName},
+          <Keyword leftSpace={true}>author</Keyword>: {authorName},
           </Line>
-          <Line>
-            <Keyword leftSpace={true}>score</Keyword>: <span className={scoreStyles}>{score}</span>,
+        <Line>
+          <Keyword leftSpace={true}>score</Keyword>: <span className={scoreStyles}>{score}</span>,
           </Line>
-          {all_awardings.length > 0
-            ? <Line>
-                <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>: [
+        {all_awardings.length > 0
+          ? <Line>
+            <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>: [
                   <span className="awardings">
-                    {all_awardings.map((award, index) =>
-                      <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
-                        {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
-                      </span>
-                    )}
+              {all_awardings.map((award, index) =>
+                <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
+                  {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                 </span>
+              )}
+            </span>
                 ],
               </Line>
-            : null
-          }
-          <Line>
-            <Keyword leftSpace={true}>commentAge</Keyword>: <String>"{commentAge}"</String>,
+          : null
+        }
+        <Line>
+          <Keyword leftSpace={true}>commentAge</Keyword>: <String>"{commentAge}"</String>,
           </Line>
-        </div>
         {collapsed
           ? null
           : <React.Fragment>
-              <Line>
-                <CodeComment>
-                  <CommentListItem>{"/*"}</CommentListItem>
-                  <CommentListItem>
-                    <MarkdownText>
-                      <ReactMarkdown source={body} />
-                    </MarkdownText>
-                  </CommentListItem>
-                  <CommentListItem>{"*/"}</CommentListItem>
-                </CodeComment>
-              </Line>
-              {replyList.map(child =>
-                <Indentation key={child.id} depth={1}>
-                  {child.body
-                    ? <Comment {...props} data={child} isChild={true} />
-                    : null
-                  }
-                </Indentation>
-              )}
-            </React.Fragment>
+            <Line>
+              <CodeComment>
+                <CommentListItem>{"/*"}</CommentListItem>
+                <CommentListItem>
+                  <MarkdownText>
+                    <ReactMarkdown source={body} />
+                  </MarkdownText>
+                </CommentListItem>
+                <CommentListItem>{"*/"}</CommentListItem>
+              </CodeComment>
+            </Line>
+            {replyList.map(child =>
+              <Indentation key={child.id} depth={1}>
+                {child.body
+                  ? <Comment {...props} data={child} isChild={true} />
+                  : null
+                }
+              </Indentation>
+            )}
+          </React.Fragment>
         }
-      <div className={closingLineStyles}>
+      </Indentation>
+      <Line>
         {closingLineText}
-      </div>
+      </Line>
     </React.Fragment>
   );
 };
+
+export default JavaScriptComment;
