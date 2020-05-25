@@ -10,11 +10,7 @@ import { getSubreddit } from '../../../../utils/route-params';
 import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
-import Keyword from '../../../../styled-components/keyword';
-import KeywordLink from '../../../../styled-components/keyword-link';
-import Line from '../../../../styled-components/line';
-import Page from '../../../../styled-components/page';
-import Indentation from '../../../../styled-components/indentation';
+import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
 import PostInformation from '../../../../styled-components/post/post-information';
 
 const String = styled(Keyword)`

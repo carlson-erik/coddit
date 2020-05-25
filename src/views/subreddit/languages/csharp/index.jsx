@@ -8,11 +8,7 @@ import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 // ---------- Styled Components ----------
-import Keyword from '../../../../styled-components/keyword';
-import KeywordLink from '../../../../styled-components/keyword-link';
-import Line from '../../../../styled-components/line';
-import Page from '../../../../styled-components/page';
-import Indentation from '../../../../styled-components/indentation';
+import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
 
 const StringLink = styled(KeywordLink)`
   color: green;

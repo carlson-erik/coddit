@@ -6,10 +6,7 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
-import Keyword from '../../../../styled-components/keyword';
-import KeywordLink from '../../../../styled-components/keyword-link';
-import Line from '../../../../styled-components/line';
-import Indentation from '../../../../styled-components/indentation';
+import { Keyword, KeywordLink, Line, Indentation } from '../../../../styled-components';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';

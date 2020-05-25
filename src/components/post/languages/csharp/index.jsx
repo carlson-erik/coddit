@@ -6,10 +6,10 @@ import Preview from '../../../preview';
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import Keyword from '../../../../styled-components/keyword';
-import KeywordLink from '../../../../styled-components/keyword-link';
-import Line from '../../../../styled-components/line';
-import Indentation from '../../../../styled-components/indentation';
+import { Keyword } from '../../../../styled-components';
+import { KeywordLink } from '../../../../styled-components';
+import { Line } from '../../../../styled-components';
+import { Indentation } from '../../../../styled-components';
 import PostInformation from '../../../../styled-components/post/post-information';
 
 const String = styled(Keyword)`
@@ -24,7 +24,7 @@ const Submitter = styled(Keyword)`
   color: red;
 `;
 
-export default function CSharpPost(props) {
+const CSharpPost = (props) => {
   const { post, showAllPreviews } = props;
   // Hide NSFW/over_18 content until toggle has been introduced
   if (post.over_18)
@@ -133,3 +133,5 @@ export default function CSharpPost(props) {
     </div>
   )
 };
+
+export default CSharpPost;

@@ -2,8 +2,7 @@ import React from "react";
 // ---------- Components ----------
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
-import Line from '../../../../styled-components/line';
-import Indentation from '../../../../styled-components/indentation';
+import { Line, Indentation } from '../../../../styled-components/';
 // ---------- Constants ----------
 import {themeOptions, progLangList} from '../../../../utils/constants';
 

@@ -3,9 +3,7 @@ import styled from 'styled-components'
 // ---------- Components ----------
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
-import Line from '../../../../styled-components/line';
-import Keyword from '../../../../styled-components/keyword';
-import Indentation from '../../../../styled-components/indentation';
+import { Line, Indentation, Keyword } from '../../../../styled-components/';
 // ---------- Constants ----------
 import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
 

@@ -6,10 +6,7 @@ import Preview from '../../../preview';
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import Keyword from '../../../../styled-components/keyword';
-import KeywordLink from '../../../../styled-components/keyword-link';
-import Line from '../../../../styled-components/line';
-import Indentation from '../../../../styled-components/indentation';
+import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
 import PostInformation from '../../../../styled-components/post/post-information';
 
 const String = styled(Keyword)`
@@ -20,11 +17,7 @@ const StringLink = styled(KeywordLink)`
   color: green;
 `;
 
-const Submitter = styled(Keyword)`
-  color: red;
-`;
-
-export default function JavaScriptPost(props) {
+const JavaScriptPost = (props) => {
   const { post, showAllPreviews } = props;
   // Hide NSFW/over_18 content until toggle has been introduced
   if (post.over_18)
@@ -85,31 +78,29 @@ export default function JavaScriptPost(props) {
       <Indentation depth={1}>
         <PostInformation>
           <Line>
-            <span className="const">const</span>
-            <Keyword leftSpace={true} rightSpace={true}>full_title</Keyword>=
+            <Keyword rightSpace={true}>const</Keyword>
+            <Keyword rightSpace={true}>full_title</Keyword>=
 					  <String leftSpace={true}>"{title}"</String>;
           </Line>
           <Line>
-            <span className="const">const</span>
-            <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-						<String leftSpace={true}>"<Submitter>{author}</Submitter>"</String>;
+            <Keyword rightSpace={true}>const</Keyword>
+            <Keyword rightSpace={true}>author</Keyword>=
+						<String leftSpace={true}>"{author}"</String>;
           </Line>
           <Line>
-            <span className="const">const</span>
-            <Keyword leftSpace={true} rightSpace={true}>post_age</Keyword>=
+            <Keyword rightSpace={true}>const</Keyword>
+            <Keyword rightSpace={true}>post_age</Keyword>=
 						<String leftSpace={true}>"{postAge}"</String>;
           </Line>
           {all_awardings.length > 0
             ? <Line>
-                <span className="const">const</span>
-                <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>= [
-                <span className="awardings">
-                  {all_awardings.map((award, index) =>
-                    <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
-                      {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
-                    </span>
-                  )}
+              <Keyword rightSpace={true}>const</Keyword>
+              <Keyword rightSpace={true}>gildings</Keyword>= [
+                {all_awardings.map((award, index) =>
+                <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
+                  {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                 </span>
+              )}
                 ];
               </Line>
             : null
@@ -129,4 +120,6 @@ export default function JavaScriptPost(props) {
       </Line>
     </div>
   )
-}
+};
+
+export default JavaScriptPost;

@@ -17,8 +17,11 @@
 
 ## Components
 1. Comment
-    * something
+    * String = Submitter
+    * Object
+    * Object Variable
+    * Score (integer)
 2. Post
-    * something
+    * None new
 3. Editor Settings
-    * something
+    * None new

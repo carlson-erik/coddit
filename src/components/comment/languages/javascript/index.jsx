@@ -6,9 +6,7 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
-import Keyword from '../../../../styled-components/keyword';
-import Line from '../../../../styled-components/line';
-import Indentation from '../../../../styled-components/indentation';
+import { Keyword, Line, Indentation } from '../../../../styled-components';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
@@ -34,7 +32,7 @@ const JavaScriptComment = (props) => {
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName, commentType, commentTypeStyle, commentAssignmentText, closingLineText, closingLineStyles;
+  let authorName, commentType, commentTypeStyle, commentAssignmentText, closingLineText;
 
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
@@ -52,7 +50,6 @@ const JavaScriptComment = (props) => {
     commentTypeStyle = 'commentType';
     // set the closing line styles
     closingLineText = '},';
-    closingLineStyles = 'line';
   } else {
     // set comment object name
     commentType = 'comment';
@@ -60,7 +57,6 @@ const JavaScriptComment = (props) => {
     commentTypeStyle = 'commentType initialComment';
     // set the closing line styles
     closingLineText = '};';
-    closingLineStyles = 'line closingLine';
   }
 
   return (
