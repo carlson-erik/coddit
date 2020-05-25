@@ -7,13 +7,10 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 import Comment from '../../index';
 // ---------- Styled Components ----------
 import { Keyword, Line, Indentation } from '../../../../styled-components';
+import { KarmaScore, String } from '../../../../styled-components/keywords';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
-
-const String = styled(Keyword)`
-  color: green;
-`;
 
 
 const CommentListItem = styled.li`
@@ -30,7 +27,6 @@ const Submitter = styled(Keyword)`
 const JavaScriptComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
-  const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
   let authorName, commentType, commentTypeStyle, commentAssignmentText, closingLineText;
 
@@ -76,7 +72,7 @@ const JavaScriptComment = (props) => {
           <Keyword leftSpace={true}>author</Keyword>: {authorName},
           </Line>
         <Line>
-          <Keyword leftSpace={true}>score</Keyword>: <span className={scoreStyles}>{score}</span>,
+          <Keyword leftSpace={true}>score</Keyword>: <KarmaScore score={score-10}>{score}</KarmaScore>,
           </Line>
         {all_awardings.length > 0
           ? <Line>
