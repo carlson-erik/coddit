@@ -1,25 +1,13 @@
 import React from "react";
-import styled from 'styled-components';
 // ---------- Components ----------
 import Preview from '../../../preview';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation } from '../../../../styled-components/';
+import { Keyword, Line, Indentation } from '../../../../styled-components/';
+import { String, StringLink } from '../../../../styled-components/keywords';
 import PostInformation from '../../../../styled-components/post/post-information';
-
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
-
-const Submitter = styled(Keyword)`
-  color: red;
-`;
 
 const PythonPost = (props) => {
   const { post, showAllPreviews } = props;
@@ -81,7 +69,7 @@ const PythonPost = (props) => {
           </Line>
           <Line>
             author =
-            <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"<Submitter>{author}</Submitter>"</StringLink>
+            <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</StringLink>
           </Line>
           <Line>
             post_age =

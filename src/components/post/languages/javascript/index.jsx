@@ -1,21 +1,13 @@
 import React from "react";
-import styled from 'styled-components';
 // ---------- Components ----------
 import Preview from '../../../preview';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation } from '../../../../styled-components/';
+import { Keyword, Line, Indentation } from '../../../../styled-components/';
+import { String, StringLink } from '../../../../styled-components/keywords';
 import PostInformation from '../../../../styled-components/post/post-information';
-
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
 
 const JavaScriptPost = (props) => {
   const { post, showAllPreviews } = props;

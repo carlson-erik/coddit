@@ -1,31 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation } from '../../../../styled-components';
-import { KarmaScore, String } from '../../../../styled-components/keywords';
+import { Keyword, Line, Indentation } from '../../../../styled-components';
+import { String, StringLink, Submitter, StringListItem } from '../../../../styled-components/keywords';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
-
-const StringListItem = styled.li`
-  color: green;
-  & a {
-    color: green;
-  }
-`;
-
-const Submitter = styled(Keyword)`
-  color: red;
-`;
 
 const PythonComment = (props) => {
   const { data, replyList, collapsed, hideShowComment } = props;

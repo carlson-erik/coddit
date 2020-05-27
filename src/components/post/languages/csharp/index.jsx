@@ -1,28 +1,13 @@
 import React from "react";
-import styled from 'styled-components';
 // ---------- Components ----------
 import Preview from '../../../preview';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword } from '../../../../styled-components';
-import { KeywordLink } from '../../../../styled-components';
-import { Line } from '../../../../styled-components';
-import { Indentation } from '../../../../styled-components';
+import { Keyword, Line, Indentation } from '../../../../styled-components';
+import { String, Submitter, StringLink } from '../../../../styled-components/keywords';
 import PostInformation from '../../../../styled-components/post/post-information';
-
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
-
-const Submitter = styled(Keyword)`
-  color: red;
-`;
 
 const CSharpPost = (props) => {
   const { post, showAllPreviews } = props;
