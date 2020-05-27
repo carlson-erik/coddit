@@ -7,9 +7,7 @@ import Comment from '../../index';
 // ---------- Styled Components ----------
 import { Keyword, Line, Indentation } from '../../../../styled-components';
 import { String, Submitter, CommentListItem } from '../../../../styled-components/keywords';
-import CodeComment from '../../../../styled-components/comment/code-comment';
-import MarkdownText from '../../../../styled-components/comment/markdown-text';
-import CommentToggle from '../../../../styled-components/comment/comment-toggle';
+import { CodeComment, MarkdownText, CommentToggle } from '../../../../styled-components/comment';
 
 const CSharpComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;

@@ -11,7 +11,7 @@ import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
 import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
-import PostInformation from '../../../../styled-components/post/post-information';
+import { PostInformation } from '../../../../styled-components/post';
 
 const String = styled(Keyword)`
   color: green;

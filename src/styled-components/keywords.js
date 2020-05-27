@@ -5,31 +5,37 @@ const KarmaScore = styled(Keyword)`
   color: ${props => props.score > 0 ? 'purple' : 'red' };
 `;
 
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
-
 const Submitter = styled(Keyword)`
   color: red;
 `;
 
-const CommentListItem = styled.li`
-  color: grey;
-  & a {
-    color: grey;
-  }
+/* ---------------- STRING ----------------*/
+const STRING_DEFAULT = 'green';
+const String = styled(Keyword)`
+  color: ${STRING_DEFAULT};
+`;
+
+const StringLink = styled(KeywordLink)`
+  color: ${STRING_DEFAULT};
 `;
 
 const StringListItem = styled.li`
-  color: green;
+  color: ${STRING_DEFAULT};
   & a {
-    color: green;
+    color: ${STRING_DEFAULT};
   }
 `;
+/* ---------------- STRING ----------------*/
+
+/* ---------------- COMMENT ----------------*/
+const COMMENT_DEFAULT = 'grey';
+const CommentListItem = styled.li`
+  color: ${COMMENT_DEFAULT};
+  & a {
+    color: ${COMMENT_DEFAULT};
+  }
+`;
+/* ---------------- COMMENT ----------------*/
 
 export {
   KarmaScore,

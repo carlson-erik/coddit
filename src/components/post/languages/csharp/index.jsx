@@ -7,7 +7,7 @@ import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
 import { Keyword, Line, Indentation } from '../../../../styled-components';
 import { String, Submitter, StringLink } from '../../../../styled-components/keywords';
-import PostInformation from '../../../../styled-components/post/post-information';
+import { PostInformation } from '../../../../styled-components/post';
 
 const CSharpPost = (props) => {
   const { post, showAllPreviews } = props;

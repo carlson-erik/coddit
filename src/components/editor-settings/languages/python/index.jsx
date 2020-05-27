@@ -1,15 +1,11 @@
 import React from 'react';
-import styled from 'styled-components'
 // ---------- Components ----------
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
-import { Line, Indentation, Keyword } from '../../../../styled-components/';
+import { Line, Indentation } from '../../../../styled-components/';
+import { String } from '../../../../styled-components/keywords';
 // ---------- Constants ----------
 import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
-
-const String = styled(Keyword)`
-  color: green;
-`;
 
 const PythonEditorSettings = (props) => {
 	const {settings, dropdownSelect} = props;

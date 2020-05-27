@@ -7,4 +7,6 @@ const PostInformation = styled.div`
   }
 `;
 
-export default PostInformation;
+export { 
+  PostInformation,
+};

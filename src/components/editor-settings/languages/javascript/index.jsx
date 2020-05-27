@@ -1,17 +1,11 @@
 import React from "react";
-import styled from 'styled-components';
 // ---------- Components ----------
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
-import { Keyword } from '../../../../styled-components/';
-import { Line } from '../../../../styled-components/';
-import { Indentation } from '../../../../styled-components/';
+import { Line, Indentation, Keyword } from '../../../../styled-components/';
+import { String } from '../../../../styled-components/keywords';
 // ---------- Constants ----------
 import {themeOptions, progLangList} from '../../../../utils/constants';
-
-const String = styled(Keyword)`
-  color: green;
-`;
 
 const JavaScriptEditorSettings = (props) => {
 	const {settings, dropdownSelect} = props;
