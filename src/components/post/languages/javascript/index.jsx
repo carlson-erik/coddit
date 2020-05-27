@@ -6,7 +6,7 @@ import Preview from '../../../preview';
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
+import { Keyword, KeywordLink, Line, Indentation } from '../../../../styled-components/';
 import PostInformation from '../../../../styled-components/post/post-information';
 
 const String = styled(Keyword)`

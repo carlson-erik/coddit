@@ -7,13 +7,10 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 import Comment from '../../index';
 // ---------- Styled Components ----------
 import { Keyword, KeywordLink, Line, Indentation } from '../../../../styled-components';
+import { KarmaScore, String } from '../../../../styled-components/keywords';
 import CodeComment from '../../../../styled-components/comment/code-comment';
 import MarkdownText from '../../../../styled-components/comment/markdown-text';
 import CommentToggle from '../../../../styled-components/comment/comment-toggle';
-
-const String = styled(Keyword)`
-  color: green;
-`;
 
 const StringLink = styled(KeywordLink)`
   color: green;

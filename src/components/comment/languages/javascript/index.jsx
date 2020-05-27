@@ -28,7 +28,7 @@ const JavaScriptComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName, commentType, commentTypeStyle, commentAssignmentText, closingLineText;
+  let authorName, commentType, commentAssignmentText, closingLineText;
 
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
@@ -40,18 +40,12 @@ const JavaScriptComment = (props) => {
 
   // Change presentation based on whether or not we're a child comment
   if (isChild) {
-    // set comment object name
     commentType = 'responseComment';
     commentAssignmentText = ': ';
-    commentTypeStyle = 'commentType';
-    // set the closing line styles
     closingLineText = '},';
   } else {
-    // set comment object name
     commentType = 'comment';
     commentAssignmentText = '= ';
-    commentTypeStyle = 'commentType initialComment';
-    // set the closing line styles
     closingLineText = '};';
   }
 
@@ -65,26 +59,24 @@ const JavaScriptComment = (props) => {
           ? <Keyword rightSpace={true}>const</Keyword>
           : null
         }
-        <span className={commentTypeStyle}>{commentType}</span> {commentAssignmentText} {"{"}
+        {`${commentType} ${commentAssignmentText} {`}
       </Line>
       <Indentation depth={1}>
         <Line>
           <Keyword leftSpace={true}>author</Keyword>: {authorName},
           </Line>
         <Line>
-          <Keyword leftSpace={true}>score</Keyword>: <KarmaScore score={score-10}>{score}</KarmaScore>,
+          <Keyword leftSpace={true}>score</Keyword>: <KarmaScore score={score - 10}>{score}</KarmaScore>,
           </Line>
         {all_awardings.length > 0
           ? <Line>
-            <Keyword leftSpace={true} rightSpace={true}>gildings</Keyword>: [
-                  <span className="awardings">
+            <Keyword leftSpace={true}>gildings</Keyword>: [
               {all_awardings.map((award, index) =>
                 <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
                   {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
                 </span>
               )}
-            </span>
-                ],
+              ],
               </Line>
           : null
         }
