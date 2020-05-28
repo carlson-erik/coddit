@@ -6,7 +6,7 @@ Classic
   chalky: #e5c07b
   lightDark: #7f848e
   dark: #5c6370
-  malibu: #61afefSUBMITTER
+  malibu: #61afef
   green: #98c379
   fountainBlue: #56b6c2
   invalid: #ffffff
