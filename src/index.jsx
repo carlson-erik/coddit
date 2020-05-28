@@ -14,18 +14,16 @@ import About from './views/about';
 import Post from './views/post';
 import Subreddit from './views/subreddit';
 import User from './views/user';
+// ---------- Themes ----------
+import {getTheme} from './themes';
 // ---------- Reset Default CSS ----------
 import './reset.css';
 
 const Coddit = (props) => {
-  const settingsChanged = () => {
-    const {updateSettings, settings} = props;
-		const newThemeName = localStorage.getItem("coddit_theme_name");
-		const newProgLang = localStorage.getItem("coddit_prog_lang");
-    // update the settings in state
-    const {itemLimit, showAllPreviews} = settings;
-    updateSettings(itemLimit, newProgLang, showAllPreviews, newThemeName);
-  }
+  const {colorTheme} = props.settings;
+  const { background, foreground } = getTheme(colorTheme);
+  document.body.style.backgroundColor = background;
+  document.body.style.color = foreground;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -37,6 +35,15 @@ const Coddit = (props) => {
       };
     }
   });
+
+  const settingsChanged = () => {
+    const {updateSettings, settings} = props;
+		const newThemeName = localStorage.getItem("coddit_theme_name");
+		const newProgLang = localStorage.getItem("coddit_prog_lang");
+    // update the settings in state
+    const {itemLimit, showAllPreviews} = settings;
+    updateSettings(itemLimit, newProgLang, showAllPreviews, newThemeName);
+  };
 
   return (
     <React.Fragment>

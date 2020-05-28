@@ -1,5 +1,5 @@
 const OneDark = { 
-  background: '#5c6370',
+  background: '#282c34',
   foreground: '#7f848e',
   values: {
     integer: '#d19a66',
