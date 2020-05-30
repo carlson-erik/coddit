@@ -2,8 +2,8 @@ import React from "react";
 // ---------- Components ----------
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
-import { Line, Indentation, Keyword } from '../../../../styled-components/';
-import { String } from '../../../../styled-components/keywords';
+import { Line, Indentation,  } from '../../../../styled-components/';
+import { Keyword } from '../../../../styled-components/keywords';
 // ---------- Constants ----------
 import {themeOptions, progLangList} from '../../../../utils/constants';
 
@@ -19,25 +19,25 @@ const JavaScriptEditorSettings = (props) => {
 				<Line>
 					<span className="const">const</span>
 					<Keyword leftSpace={true} rightSpace={true}>prog_lang</Keyword>=
-					<String leftSpace={true}>
+					<Keyword leftSpace={true}>
 						<Dropdown 
 							options={progLangList} 
 							onChange={(option) => dropdownSelect(option, 'progLang')} 
 							placeholder={`"${progLang}"`}
 						/>
-					</String>
+					</Keyword>
 					;
 				</Line>
 				<Line>
 				<span className="const">const</span>
 				<Keyword leftSpace={true} rightSpace={true}>theme_name</Keyword>= 
-				<String leftSpace={true}>
+				<Keyword leftSpace={true}>
 					<Dropdown 
 						options={themeOptions} 
 						onChange={(option) => dropdownSelect(option, 'theme')} 
 						placeholder={`"${colorTheme}"`}
 					/>
-				</String>
+				</Keyword>
 				;
 				</Line>
 			</Indentation>

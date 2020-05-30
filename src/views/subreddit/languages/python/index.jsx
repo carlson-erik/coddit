@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Dropdown from 'react-dropdown';
 // ---------- Components ----------
 import Checkbox from '../../../../components/checkbox';
@@ -8,11 +7,8 @@ import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames, linksFromMap } from '../../../../utils/constants';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
+import { Line, Indentation, Page } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 
 const PythonHeader = (props) => {
   const { settings, sort, subreddit, onChangeShowPreviews, onChangeSortBy, onChangeTimeFrame, onChangePostCount } = props;
@@ -22,7 +18,7 @@ const PythonHeader = (props) => {
     <Indentation depth={1}>
       <Line>
         curr_subreddit =
-        <StringLink leftSpace={true} href={"/r/" + subreddit}>"{subreddit}"</StringLink>
+        <KeywordLink leftSpace={true} href={"/r/" + subreddit}>"{subreddit}"</KeywordLink>
       </Line>
       <Line>
         show_all_previews =

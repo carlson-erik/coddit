@@ -5,8 +5,8 @@ import Preview from '../../../preview';
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword, Line, Indentation } from '../../../../styled-components/';
-import { String, StringLink } from '../../../../styled-components/keywords';
+import { Line, Indentation } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 import { PostInformation } from '../../../../styled-components/post';
 
 const JavaScriptPost = (props) => {
@@ -27,10 +27,10 @@ const JavaScriptPost = (props) => {
       <Line>
         <span className="const">const</span>
         <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
-        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>;
-        <String leftSpace={true}>
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
+        <Keyword leftSpace={true}>
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true} />
-        </String>
+        </Keyword>
       </Line>
     );
   } else if (is_self) {
@@ -40,9 +40,9 @@ const JavaScriptPost = (props) => {
         <Line>
           <span className="const">const</span>
           <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
-          <String leftSpace={true}>
+          <Keyword leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={true} markdownText={`"${selftext}";`} />
-          </String>
+          </Keyword>
         </Line>
       )
     }
@@ -52,7 +52,7 @@ const JavaScriptPost = (props) => {
       <Line>
         <span className="const">const</span>
         <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
-        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>;
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
       </Line>
     );
   }
@@ -64,7 +64,7 @@ const JavaScriptPost = (props) => {
         <span className='parameterName first'>score</span>=
         <span className="parameter">{ups}</span>,
         <Keyword leftSpace={true}>subreddit</Keyword>=
-        <StringLink href={"/" + subreddit_name_prefixed}>"{subreddit}"</StringLink>
+        <KeywordLink href={"/" + subreddit_name_prefixed}>"{subreddit}"</KeywordLink>
         ) {"{"}
       </Line>
       <Indentation depth={1}>
@@ -72,17 +72,17 @@ const JavaScriptPost = (props) => {
           <Line>
             <Keyword rightSpace={true}>const</Keyword>
             <Keyword rightSpace={true}>full_title</Keyword>=
-					  <String leftSpace={true}>"{title}"</String>;
+					  <Keyword leftSpace={true}>"{title}"</Keyword>;
           </Line>
           <Line>
             <Keyword rightSpace={true}>const</Keyword>
             <Keyword rightSpace={true}>author</Keyword>=
-						<String leftSpace={true}>"{author}"</String>;
+						<Keyword leftSpace={true}>"{author}"</Keyword>;
           </Line>
           <Line>
             <Keyword rightSpace={true}>const</Keyword>
             <Keyword rightSpace={true}>post_age</Keyword>=
-						<String leftSpace={true}>"{postAge}"</String>;
+						<Keyword leftSpace={true}>"{postAge}"</Keyword>;
           </Line>
           {all_awardings.length > 0
             ? <Line>

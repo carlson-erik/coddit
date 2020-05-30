@@ -5,8 +5,8 @@ import Preview from '../../../preview';
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword, Line, Indentation } from '../../../../styled-components';
-import { String, Submitter, StringLink } from '../../../../styled-components/keywords';
+import { Line, Indentation } from '../../../../styled-components';
+import { Keyword, KeywordLink, Submitter } from '../../../../styled-components/keywords';
 import { PostInformation } from '../../../../styled-components/post';
 
 const CSharpPost = (props) => {
@@ -27,7 +27,7 @@ const CSharpPost = (props) => {
       <Line>
         <span className="var">var</span>
         <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
-        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>;
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
         <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true} />
 
       </Line>
@@ -39,9 +39,9 @@ const CSharpPost = (props) => {
         <Line>
           <span className="var">var</span>
           <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
-          <String leftSpace={true}>
+          <Keyword leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={false} markdownText={`"${selftext}";`} />
-          </String>
+          </Keyword>
         </Line>
       )
     }
@@ -51,7 +51,7 @@ const CSharpPost = (props) => {
       <Line>
         <span className="var">var</span>
         <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
-        <StringLink href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
       </Line>
     );
   }
@@ -66,7 +66,7 @@ const CSharpPost = (props) => {
         <Keyword leftSpace={true}>{ups}</Keyword>,
         <Keyword leftSpace={true} rightSpace={true}>string</Keyword>
         <Keyword rightSpace={true}>subreddit</Keyword>=
-          <StringLink href={"/" + subreddit_name_prefixed} leftSpace={true} rightSpace={true}>"{subreddit}"</StringLink>
+          <KeywordLink href={"/" + subreddit_name_prefixed} leftSpace={true} rightSpace={true}>"{subreddit}"</KeywordLink>
         ) {"{"}
       </Line>
       <Indentation depth={1}>
@@ -74,17 +74,17 @@ const CSharpPost = (props) => {
           <Line>
             <span className="var">var</span>
             <Keyword leftSpace={true} rightSpace={true}>full_title</Keyword>=
-            <String leftSpace={true}>"{title}"</String>;
+            <Keyword leftSpace={true}>"{title}"</Keyword>;
           </Line>
           <Line>
             <span className="var">var</span>
             <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-            <String leftSpace={true} rightSpace={true}>"<Submitter>{author}</Submitter>"</String>;
+            <Keyword leftSpace={true} rightSpace={true}>"<Submitter>{author}</Submitter>"</Keyword>;
           </Line>
           <Line>
             <span className="var">var</span>
             <Keyword leftSpace={true} rightSpace={true}>post_age</Keyword>=
-            <String leftSpace={true} rightSpace={true}>"{postAge}"</String>;
+            <Keyword leftSpace={true} rightSpace={true}>"{postAge}"</Keyword>;
           </Line>
           {all_awardings.length > 0
               ? <Line>

@@ -10,16 +10,9 @@ import { getSubreddit } from '../../../../utils/route-params';
 import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
+import { Line, Indentation, Page } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 import { PostInformation } from '../../../../styled-components/post';
-
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
 
 const Submitter = styled(Keyword)`
   color: red;
@@ -32,7 +25,7 @@ function Configuration({ subreddit, sort, sortChange }) {
         <Line>
           <span className="const">const</span>
           <Keyword leftSpace={true} rightSpace={true}>curr_subreddit</Keyword>=
-          <StringLink href={"/r/" + subreddit} leftSpace={true}>"{subreddit}"</StringLink>;
+          <KeywordLink href={"/r/" + subreddit} leftSpace={true}>"{subreddit}"</KeywordLink>;
         </Line>
         <Line>
           <span className="codeComment">{"// Reddit Settings"}</span>
@@ -40,13 +33,13 @@ function Configuration({ subreddit, sort, sortChange }) {
         <Line>
           <span className="const">const</span>
           <Keyword leftSpace={true} rightSpace={true}>sort_by</Keyword>=
-          <String leftSpace={true}>
+          <Keyword leftSpace={true}>
             <Dropdown
               options={commentSortDisplayNames}
               onChange={sortChange}
               placeholder={"\"" + method + "\";"}
             />
-          </String>
+          </Keyword>
         </Line>
       </Indentation>
       <Line/>
@@ -74,10 +67,10 @@ function Header({ postHeaderData }) {
       <Line>
         <span className="const">const</span>
         <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
-          <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
-          <String leftSpace={true} >
+          <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
+          <Keyword leftSpace={true} >
             <Preview url={url} title={title} showAllPreviews={true} isImage={true} hideIcon={true} useSemicolon={true} />
-          </String>
+          </Keyword>
       </Line>
     );
   } else if (is_self) {
@@ -87,9 +80,9 @@ function Header({ postHeaderData }) {
         <Line>
           <span className="const">const</span>
           <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
-          <String leftSpace={true}>
+          <Keyword leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={true} isImage={false} hideIcon={true} useSemicolon={true} markdownText={`"${selftext}";`} />
-          </String>
+          </Keyword>
         </Line>
       )
     }
@@ -99,7 +92,7 @@ function Header({ postHeaderData }) {
       <Line>
         <span className="const">const</span>
         <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
-        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
+        <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
       </Line>
     );
   }
@@ -113,7 +106,7 @@ function Header({ postHeaderData }) {
           <span className='parameterName first'>score</span>=
           <span className="parameter">{score}</span>,
           <Keyword leftSpace={true}>subreddit</Keyword>=
-          <StringLink href={"/" + subreddit_name_prefixed}>"{subreddit}"</StringLink>
+          <KeywordLink href={"/" + subreddit_name_prefixed}>"{subreddit}"</KeywordLink>
           ) {"{"}
         </Line>
         <Indentation depth={1}>
@@ -121,17 +114,17 @@ function Header({ postHeaderData }) {
             <Line>
               <span className="const">const</span>
               <Keyword leftSpace={true} rightSpace={true}>full_title</Keyword>=
-                <String leftSpace={true}>"{title}"</String>;
+                <Keyword leftSpace={true}>"{title}"</Keyword>;
             </Line>
             <Line>
               <span className="const">const</span>
               <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-              <String leftSpace={true}>"<Submitter>{author}</Submitter>"</String>;
+              <Keyword leftSpace={true}>"<Submitter>{author}</Submitter>"</Keyword>;
             </Line>
             <Line>
               <span className="const">const</span>
               <Keyword leftSpace={true} rightSpace={true}>post_age</Keyword>=
-              <String leftSpace={true}>"{postAge}"</String>;
+              <Keyword leftSpace={true}>"{postAge}"</Keyword>;
             </Line>
             {all_awardings.length > 0
               ? <Line>

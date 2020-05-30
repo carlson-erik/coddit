@@ -5,8 +5,8 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
-import { Keyword, Line, Indentation } from '../../../../styled-components';
-import { KarmaScore, String, Submitter, CommentListItem } from '../../../../styled-components/keywords';
+import { Line, Indentation } from '../../../../styled-components';
+import { Keyword, KeywordListItem, KarmaScore, Submitter } from '../../../../styled-components/keywords';
 import { CodeComment, MarkdownText, CommentToggle } from '../../../../styled-components/comment';
 
 const JavaScriptComment = (props) => {
@@ -18,9 +18,9 @@ const JavaScriptComment = (props) => {
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <String>"<Submitter>{author}</Submitter>"</String>
+    authorName = <Keyword>"<Submitter>{author}</Submitter>"</Keyword>
   } else {
-    authorName = <String>"{author}"</String>
+    authorName = <Keyword>"{author}"</Keyword>
   }
 
   // Change presentation based on whether or not we're a child comment
@@ -66,20 +66,20 @@ const JavaScriptComment = (props) => {
           : null
         }
         <Line>
-          <Keyword leftSpace={true}>commentAge</Keyword>: <String>"{commentAge}"</String>,
+          <Keyword leftSpace={true}>commentAge</Keyword>: <Keyword>"{commentAge}"</Keyword>,
           </Line>
         {collapsed
           ? null
           : <React.Fragment>
             <Line>
               <CodeComment>
-                <CommentListItem>{"/*"}</CommentListItem>
-                <CommentListItem>
+                <KeywordListItem>{"/*"}</KeywordListItem>
+                <KeywordListItem>
                   <MarkdownText>
                     <ReactMarkdown source={body} />
                   </MarkdownText>
-                </CommentListItem>
-                <CommentListItem>{"*/"}</CommentListItem>
+                </KeywordListItem>
+                <KeywordListItem>{"*/"}</KeywordListItem>
               </CodeComment>
             </Line>
             {replyList.map(child =>

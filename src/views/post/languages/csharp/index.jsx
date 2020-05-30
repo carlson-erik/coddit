@@ -10,17 +10,9 @@ import { getSubreddit } from '../../../../utils/route-params';
 import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
+import { Line, Indentation, Page } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 import { PostInformation } from '../../../../styled-components/post';
-
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
-
 const Submitter = styled(Keyword)`
   color: red;
 `;
@@ -31,7 +23,7 @@ function Configuration ({ subreddit, sort, sortChange }) {
       <Indentation depth={1}>
         <Line>
           usingCurrentSubreddit.
-          <StringLink href={"/r/" + subreddit}>{subreddit}</StringLink>;
+          <KeywordLink href={"/r/" + subreddit}>{subreddit}</KeywordLink>;
         </Line>
         <Line>
           <span className="codeComment">{"// Reddit Settings"}</span>
@@ -69,10 +61,10 @@ function Header({ postHeaderData }) {
       <Line>
         <span className="var">var</span>
         <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
-        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
-        <String leftSpace={true}>
+        <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
+        <Keyword leftSpace={true}>
           <Preview url={url} title={title} showAllPreviews={true} useSemicolon={true} isImage={true} hideIcon={true} />
-        </String>
+        </Keyword>
       </Line>
     );
   } else if (is_self) {
@@ -84,9 +76,9 @@ function Header({ postHeaderData }) {
             <span className="var">var</span>
             <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
           </div>
-          <String>
+          <Keyword>
             <Preview url={url} title={title} showAllPreviews={true} useSemicolon={true} isImage={false} hideIcon={true} markdownText={`"${selftext}";`} />
-          </String>
+          </Keyword>
         </Line>
       )
     }
@@ -96,7 +88,7 @@ function Header({ postHeaderData }) {
       <Line>
         <span className="var">var</span>
         <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
-        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>;
+        <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
       </Line>
     );
   }
@@ -112,7 +104,7 @@ function Header({ postHeaderData }) {
           <Keyword leftSpace={true}>{score}</Keyword>,
           <Keyword rightSpace={true} leftSpace={true}>string</Keyword>
           <Keyword rightSpace={true}>subreddit</Keyword>=
-          <StringLink leftSpace={true} rightSpace={true} href={"/" + subreddit_name_prefixed}>"{subreddit}"</StringLink>
+          <KeywordLink leftSpace={true} rightSpace={true} href={"/" + subreddit_name_prefixed}>"{subreddit}"</KeywordLink>
           ) {"{"}
         </Line>
         <Indentation depth={1}>
@@ -120,17 +112,17 @@ function Header({ postHeaderData }) {
             <Line>
               <span className="var">var</span>
               <Keyword leftSpace={true} rightSpace={true}>full_title</Keyword>=
-              <String leftSpace={true}>"{title}"</String>;
+              <Keyword leftSpace={true}>"{title}"</Keyword>;
             </Line>
             <Line>
               <span className="var">var</span>
               <Keyword leftSpace={true} rightSpace={true}>author</Keyword>=
-              <String leftSpace={true}>"<Submitter>{author}"</Submitter></String>;
+              <Keyword leftSpace={true}>"<Submitter>{author}"</Submitter></Keyword>;
             </Line>
             <Line>
               <span className="var">var</span>
               <Keyword leftSpace={true} rightSpace={true}>post_age</Keyword>=
-              <StringLink leftSpace={true}>"{postAge}"</StringLink>;
+              <KeywordLink leftSpace={true}>"{postAge}"</KeywordLink>;
             </Line>
             {all_awardings.length > 0
               ? <Line>

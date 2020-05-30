@@ -10,16 +10,9 @@ import { getSubreddit } from '../../../../utils/route-params';
 import Comment from '../../../../components/comment';
 import Preview from '../../../../components/preview';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
+import { Line, Indentation, Page } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 import { PostInformation } from '../../../../styled-components/post';
-
-const String = styled(Keyword)`
-  color: green;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
-`;
 
 const Submitter = styled(Keyword)`
   color: red;
@@ -31,20 +24,20 @@ function Configuration ({ subreddit, sort, sortChange }) {
     <Indentation depth={1}>
       <Line>
         curr_subreddit =
-        <StringLink href={"/r/" + subreddit} leftSpace={true} >"{subreddit}"</StringLink>
+        <KeywordLink href={"/r/" + subreddit} leftSpace={true} >"{subreddit}"</KeywordLink>
       </Line>
       <Line>
         <span className="codeComment"># Reddit Settings</span>
       </Line>
       <Line>
         sort_by =
-        <String leftSpace={true}>
+        <Keyword leftSpace={true}>
           <Dropdown
             options={commentSortDisplayNames}
             onChange={(option) => sortChange(option)}
             placeholder={"\"" + method + "\""}
           />
-        </String>
+        </Keyword>
       </Line>
     </Indentation>
   );
@@ -63,10 +56,10 @@ function Header({ postHeaderData: data }) {
     postContent = (
       <Line>
         image_link =
-        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
-        <String>
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
+        <Keyword>
           <Preview url={url} title={title} showAllPreviews={true} isImage={true} hideIcon={true} useSemicolon={false} />
-        </String>
+        </Keyword>
       </Line>
     );
   } else if (is_self) {
@@ -75,9 +68,9 @@ function Header({ postHeaderData: data }) {
       postContent = (
         <Line>
           self_text =
-          <String>
+          <Keyword>
             <Preview url={url} title={title} showAllPreviews={true} isImage={false} hideIcon={true} useSemicolon={false} markdownText={`"${selftext}"`} />
-          </String>
+          </Keyword>
         </Line>
       )
     }
@@ -86,7 +79,7 @@ function Header({ postHeaderData: data }) {
     postContent = (
       <Line>
         post_link =
-        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
       </Line>
     );
   }
@@ -97,21 +90,21 @@ function Header({ postHeaderData: data }) {
         <Keyword rightSpace={true}>def</Keyword>
         <a href={url} target="_blank" rel="noopener noreferrer" className="function">{shortTitle}</a>
         (score=<span className="parameter">{score}</span>,
-        sub=<StringLink href={subredditLink}>"{subreddit}"</StringLink><span className="symbol">):</span>
+        sub=<KeywordLink href={subredditLink}>"{subreddit}"</KeywordLink><span className="symbol">):</span>
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             full_title =
-						<String leftSpace={true}>"{title}"</String>
+						<Keyword leftSpace={true}>"{title}"</Keyword>
           </Line>
           <Line>
             author =
-						<StringLink href={`/user/${author.toLowerCase()}`} leftSpace={true}>"<Submitter>{author}</Submitter>"</StringLink>
+						<KeywordLink href={`/user/${author.toLowerCase()}`} leftSpace={true}>"<Submitter>{author}</Submitter>"</KeywordLink>
           </Line>
           <Line>
             post_age =
-						<String leftSpace={true}>"{postAge}"</String>
+						<Keyword leftSpace={true}>"{postAge}"</Keyword>
           </Line>
           {all_awardings.length > 0
             ? <Line>

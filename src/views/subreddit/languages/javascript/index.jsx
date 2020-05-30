@@ -8,14 +8,11 @@ import Post from '../../../../components/post'
 // ---------- JS Utilities ----------
 import { sortValues, itemLimitValues, linksFromDisplayNames } from '../../../../utils/constants';
 // ---------- Styled Components ----------
-import { Keyword, KeywordLink, Line, Indentation, Page } from '../../../../styled-components/';
+import { Line, Indentation, Page } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 
 const Integer = styled(Keyword)`
   color: orange!important;
-`;
-
-const StringLink = styled(KeywordLink)`
-  color: green;
 `;
 
 const JavaScriptHeader = (props) => {
@@ -27,7 +24,7 @@ const JavaScriptHeader = (props) => {
       <Line>
         <span className="const">const</span>
         <Keyword leftSpace={true} rightSpace={true}>curr_subreddit</Keyword>=
-        <StringLink href={"/r/" + subreddit} leftSpace={true}>"{subreddit}"</StringLink>;
+        <KeywordLink href={"/r/" + subreddit} leftSpace={true}>"{subreddit}"</KeywordLink>;
       </Line>
       <Line>
         <span className="const">const</span>

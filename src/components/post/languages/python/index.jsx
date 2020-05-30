@@ -5,8 +5,8 @@ import Preview from '../../../preview';
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
 // ---------- Styled Components ----------
-import { Keyword, Line, Indentation } from '../../../../styled-components/';
-import { String, StringLink } from '../../../../styled-components/keywords';
+import { Line, Indentation } from '../../../../styled-components/';
+import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
 import { PostInformation } from '../../../../styled-components/post';
 
 const PythonPost = (props) => {
@@ -26,10 +26,10 @@ const PythonPost = (props) => {
     postContent = (
       <Line>
         image_link =
-        <StringLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</StringLink>
-        <String>
+        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
+        <Keyword>
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={true} useSemicolon={false} />
-        </String>
+        </Keyword>
       </Line>
     );
   } else if (is_self) {
@@ -38,9 +38,9 @@ const PythonPost = (props) => {
       postContent = (
         <Line>
           self_text =
-          <String leftSpace={true}>
+          <Keyword leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={false} markdownText={`"${selftext}"`} />
-          </String>
+          </Keyword>
         </Line>
       )
     }
@@ -49,7 +49,7 @@ const PythonPost = (props) => {
     postContent = (
       <Line>
         post_link =
-        <StringLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</StringLink>
+        <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>
       </Line>
     );
   }
@@ -58,22 +58,22 @@ const PythonPost = (props) => {
       <Line>
         <Keyword rightSpace={true}>def</Keyword>
         <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>(<span className="parameter_name">score</span>=<span
-          className="parameter">{ups}</span>, <Keyword leftSpace={true}>sub</Keyword>=<StringLink href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</StringLink><span
+          className="parameter">{ups}</span>, <Keyword leftSpace={true}>sub</Keyword>=<KeywordLink href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</KeywordLink><span
             className="symbol">):</span>
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             full_title =
-            <String leftSpace={true}>"{title}"</String>
+            <Keyword leftSpace={true}>"{title}"</Keyword>
           </Line>
           <Line>
             author =
-            <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</StringLink>
+            <KeywordLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</KeywordLink>
           </Line>
           <Line>
             post_age =
-            <String leftSpace={true}>"{postAge}"</String>
+            <Keyword leftSpace={true}>"{postAge}"</Keyword>
           </Line>
           {all_awardings.length > 0
             ? <Line>

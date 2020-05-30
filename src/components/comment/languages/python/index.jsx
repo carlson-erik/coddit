@@ -5,8 +5,8 @@ import { getTimeDifferenceString } from '../../../../utils/time';
 // ---------- Components ----------
 import Comment from '../../index';
 // ---------- Styled Components ----------
-import { Keyword, Line, Indentation } from '../../../../styled-components';
-import { String, StringLink, Submitter, StringListItem } from '../../../../styled-components/keywords';
+import { Line, Indentation } from '../../../../styled-components';
+import { Keyword, KeywordLink, KeywordListItem, Submitter } from '../../../../styled-components/keywords';
 import { CodeComment, MarkdownText, CommentToggle } from '../../../../styled-components/comment';
 
 const PythonComment = (props) => {
@@ -17,14 +17,14 @@ const PythonComment = (props) => {
   let authorName;
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <String>"<Submitter>{author}</Submitter>"</String>
+    authorName = <Keyword>"<Submitter>{author}</Submitter>"</Keyword>
   } else {
-    authorName = <String>"{author}"</String>
+    authorName = <Keyword>"{author}"</Keyword>
   }
   authorName = (
-    <StringLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>
+    <KeywordLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>
       {authorName}
-    </StringLink>
+    </KeywordLink>
   )
   return (
     <React.Fragment>
@@ -35,7 +35,7 @@ const PythonComment = (props) => {
         author, score, age, gildings =
         {authorName},
         <Keyword leftSpace={true}>{score}</Keyword>,
-        <String leftSpace={true}>"{commentAge}"</String>,
+        <Keyword leftSpace={true}>"{commentAge}"</Keyword>,
         {all_awardings.length > 0
           ? <Keyword leftSpace={true}>
               [{all_awardings.map((award, index) =>
@@ -52,17 +52,17 @@ const PythonComment = (props) => {
         : <React.Fragment>
             <Line>
               <CodeComment>
-                <StringListItem>
+                <KeywordListItem>
                   '''
-                </StringListItem>
-                <StringListItem>
+                </KeywordListItem>
+                <KeywordListItem>
                   <MarkdownText>
                     <ReactMarkdown source={body} />
                   </MarkdownText>
-                </StringListItem>
-                <StringListItem>
+                </KeywordListItem>
+                <KeywordListItem>
                   '''
-                </StringListItem>
+                </KeywordListItem>
               </CodeComment>
             </Line>
             {replyList.map(child =>

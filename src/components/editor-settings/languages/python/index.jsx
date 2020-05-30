@@ -3,7 +3,7 @@ import React from 'react';
 import Dropdown from '../../../dropdown';
 // ---------- Styled-Components ----------
 import { Line, Indentation } from '../../../../styled-components/';
-import { String } from '../../../../styled-components/keywords';
+import { Keyword } from '../../../../styled-components/keywords';
 // ---------- Constants ----------
 import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
 
@@ -18,23 +18,23 @@ const PythonEditorSettings = (props) => {
 				</Line>
 				<Line>
 					prog_lang = 
-					<String leftSpace={true}>
+					<Keyword leftSpace={true}>
 						<Dropdown 
 							options={progLangList} 
 							onChange={(option) => dropdownSelect(option, 'progLang')} 
 							placeholder={"\"" + progLang + "\""}
 						/>
-					</String>
+					</Keyword>
 				</Line>
 				<Line>
 					theme_name = 
-					<String leftSpace={true}>
+					<Keyword leftSpace={true}>
 						<Dropdown 
 							options={themeSpacedOptions} 
 							onChange={(option) => dropdownSelect(option, 'theme')} 
 							placeholder={"\"" + themeMap[colorTheme] + "\""}
 						/>
-					</String>
+					</Keyword>
 				</Line>
 			</Indentation>
 		</header>
