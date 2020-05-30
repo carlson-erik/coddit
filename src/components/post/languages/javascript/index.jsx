@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 // ---------- Components ----------
 import Preview from '../../../preview';
 // ---------- JS Utilities ----------
 import { getTimeDifferenceString } from '../../../../utils/time';
 import { isImageLink } from '../../../../utils/image';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../../themes';
 // ---------- Styled Components ----------
 import { Line, Indentation } from '../../../../styled-components/';
 import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
@@ -11,6 +13,9 @@ import { PostInformation } from '../../../../styled-components/post';
 
 const JavaScriptPost = (props) => {
   const { post, showAllPreviews } = props;
+  const { theme } = useContext(ThemeContext);
+  const { string, integer } = theme.values;
+  const { functionName, functionWord, parameterName, variableName, constWord } = theme.languages.javascript;
   // Hide NSFW/over_18 content until toggle has been introduced
   if (post.over_18)
     return (null);
@@ -25,9 +30,9 @@ const JavaScriptPost = (props) => {
     // post is an image
     postContent = (
       <Line>
-        <span className="const">const</span>
-        <Keyword leftSpace={true} rightSpace={true}>image_link</Keyword>=
-        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
+        <Keyword rightSpace={true} color={constWord}>const</Keyword>
+        <Keyword rightSpace={true} color={variableName}>image_link</Keyword>=
+        <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
         <Keyword leftSpace={true}>
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true} />
         </Keyword>
@@ -38,8 +43,8 @@ const JavaScriptPost = (props) => {
     if (selftext !== '') {
       postContent = (
         <Line>
-          <span className="const">const</span>
-          <Keyword leftSpace={true} rightSpace={true}>self_text</Keyword>=
+          <Keyword rightSpace={true} color={constWord}>const</Keyword>
+          <Keyword rightSpace={true} color={variableName}>self_text</Keyword>=
           <Keyword leftSpace={true}>
             <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={true} markdownText={`"${selftext}";`} />
           </Keyword>
@@ -50,44 +55,45 @@ const JavaScriptPost = (props) => {
     // show link
     postContent = (
       <Line>
-        <span className="const">const</span>
-        <Keyword leftSpace={true} rightSpace={true}>post_link</Keyword>=
-        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
+        <Keyword rightSpace={true} color={constWord}>const</Keyword>
+        <Keyword rightSpace={true} color={variableName}>post_link</Keyword>=
+        <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
       </Line>
     );
   }
   return (
     <div>
       <Line>
-        <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>
+        <Keyword color={functionWord}>function</Keyword>
+        <KeywordLink leftSpace={true} color={functionName} href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</KeywordLink>
         (
-        <span className='parameterName first'>score</span>=
-        <span className="parameter">{ups}</span>,
-        <Keyword leftSpace={true}>subreddit</Keyword>=
-        <KeywordLink href={"/" + subreddit_name_prefixed}>"{subreddit}"</KeywordLink>
+        <Keyword color={parameterName}>score</Keyword>=
+        <Keyword color={integer}>{ups}</Keyword>,
+        <Keyword color={parameterName} leftSpace={true}>subreddit</Keyword>=
+        <KeywordLink color={string} href={"/" + subreddit_name_prefixed}>"{subreddit}"</KeywordLink>
         ) {"{"}
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
-            <Keyword rightSpace={true}>const</Keyword>
-            <Keyword rightSpace={true}>full_title</Keyword>=
-					  <Keyword leftSpace={true}>"{title}"</Keyword>;
+            <Keyword rightSpace={true} color={constWord}>const</Keyword>
+            <Keyword rightSpace={true} color={variableName}>full_title</Keyword>=
+					  <Keyword color={string} leftSpace={true}>"{title}"</Keyword>;
           </Line>
           <Line>
-            <Keyword rightSpace={true}>const</Keyword>
-            <Keyword rightSpace={true}>author</Keyword>=
-						<Keyword leftSpace={true}>"{author}"</Keyword>;
+            <Keyword rightSpace={true} color={constWord}>const</Keyword>
+            <Keyword rightSpace={true} color={variableName}>author</Keyword>=
+						<Keyword color={string} leftSpace={true}>"{author}"</Keyword>;
           </Line>
           <Line>
-            <Keyword rightSpace={true}>const</Keyword>
-            <Keyword rightSpace={true}>post_age</Keyword>=
-						<Keyword leftSpace={true}>"{postAge}"</Keyword>;
+            <Keyword rightSpace={true} color={constWord}>const</Keyword>
+            <Keyword rightSpace={true} color={variableName}>post_age</Keyword>=
+						<Keyword color={string} leftSpace={true}>"{postAge}"</Keyword>;
           </Line>
           {all_awardings.length > 0
             ? <Line>
-              <Keyword rightSpace={true}>const</Keyword>
-              <Keyword rightSpace={true}>gildings</Keyword>= [
+              <Keyword rightSpace={true} color={constWord}>const</Keyword>
+              <Keyword rightSpace={true} color={variableName}>gildings</Keyword>= [
                 {all_awardings.map((award, index) =>
                 <span className={`${award.name.toLowerCase()}-award`} key={award.name}>
                   {`${award.count}${award.name.substring(0, 1).toLowerCase()}${index === all_awardings.length - 1 ? '' : ','}`}
@@ -100,11 +106,11 @@ const JavaScriptPost = (props) => {
           {postContent}
         </PostInformation>
         <Line>
-          <span className="codeComment">{"// Load comments in current tab"}</span>
+          {"// Load comments in current tab"}
         </Line>
         <Line>
-          <a href={permalink} className="functionCall">loadComments
-          <span className="paren">(<span className="numComments">{num_comments}</span>);</span></a>
+          <KeywordLink color={functionName} href={permalink}>loadComments
+          (<Keyword color={integer}>{num_comments}</Keyword>);</KeywordLink>
         </Line>
       </Indentation>
       <Line>

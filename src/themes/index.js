@@ -1,3 +1,4 @@
+import React from 'react';
 import OneDark from './one-dark';
 import OneLight from './one-light';
 
@@ -10,10 +11,14 @@ const getTheme = (themeName) => {
       return OneDark;
     }
   }
-}
+};
+
+const ThemeContext = React.createContext({
+  theme: 'oneDark',
+  setTheme: () => {},
+});
 
 export {
   getTheme,
-  OneDark,
-  OneLight
+  ThemeContext
 }

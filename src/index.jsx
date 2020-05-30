@@ -15,13 +15,23 @@ import Post from './views/post';
 import Subreddit from './views/subreddit';
 import User from './views/user';
 // ---------- Themes ----------
-import {getTheme} from './themes';
+import {getTheme, ThemeContext} from './themes';
 // ---------- Reset Default CSS ----------
 import './reset.css';
 
 const Coddit = (props) => {
-  const {colorTheme} = props.settings;
-  const { background, foreground } = getTheme(colorTheme);
+  const {settings, updateSettings} = props;
+  const {colorTheme} = settings;
+
+  const value = {
+    theme: getTheme(colorTheme),
+    setTheme: (newThemeName) => {
+      const {itemLimit, showAllPreviews, progLang} = props.settings;
+      console.log('newThemeName: ', newThemeName);
+      updateSettings(itemLimit, progLang, showAllPreviews, newThemeName);
+    },
+  }
+  const { background, foreground } = value.theme;
   document.body.style.backgroundColor = background;
   document.body.style.color = foreground;
 
@@ -46,7 +56,7 @@ const Coddit = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <ThemeContext.Provider value={value}>
       <EditorSettings {...props}/>
       <Route
         exact
@@ -78,7 +88,7 @@ const Coddit = (props) => {
         path="/u/:user_id"
         render={(routeprops) => <User {...props} {...routeprops} />}
       />
-    </React.Fragment>
+    </ThemeContext.Provider>
   )
 };
 

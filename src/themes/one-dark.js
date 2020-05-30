@@ -20,7 +20,7 @@ const OneDark = {
       varName: '#e06c75',
     },
     javascript: {
-      const: '#c678dd',
+      constWord: '#c678dd',
       variableName: '#e5c07b',
       class: '#c678dd',
       className: '#e5c07b',
