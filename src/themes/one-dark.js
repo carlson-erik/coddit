@@ -6,18 +6,22 @@ const OneDark = {
     boolean: '#d19a66',
     string: '#98c379',
   },
+  general : {
+    comment: '#5c6370',
+  },
   languages: {
     csharp: {
       using: '#c678dd',
       namespace: '#c678dd',
       namespaceName: '#e5c07b',
-      public: '#c678dd',
+      publicWord: '#c678dd',
       class: '#c678dd',
       className: '#e5c07b',
       functionName: '#61afef',
+      parameterType: '#c678dd',
       parameterName: '',
-      var: '#c678dd',
-      varName: '#e06c75',
+      variableWord: '#c678dd',
+      variableName: '#e06c75',
     },
     javascript: {
       constWord: '#c678dd',
@@ -34,7 +38,6 @@ const OneDark = {
       def: '#c678dd',
       functionName: '#61afef',
       parameterName: '#d19a66',
-      comment: '#5c6370',
     },
   }
 };

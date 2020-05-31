@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 // ---------- Components ----------
-import Preview from '../../../preview';
+import Preview from '../../preview';
 // ---------- JS Utilities ----------
-import { getTimeDifferenceString } from '../../../../utils/time';
-import { isImageLink } from '../../../../utils/image';
+import { getTimeDifferenceString } from '../../../utils/time';
+import { isImageLink } from '../../../utils/image';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../themes';
 // ---------- Styled Components ----------
-import { Line, Indentation } from '../../../../styled-components/';
-import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
-import { PostInformation } from '../../../../styled-components/post';
+import { Line, Indentation } from '../../../styled-components';
+import { Keyword, KeywordLink } from '../../../styled-components/keywords';
+import { PostInformation } from '../../../styled-components/post';
 
 const PythonPost = (props) => {
   const { post, showAllPreviews } = props;
+  const { theme } = useContext(ThemeContext);
+  const { string, integer } = theme.values;
+  const { comment } = theme.general;
+  const { def, functionName, parameterName } = theme.languages.python;
+
   // Hide NSFW/over_18 content until toggle has been introduced
   if (post.over_18)
     return (null);
@@ -26,7 +33,7 @@ const PythonPost = (props) => {
     postContent = (
       <Line>
         image_link =
-        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
+        <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
         <Keyword>
           <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={true} useSemicolon={false} />
         </Keyword>
@@ -49,31 +56,33 @@ const PythonPost = (props) => {
     postContent = (
       <Line>
         post_link =
-        <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>
+        <KeywordLink color={string} leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>
       </Line>
     );
   }
   return (
     <div>
       <Line>
-        <Keyword rightSpace={true}>def</Keyword>
-        <a href={permalink} className="function">{shortTitleArray[shortTitleArray.length - 2]}</a>(<span className="parameter_name">score</span>=<span
-          className="parameter">{ups}</span>, <Keyword leftSpace={true}>sub</Keyword>=<KeywordLink href={"/" + subreddit_name_prefixed} className="parameter_string">"{subreddit}"</KeywordLink><span
-            className="symbol">):</span>
+        <Keyword color={def} rightSpace={true}>def</Keyword>
+        <KeywordLink href={permalink} color={functionName}>{shortTitleArray[shortTitleArray.length - 2]}</KeywordLink>
+        (<Keyword color={parameterName}>score</Keyword>=
+        <Keyword color={integer}>{ups}</Keyword>,
+        <Keyword color={parameterName} leftSpace={true}>sub</Keyword>=
+        <KeywordLink  color={string} href={"/" + subreddit_name_prefixed}>"{subreddit}"</KeywordLink>):
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             full_title =
-            <Keyword leftSpace={true}>"{title}"</Keyword>
+            <Keyword color={string} leftSpace={true}>"{title}"</Keyword>
           </Line>
           <Line>
             author =
-            <KeywordLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</KeywordLink>
+            <KeywordLink color={string} leftSpace={true} href={`/user/${author.toLowerCase()}`}>"{author}"</KeywordLink>
           </Line>
           <Line>
             post_age =
-            <Keyword leftSpace={true}>"{postAge}"</Keyword>
+            <Keyword color={string} leftSpace={true}>"{postAge}"</Keyword>
           </Line>
           {all_awardings.length > 0
             ? <Line>
@@ -92,10 +101,12 @@ const PythonPost = (props) => {
           {postContent}
         </PostInformation>
         <Line>
-          <span className="codeComment"># Load comments in current tab</span>
+          <Keyword color={comment}># Load comments in current tab</Keyword>
         </Line>
         <Line>
-          <a href={permalink} className="functionCall">loadComments({num_comments})</a>
+          <KeywordLink color={functionName} href={permalink}>
+            loadComments(<Keyword color={integer}>{num_comments}</Keyword>);
+          </KeywordLink>
         </Line>
       </Indentation>
     </div>

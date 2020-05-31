@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 // ---------- Components ----------
-import Preview from '../../../preview';
+import Preview from '../../preview';
 // ---------- JS Utilities ----------
-import { getTimeDifferenceString } from '../../../../utils/time';
-import { isImageLink } from '../../../../utils/image';
+import { getTimeDifferenceString } from '../../../utils/time';
+import { isImageLink } from '../../../utils/image';
 // ---------- Theme ----------
-import { ThemeContext } from '../../../../themes';
+import { ThemeContext } from '../../../themes';
 // ---------- Styled Components ----------
-import { Line, Indentation } from '../../../../styled-components/';
-import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
-import { PostInformation } from '../../../../styled-components/post';
+import { Line, Indentation } from '../../../styled-components';
+import { Keyword, KeywordLink } from '../../../styled-components/keywords';
+import { PostInformation } from '../../../styled-components/post';
 
 const JavaScriptPost = (props) => {
   const { post, showAllPreviews } = props;

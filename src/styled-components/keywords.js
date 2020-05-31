@@ -4,21 +4,21 @@ import { NEGATIVE_VOTES, SUBMITTER, POSITIVE_VOTES } from './theme';
 const Keyword = styled.span`
   margin-left: ${props => props.leftSpace ? '0.2rem' : '0'};
   margin-right: ${props => props.rightSpace ? '0.2rem' : '0'};
-  ${props => `color: ${props.color};` || ''}
+  ${props => props.color !== '' ? `color: ${props.color};` : ''}
 `;
 
 const KeywordLink = styled.a`
   margin-left: ${props => props.leftSpace ? '0.4rem' : '0'};
   margin-right: ${props => props.rightSpace ? '0.4rem' : '0'};
-  ${props => `color: ${props.color};` || ''}
+  ${props => props.color !== '' ? `color: ${props.color};` : ''}
 `;
 
 const KeywordListItem = styled.li`
-  ${props => `
+  ${props => props.color !== '' ? `
     color: ${props.color};
     & a {
       color: ${props.color};
-    }` || ''}
+    }` : ''}
 `;
 
 const KarmaScore = styled(Keyword)`
