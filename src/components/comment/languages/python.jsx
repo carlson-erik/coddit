@@ -1,31 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
-import { getTimeDifferenceString } from '../../../../utils/time';
+import { getTimeDifferenceString } from '../../../utils/time';
 // ---------- Components ----------
-import Comment from '../../index';
+import Comment from '../index';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../themes';
 // ---------- Styled Components ----------
-import { Line, Indentation } from '../../../../styled-components';
-import { Keyword, KeywordLink, KeywordListItem, Submitter } from '../../../../styled-components/keywords';
-import { CodeComment, MarkdownText, CommentToggle } from '../../../../styled-components/comment';
+import { Line, Indentation } from '../../../styled-components';
+import { Keyword, KeywordLink, KeywordListItem, Submitter } from '../../../styled-components/keywords';
+import { CodeComment, MarkdownText, CommentToggle } from '../../../styled-components/comment';
 
 const PythonComment = (props) => {
   const { data, replyList, collapsed, hideShowComment } = props;
+  const { theme } = useContext(ThemeContext);
+  const { string, integer } = theme.values;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
-  // const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName;
-  if (is_submitter) {
-    // Comment belongs to user who made the post, mark name to identify
-    authorName = <Keyword>"<Submitter>{author}</Submitter>"</Keyword>
-  } else {
-    authorName = <Keyword>"{author}"</Keyword>
-  }
-  authorName = (
-    <KeywordLink leftSpace={true} href={`/user/${author.toLowerCase()}`}>
-      {authorName}
-    </KeywordLink>
-  )
   return (
     <React.Fragment>
       <Line>
@@ -33,9 +24,15 @@ const PythonComment = (props) => {
           {collapsed ? "[+]" : "[-]"}
         </CommentToggle>
         author, score, age, gildings =
-        {authorName},
-        <Keyword leftSpace={true}>{score}</Keyword>,
-        <Keyword leftSpace={true}>"{commentAge}"</Keyword>,
+        <KeywordLink color={string} leftSpace={true} href={`/user/${author.toLowerCase()}`}>
+          {is_submitter
+            ? <Keyword>"<Submitter>{author}</Submitter>"</Keyword>
+            : <Keyword>"{author}"</Keyword>
+          }
+          {','}
+        </KeywordLink>
+        <Keyword color={integer} leftSpace={true}>{score}</Keyword>,
+        <Keyword color={string} leftSpace={true}>"{commentAge}"</Keyword>,
         {all_awardings.length > 0
           ? <Keyword leftSpace={true}>
               [{all_awardings.map((award, index) =>
@@ -51,7 +48,7 @@ const PythonComment = (props) => {
         ? null
         : <React.Fragment>
             <Line>
-              <CodeComment>
+              <CodeComment color={string}>
                 <KeywordListItem>
                   '''
                 </KeywordListItem>

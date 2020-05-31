@@ -8,7 +8,7 @@ import { isImageLink } from '../../../utils/image';
 import { ThemeContext } from '../../../themes';
 // ---------- Styled Components ----------
 import { Line, Indentation } from '../../../styled-components';
-import { Keyword, KeywordLink, Submitter } from '../../../styled-components/keywords';
+import { Keyword, KeywordLink } from '../../../styled-components/keywords';
 import { PostInformation } from '../../../styled-components/post';
 
 const CSharpPost = (props) => {
@@ -16,7 +16,7 @@ const CSharpPost = (props) => {
   const { theme } = useContext(ThemeContext);
   const { string, integer } = theme.values;
   const { comment } = theme.general;
-  const { publicWord, functionName, variableWord, variableName, parameterName, parameterType } = theme.languages.csharp;
+  const { publicWord, functionName, variableWord, variableName, parameterType } = theme.languages.csharp;
 
   // Hide NSFW/over_18 content until toggle has been introduced
   if (post.over_18)

@@ -1,40 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
-import { getTimeDifferenceString } from '../../../../utils/time';
+import { getTimeDifferenceString } from '../../../utils/time';
 // ---------- Components ----------
-import Comment from '../../index';
+import Comment from '../index';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../themes';
 // ---------- Styled Components ----------
-import { Line, Indentation } from '../../../../styled-components';
-import { Keyword, KeywordListItem, Submitter } from '../../../../styled-components/keywords';
-import { CodeComment, MarkdownText, CommentToggle } from '../../../../styled-components/comment';
+import { Line, Indentation } from '../../../styled-components';
+import { Keyword, KeywordListItem, Submitter, KarmaScore } from '../../../styled-components/keywords';
+import { CodeComment, MarkdownText, CommentToggle } from '../../../styled-components/comment';
 
 const CSharpComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
+  const { theme } = useContext(ThemeContext);
+  const { string } = theme.values;
+  const { comment, score: {ups, downs} } = theme.general;
+  const { variableName, variableWord, newWord, codeObject: {topLevel, child} } = theme.languages.csharp;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
-  const scoreStyles = score > 0 ? "positiveScore" : "negativeScore";
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName, commentType, closingLineText;
+  let authorName;
 
   //  Change presentation based on whether or not we're the submitter of the post 
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <Keyword>"<Submitter>{author}</Submitter>"</Keyword>
+    authorName = <Keyword color={string}>"<Submitter>{author}</Submitter>"</Keyword>
   } else {
-    authorName = <Keyword>"{author}"</Keyword>
-  }
-
-  // Change presentation based on whether or not we're a child comment
-  if (isChild) {
-    // set comment object name
-    commentType = 'childComment';
-    // set the closing line styles
-    closingLineText = "},";
-  } else {
-    // set comment object name
-    commentType = 'comment';
-    // set the closing line styles
-    closingLineText = "};";
+    authorName = <Keyword color={string}>"{author}"</Keyword>
   }
 
   return (
@@ -44,20 +36,31 @@ const CSharpComment = (props) => {
           {collapsed ? "[+]" : "[-]"}
         </CommentToggle>
         {!isChild
-          ? <Keyword rightSpace={true}>var</Keyword>
+          ? <Keyword color={variableWord} rightSpace={true}>var</Keyword>
           : null
         }
-        <Keyword rightSpace={true}>{commentType}</Keyword> {'='} <Keyword leftSpace={true} rightSpace={true}>new</Keyword> {"{"}
+        <Keyword color={isChild ? child : topLevel} rightSpace={true}>
+          {isChild ? 'childComment' : 'comment'}
+        </Keyword>{'='} 
+        <Keyword color={newWord} leftSpace={true} rightSpace={true}>new</Keyword>{"{"}
       </Line>
       <Indentation depth={1}>
         <Line>
-          <Keyword rightSpace={true}>author</Keyword>= {authorName},
+          <Keyword color={variableName} rightSpace={true}>author</Keyword>= {authorName},
         </Line>
         <Line>
-          <Keyword rightSpace={true}>score</Keyword>= <span className={scoreStyles}>{score}</span>,
+          <Keyword color={variableName} rightSpace={true}>score</Keyword>=
+          <KarmaScore 
+            leftSpace={true}
+            ups={ups}
+            downs={downs}
+            score={score}
+          >
+            {score}
+          </KarmaScore>,
         </Line>
         <Line>
-          <Keyword rightSpace={true}>commentAge</Keyword>= <Keyword>"{commentAge}"</Keyword>,
+          <Keyword color={variableName} rightSpace={true}>commentAge</Keyword>= <Keyword color={string}>"{commentAge}"</Keyword>,
         </Line>
         {all_awardings.length > 0
           ? <Line>
@@ -77,7 +80,7 @@ const CSharpComment = (props) => {
         ? null
         : <React.Fragment>
           <Line>
-            <CodeComment>
+            <CodeComment color={comment}>
               <KeywordListItem>{"/*"}</KeywordListItem>
               <KeywordListItem>
                 <MarkdownText>
@@ -101,7 +104,7 @@ const CSharpComment = (props) => {
       }
       </Indentation>
       <Line>
-        {closingLineText}
+        {isChild ? "},": '};'}
       </Line>
     </React.Fragment>
   );

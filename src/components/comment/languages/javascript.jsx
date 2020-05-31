@@ -1,37 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactMarkdown from 'react-markdown';
 // ---------- JS Utilities ----------
-import { getTimeDifferenceString } from '../../../../utils/time';
+import { getTimeDifferenceString } from '../../../utils/time';
 // ---------- Components ----------
-import Comment from '../../index';
+import Comment from '../index';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../themes';
 // ---------- Styled Components ----------
-import { Line, Indentation } from '../../../../styled-components';
-import { Keyword, KeywordListItem, KarmaScore, Submitter } from '../../../../styled-components/keywords';
-import { CodeComment, MarkdownText, CommentToggle } from '../../../../styled-components/comment';
+import { Line, Indentation } from '../../../styled-components';
+import { Keyword, KeywordListItem, KarmaScore, Submitter } from '../../../styled-components/keywords';
+import { CodeComment, MarkdownText, CommentToggle } from '../../../styled-components/comment';
 
 const JavaScriptComment = (props) => {
   const { data, replyList, collapsed, isChild, hideShowComment } = props;
+  const { theme } = useContext(ThemeContext);
+  const { string } = theme.values;
+  const { comment, score: {ups, downs} } = theme.general;
+  const { constWord, variableName, codeObject: {topLevel, child} } = theme.languages.javascript;
   const { all_awardings, body, score, is_submitter, author, created_utc } = data;
   const commentAge = getTimeDifferenceString(created_utc);
-  let authorName, commentType, commentAssignmentText, closingLineText;
-
-  //  Change presentation based on whether or not we're the submitter of the post 
+  let authorName ;
+  // Change object closing whether or not we're a child comment
+  let closingLineText = isChild ? '},' : '};';
+  //  Change presentation whether or not we're the submitter of the post 
   if (is_submitter) {
     // Comment belongs to user who made the post, mark name to identify
-    authorName = <Keyword>"<Submitter>{author}</Submitter>"</Keyword>
+    authorName = <Keyword color={string}>"<Submitter>{author}</Submitter>"</Keyword>
   } else {
-    authorName = <Keyword>"{author}"</Keyword>
-  }
-
-  // Change presentation based on whether or not we're a child comment
-  if (isChild) {
-    commentType = 'responseComment';
-    commentAssignmentText = ': ';
-    closingLineText = '},';
-  } else {
-    commentType = 'comment';
-    commentAssignmentText = '= ';
-    closingLineText = '};';
+    authorName = <Keyword color={string}>"{author}"</Keyword>
   }
 
   return (
@@ -41,17 +37,20 @@ const JavaScriptComment = (props) => {
           {collapsed ? "[+]" : "[-]"}
         </CommentToggle>
         {!isChild
-          ? <Keyword rightSpace={true}>const</Keyword>
+          ? <Keyword color={constWord} rightSpace={true}>const</Keyword>
           : null
         }
-        {`${commentType} ${commentAssignmentText} {`}
+        <Keyword color={isChild ? child : topLevel}>
+          {isChild ? 'responseComment' : 'comment'}
+        </Keyword>
+        {isChild ? `: {` : ` = {`}
       </Line>
       <Indentation depth={1}>
         <Line>
-          <Keyword leftSpace={true}>author</Keyword>: {authorName},
+          <Keyword color={variableName} leftSpace={true}>author</Keyword>: {authorName},
           </Line>
         <Line>
-          <Keyword leftSpace={true}>score</Keyword>: <KarmaScore score={score - 10}>{score}</KarmaScore>,
+          <Keyword color={variableName} leftSpace={true}>score</Keyword>: <KarmaScore ups={ups} downs={downs} score={score}>{score}</KarmaScore>,
           </Line>
         {all_awardings.length > 0
           ? <Line>
@@ -66,13 +65,13 @@ const JavaScriptComment = (props) => {
           : null
         }
         <Line>
-          <Keyword leftSpace={true}>commentAge</Keyword>: <Keyword>"{commentAge}"</Keyword>,
+          <Keyword color={variableName} leftSpace={true}>commentAge</Keyword>: <Keyword color={string}>"{commentAge}"</Keyword>,
           </Line>
         {collapsed
           ? null
           : <React.Fragment>
             <Line>
-              <CodeComment>
+              <CodeComment color={comment}>
                 <KeywordListItem>{"/*"}</KeywordListItem>
                 <KeywordListItem>
                   <MarkdownText>

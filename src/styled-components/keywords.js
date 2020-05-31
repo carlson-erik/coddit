@@ -1,9 +1,12 @@
 import styled from 'styled-components';
-import { NEGATIVE_VOTES, SUBMITTER, POSITIVE_VOTES } from './theme';
+import { SUBMITTER } from './theme';
+
+const LEFT_SPACE = '0.3rem';
+const RIGHT_SPACE ='0.3rem';
 
 const Keyword = styled.span`
-  margin-left: ${props => props.leftSpace ? '0.2rem' : '0'};
-  margin-right: ${props => props.rightSpace ? '0.2rem' : '0'};
+  margin-left: ${props => props.leftSpace ? LEFT_SPACE : '0'};
+  margin-right: ${props => props.rightSpace ? RIGHT_SPACE : '0'};
   ${props => props.color !== '' ? `color: ${props.color};` : ''}
 `;
 
@@ -22,7 +25,12 @@ const KeywordListItem = styled.li`
 `;
 
 const KarmaScore = styled(Keyword)`
-  color: ${props => props.score > 0 ? POSITIVE_VOTES : NEGATIVE_VOTES };
+  margin-left: ${props => props.leftSpace ? LEFT_SPACE : '0'};
+  margin-right: ${props => props.rightSpace ? RIGHT_SPACE : '0'};
+  color: ${props => (props.score > 0) 
+            ? (props.ups !== '' ? props.ups : 'Orange')
+            : (props.downs !== '' ? props.downs : 'DodgerBlue')
+          };
 `;
 
 const Submitter = styled(Keyword)`

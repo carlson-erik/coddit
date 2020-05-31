@@ -8,6 +8,10 @@ const OneDark = {
   },
   general : {
     comment: '#5c6370',
+    score: {
+      ups: '#d19a66',
+      downs: '#61afef',
+    },
   },
   languages: {
     csharp: {
@@ -22,6 +26,11 @@ const OneDark = {
       parameterName: '',
       variableWord: '#c678dd',
       variableName: '#e06c75',
+      newWord: '#c678dd',
+      codeObject: {
+        topLevel: '',
+        child: '#e06c75',
+      }
     },
     javascript: {
       constWord: '#c678dd',
@@ -33,6 +42,10 @@ const OneDark = {
       functionName: '#61afef',
       functionWord: '#c678dd',
       parameterName: '#e06c75',
+      codeObject: {
+        topLevel: '#e5c07b',
+        child: '#e06c75',
+      }
     },
     python: {
       def: '#c678dd',
