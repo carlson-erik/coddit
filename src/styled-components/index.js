@@ -6,7 +6,7 @@ const Line = styled.div`
 `;
 
 const Indentation = styled.div`
-    margin-left: ${props => props.depth && props.depth >= 1 ? `${props.depth*2}rem` : 0 };
+  margin-left: ${props => props.depth && props.depth >= 1 ? `${props.depth*2}rem` : 0 };
 `;
 
 const Page = styled(Indentation)`

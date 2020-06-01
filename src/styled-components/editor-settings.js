@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import { Line } from './index';
 
-const ListItem = styled.div`
-  margin-left: 1em;
+const DropdownLine = styled(Line)`
+  display:flex;
+  flex-direction: row;
 `;
 
 export {
-  ListItem,
+  DropdownLine,
 };

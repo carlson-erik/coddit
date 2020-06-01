@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useContext } from "react";
 // ---------- Components ----------
-import Dropdown from '../../../dropdown';
+import Dropdown from '../../dropdown';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../themes';
 // ---------- Styled-Components ----------
-import { Line, Indentation } from '../../../../styled-components/';
-import { Keyword } from '../../../../styled-components/keywords';
+import { Line, Indentation } from '../../../styled-components';
+import { Keyword } from '../../../styled-components/keywords';
+import { DropdownLine } from '../../../styled-components/editor-settings';
 // ---------- Constants ----------
-import {themeSpacedOptions, progLangList, themeMap} from '../../../../utils/constants';
+import {themeSpacedOptions, progLangList, themeMap} from '../../../utils/constants';
 
 const PythonEditorSettings = (props) => {
 	const {settings, dropdownSelect} = props;
 	const {progLang, colorTheme} = settings;
+	const { theme } = useContext(ThemeContext);
+	const { comment } = theme.general;
 	return(
 		<header>
 			<Indentation depth={1}>
 				<Line>
-					<span className="codeComment"># Editor Settings</span>
+					<Keyword color={comment}># Editor Settings</Keyword>
 				</Line>
-				<Line>
+				<DropdownLine>
 					prog_lang = 
 					<Keyword leftSpace={true}>
 						<Dropdown 
@@ -25,8 +30,8 @@ const PythonEditorSettings = (props) => {
 							placeholder={"\"" + progLang + "\""}
 						/>
 					</Keyword>
-				</Line>
-				<Line>
+				</DropdownLine>
+				<DropdownLine>
 					theme_name = 
 					<Keyword leftSpace={true}>
 						<Dropdown 
@@ -35,7 +40,7 @@ const PythonEditorSettings = (props) => {
 							placeholder={"\"" + themeMap[colorTheme] + "\""}
 						/>
 					</Keyword>
-				</Line>
+				</DropdownLine>
 			</Indentation>
 		</header>
 	);

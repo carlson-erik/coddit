@@ -8,6 +8,7 @@ const OneDark = {
   },
   general : {
     comment: '#5c6370',
+    submitter: 'red',
     score: {
       ups: '#d19a66',
       downs: '#61afef',
@@ -16,6 +17,7 @@ const OneDark = {
   languages: {
     csharp: {
       using: '#c678dd',
+      usingPackage: '#e5c07b',
       namespace: '#c678dd',
       namespaceName: '#e5c07b',
       publicWord: '#c678dd',
