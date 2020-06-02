@@ -10,7 +10,7 @@ import { PythonPageList, PythonHeader } from './languages/python';
 import { JavaScriptPageList, JavaScriptHeader } from './languages/javascript';
 import { CSharpPageList, CSharpHeader } from './languages/csharp';
 
-function Subreddit(props) {
+function PostList(props) {
   const { match, settings } = props;
   const { progLang } = settings;
   const subreddit = getSubreddit(match);
@@ -150,4 +150,4 @@ function Subreddit(props) {
 
 
 
-export default Subreddit;
+export default PostList;

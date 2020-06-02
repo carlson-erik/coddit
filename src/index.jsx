@@ -12,10 +12,10 @@ import EditorSettings from './components/editor-settings';
 // ---------- Views ----------
 import About from './views/about';
 import Post from './views/post';
-import Subreddit from './views/subreddit';
+import PostList from './views/post-list';
 import User from './views/user';
 // ---------- Themes ----------
-import {getTheme, ThemeContext} from './themes';
+import { getTheme, ThemeContext } from './themes';
 // ---------- Reset Default CSS ----------
 import './reset.css';
 
@@ -66,17 +66,17 @@ const Coddit = (props) => {
       <Route
         exact
         path="/"
-        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
+        render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/"
-        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
+        render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/:subreddit_id"
-        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
+        render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
       <Route
         exact
