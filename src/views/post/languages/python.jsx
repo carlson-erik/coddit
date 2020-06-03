@@ -1,22 +1,17 @@
 import React from 'react';
-import styled from 'styled-components'
 import Dropdown from 'react-dropdown';
 // ---------- JS Utilities ----------
-import { isImageLink } from '../../../../utils/image';
-import { getTimeDifferenceString } from '../../../../utils/time';
-import { commentSortDisplayNames } from '../../../../utils/constants';
-import { getSubreddit } from '../../../../utils/route-params';
+import { isImageLink } from '../../../utils/image';
+import { getTimeDifferenceString } from '../../../utils/time';
+import { commentSortDisplayNames } from '../../../utils/constants';
+import { getSubreddit } from '../../../utils/route-params';
 // ---------- Components ----------
-import Comment from '../../../../components/comment';
-import Preview from '../../../../components/preview';
+import Comment from '../../../components/comment';
+import Preview from '../../../components/preview';
 // ---------- Styled Components ----------
-import { Line, Indentation, Page } from '../../../../styled-components/';
-import { Keyword, KeywordLink } from '../../../../styled-components/keywords';
-import { PostInformation } from '../../../../styled-components/post';
-
-const Submitter = styled(Keyword)`
-  color: red;
-`;
+import { Line, Indentation, Page } from '../../../styled-components';
+import { Keyword, KeywordLink, Submitter } from '../../../styled-components/keywords';
+import { PostInformation } from '../../../styled-components/post';
 
 function Configuration ({ subreddit, sort, sortChange }) {
   const { method } = sort;

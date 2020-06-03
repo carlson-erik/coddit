@@ -8,7 +8,7 @@ const OneDark = {
   },
   general : {
     comment: '#5c6370',
-    submitter: 'red',
+    submitter: '#e06c75',
     score: {
       ups: '#d19a66',
       downs: '#61afef',
