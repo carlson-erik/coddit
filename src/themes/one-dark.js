@@ -53,6 +53,9 @@ const OneDark = {
       def: '#c678dd',
       functionName: '#61afef',
       parameterName: '#d19a66',
+      forWord: '#c678dd',
+      inWord: '#c678dd',
+      rangeWord: '#61afef',
     },
   }
 };

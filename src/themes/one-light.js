@@ -6,35 +6,56 @@ const OneLight = {
     boolean: '',
     string: '',
   },
+  general : {
+    comment: '',
+    submitter: '',
+    score: {
+      ups: '',
+      downs: '',
+    },
+  },
   languages: {
     csharp: {
       using: '',
+      usingPackage: '',
       namespace: '',
       namespaceName: '',
-      public: '',
-      class: '',
+      publicWord: '',
+      classWord: '',
       className: '',
       functionName: '',
+      parameterType: '',
       parameterName: '',
-      var: '',
-      varName: '',
+      variableWord: '',
+      variableName: '',
+      newWord: '',
+      codeObject: {
+        topLevel: '',
+        child: '',
+      }
     },
     javascript: {
-      const: '',
+      constWord: '',
       variableName: '',
-      class: '',
+      classWord: '',
       className: '',
-      extends: '',
+      extendsWord: '',
       extendsName: '',
       functionName: '',
       functionWord: '',
       parameterName: '',
+      codeObject: {
+        topLevel: '',
+        child: '',
+      }
     },
     python: {
       def: '',
       functionName: '',
       parameterName: '',
-      comment: '',
+      forWord: '',
+      inWord: '',
+      rangeWord: '',
     },
   }
 };

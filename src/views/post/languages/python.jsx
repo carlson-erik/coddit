@@ -1,30 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';  
 import Dropdown from 'react-dropdown';
 // ---------- JS Utilities ----------
 import { isImageLink } from '../../../utils/image';
 import { getTimeDifferenceString } from '../../../utils/time';
 import { commentSortDisplayNames } from '../../../utils/constants';
 import { getSubreddit } from '../../../utils/route-params';
+// ---------- Theme ----------
+import { ThemeContext } from '../../../themes';
 // ---------- Components ----------
 import Comment from '../../../components/comment';
 import Preview from '../../../components/preview';
 // ---------- Styled Components ----------
 import { Line, Indentation, Page } from '../../../styled-components';
-import { Keyword, KeywordLink, Submitter } from '../../../styled-components/keywords';
+import { Keyword, KeywordLink, KarmaScore } from '../../../styled-components/keywords';
+import { DropdownLine } from '../../../styled-components/editor-settings';
 import { PostInformation } from '../../../styled-components/post';
 
 function Configuration ({ subreddit, sort, sortChange }) {
   const { method } = sort;
+  const { theme } = useContext(ThemeContext);
+  const { string } = theme.values;
+  const { comment } = theme.general;
   return (
     <Indentation depth={1}>
       <Line>
         curr_subreddit =
-        <KeywordLink href={"/r/" + subreddit} leftSpace={true} >"{subreddit}"</KeywordLink>
+        <KeywordLink color={string} href={"/r/" + subreddit} leftSpace={true} >"{subreddit}"</KeywordLink>
       </Line>
       <Line>
-        <span className="codeComment"># Reddit Settings</span>
+        <Keyword color={comment}># Reddit Settings</Keyword>
       </Line>
-      <Line>
+      <DropdownLine>
         sort_by =
         <Keyword leftSpace={true}>
           <Dropdown
@@ -33,7 +39,7 @@ function Configuration ({ subreddit, sort, sortChange }) {
             placeholder={"\"" + method + "\""}
           />
         </Keyword>
-      </Line>
+      </DropdownLine>
     </Indentation>
   );
 };
@@ -45,13 +51,17 @@ function Header({ postHeaderData: data }) {
   const shortTitleArray = permalink.split("/");
   const shortTitle = shortTitleArray[shortTitleArray.length - 2];
   const subredditLink = "/" + subreddit_name_prefixed;
+  const { theme } = useContext(ThemeContext);
+  const { string, integer } = theme.values;
+  const { comment, submitter, score: { ups, downs} } = theme.general;
+  const { def, functionName, parameterName, forWord, inWord, rangeWord } = theme.languages.python;
   let postContent;
   if (isImageLink(url)) {
     // post is an image
     postContent = (
       <Line>
         image_link =
-        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
+        <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
         <Keyword>
           <Preview url={url} title={title} showAllPreviews={true} isImage={true} hideIcon={true} useSemicolon={false} />
         </Keyword>
@@ -74,7 +84,7 @@ function Header({ postHeaderData: data }) {
     postContent = (
       <Line>
         post_link =
-        <KeywordLink href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
+        <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
       </Line>
     );
   }
@@ -82,24 +92,26 @@ function Header({ postHeaderData: data }) {
   return (
     <React.Fragment>
       <Line>
-        <Keyword rightSpace={true}>def</Keyword>
-        <a href={url} target="_blank" rel="noopener noreferrer" className="function">{shortTitle}</a>
-        (score=<span className="parameter">{score}</span>,
-        sub=<KeywordLink href={subredditLink}>"{subreddit}"</KeywordLink><span className="symbol">):</span>
+        <Keyword color={def} rightSpace={true}>def</Keyword>
+        <KeywordLink color={functionName} href={url} target="_blank" rel="noopener noreferrer">{shortTitle}</KeywordLink>
+        (<Keyword color={parameterName}>score</Keyword>=
+        <KarmaScore ups={ups} downs={downs} score={score}>{score}</KarmaScore>,
+        <Keyword color={parameterName} leftSpace={true}>sub</Keyword>=
+        <KeywordLink color={string} href={subredditLink}>"{subreddit}"</KeywordLink>):
       </Line>
       <Indentation depth={1}>
         <PostInformation>
           <Line>
             full_title =
-						<Keyword leftSpace={true}>"{title}"</Keyword>
+						<Keyword color={string} leftSpace={true}>"{title}"</Keyword>
           </Line>
           <Line>
             author =
-						<KeywordLink href={`/user/${author.toLowerCase()}`} leftSpace={true}>"<Submitter>{author}</Submitter>"</KeywordLink>
+						<KeywordLink color={string} href={`/user/${author.toLowerCase()}`} leftSpace={true}>"<Keyword color={submitter}>{author}</Keyword>"</KeywordLink>
           </Line>
           <Line>
             post_age =
-						<Keyword leftSpace={true}>"{postAge}"</Keyword>
+						<Keyword color={string} leftSpace={true}>"{postAge}"</Keyword>
           </Line>
           {all_awardings.length > 0
             ? <Line>
@@ -121,13 +133,15 @@ function Header({ postHeaderData: data }) {
       </Indentation>
       <Indentation depth={1}>
         <Line>
-          <span className="codeComment"># Rendering comments below</span>
+          <Keyword color={comment}># Rendering comments below</Keyword>
         </Line>
         <Line>
-          <Keyword rightSpace={true}>for</Keyword>
+          <Keyword color={forWord} rightSpace={true}>for</Keyword>
           comment
-					<Keyword rightSpace={true} leftSpace={true}>in</Keyword>
-          <span className="range">range</span>(<span className="parameter">0</span>, {num_comments}):
+					<Keyword color={inWord} rightSpace={true} leftSpace={true}>in</Keyword>
+          <Keyword color={rangeWord}>range</Keyword>
+          (<Keyword color={integer}>0</Keyword>, 
+          <Keyword color={integer} leftSpace={true}>{num_comments}</Keyword>):
 				</Line>
       </Indentation>
     </React.Fragment>

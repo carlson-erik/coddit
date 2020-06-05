@@ -174,7 +174,7 @@ export default function PostView(props) {
             <Header postHeaderData={postHeaderData} />
             <Indentation depth={1}>
               <Line>
-                <Keyword color={comment}>//  All available comments</Keyword>
+                <Keyword color={comment}>{'//  All available comments'}</Keyword>
               </Line>
             </Indentation>
             {pageList.map(page =>

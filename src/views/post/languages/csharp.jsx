@@ -94,7 +94,7 @@ function Header({ postHeaderData }) {
     // show link
     postContent = (
       <Line>
-        <Keyword color={variableWord}>var</Keyword>
+        <Keyword color={variableWord} rightSpace={true}>var</Keyword>
         <Keyword color={variableName} rightSpace={true}>post_link</Keyword>=
         <KeywordLink color={string} leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
       </Line>
@@ -164,7 +164,7 @@ function Header({ postHeaderData }) {
 function Body(props) {
   const { postHeaderData, pageList } = props;
   const { theme } = useContext(ThemeContext);
-  const { publicWord, functionName, parameterName, classWord, className } = theme.languages.csharp;
+  const { publicWord, classWord, className } = theme.languages.csharp;
   return (
     <React.Fragment>
       <Indentation depth={2}>
