@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 // import PropTypes from 'prop-types';
 import Image from "./image";
 import Checkbox from '../checkbox';
 import ReactMarkdown from 'react-markdown';
+// ---------- Theme  ----------
+import { ThemeContext } from '../../themes';
 // ---------- JS Utilities ----------
 import { replaceAll } from '../../utils/string';
 
@@ -11,17 +13,20 @@ function Preview(props) {
   const { isImage, showAllPreviews, url, title, markdownText, useSemicolon, hideIcon } = props;
   // set initial show state to be showAllPreviews
   const [showPreview, togglePreview] = useState(showAllPreviews);
+  const { theme } = useContext(ThemeContext);
   const shown = showAllPreviews === true ? showAllPreviews : showPreview;
   const dotString = !useSemicolon ? '"..."' : '"...";';
   // remove bad characters sometimes sent by reddit
   const updatedMarkdown = markdownText && markdownText !== '' ? replaceAll(markdownText, '&amp;#x200B;', '') : "";
+  const { string } = theme.values;
+  const { background } = theme;
 
   const checkbox = !hideIcon && (
     <Checkbox
       checked={shown}
       onChange={() => togglePreview(!showPreview)}
-      bgColor='#4A4E63'
-      checkCheckedColor='#A1EF9D'
+      bgColor={background}
+      checkCheckedColor={string}
     />
   );
 
@@ -40,9 +45,7 @@ function Preview(props) {
       return (
         <React.Fragment>
           {checkbox}
-          <div className="cancelMargin string selftext_preview">
-            <ReactMarkdown source={updatedMarkdown} />
-          </div>
+          <ReactMarkdown source={updatedMarkdown} />
         </React.Fragment>
       );
     }
