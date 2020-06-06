@@ -80,12 +80,10 @@ export const commentSortFunctionTranslateObject = {
 export const themeOptions = [
 	'oneDark',
 	'oneLight',
-	'materialHCDark',
 ]
 export const themeSpacedOptions = [
 	{ value: 'oneDark', label: 'one dark' },
 	{ value: 'oneLight', label: 'one light' },
-	{ value: 'materialHCDark', label: 'hc darker' },	
 ]
 
 export const progLangList = [
@@ -94,19 +92,11 @@ export const progLangList = [
 	"python",
 ];
 
-export const themeColors = {
-	"oneDark" : "#282C34",
-	"oneLight" : "#fafafa", 
-	"materialHCDark" : "#212121",
-};
-
 export const themeMap = {
 	"one dark" : "oneDark",
 	"one light" : "oneLight",
-	"hc darker" : "materialHCDark",
 	"oneDark" : "one dark",
 	"oneLight" : "one light",
-	"materialHCDark" : "hc darker",
 };
 
 

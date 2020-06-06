@@ -12,20 +12,28 @@ import EditorSettings from './components/editor-settings';
 // ---------- Views ----------
 import About from './views/about';
 import Post from './views/post';
-import Subreddit from './views/subreddit';
+import PostList from './views/post-list';
 import User from './views/user';
+// ---------- Themes ----------
+import { getTheme, ThemeContext } from './themes';
 // ---------- Reset Default CSS ----------
 import './reset.css';
 
 const Coddit = (props) => {
-  const settingsChanged = () => {
-    const {updateSettings, settings} = props;
-		const newThemeName = localStorage.getItem("coddit_theme_name");
-		const newProgLang = localStorage.getItem("coddit_prog_lang");
-    // update the settings in state
-    const {itemLimit, showAllPreviews} = settings;
-    updateSettings(itemLimit, newProgLang, showAllPreviews, newThemeName);
+  const {settings, updateSettings} = props;
+  const {colorTheme} = settings;
+
+  const value = {
+    theme: getTheme(colorTheme),
+    setTheme: (newThemeName) => {
+      const {itemLimit, showAllPreviews, progLang} = props.settings;
+      console.log('newThemeName: ', newThemeName);
+      updateSettings(itemLimit, progLang, showAllPreviews, newThemeName);
+    },
   }
+  const { background, foreground } = value.theme;
+  document.body.style.backgroundColor = background;
+  document.body.style.color = foreground;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -38,8 +46,17 @@ const Coddit = (props) => {
     }
   });
 
+  const settingsChanged = () => {
+    const {updateSettings, settings} = props;
+		const newThemeName = localStorage.getItem("coddit_theme_name");
+		const newProgLang = localStorage.getItem("coddit_prog_lang");
+    // update the settings in state
+    const {itemLimit, showAllPreviews} = settings;
+    updateSettings(itemLimit, newProgLang, showAllPreviews, newThemeName);
+  };
+
   return (
-    <React.Fragment>
+    <ThemeContext.Provider value={value}>
       <EditorSettings {...props}/>
       <Route
         exact
@@ -49,17 +66,17 @@ const Coddit = (props) => {
       <Route
         exact
         path="/"
-        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
+        render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/"
-        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
+        render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
       <Route
         exact
         path="/r/:subreddit_id"
-        render={(routeprops) => <Subreddit {...props} {...routeprops} />}
+        render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
       <Route
         exact
@@ -71,7 +88,7 @@ const Coddit = (props) => {
         path="/u/:user_id"
         render={(routeprops) => <User {...props} {...routeprops} />}
       />
-    </React.Fragment>
+    </ThemeContext.Provider>
   )
 };
 

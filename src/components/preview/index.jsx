@@ -1,27 +1,43 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
+import styled from 'styled-components';
 // import PropTypes from 'prop-types';
 import Image from "./image";
 import Checkbox from '../checkbox';
 import ReactMarkdown from 'react-markdown';
+// ---------- Theme  ----------
+import { ThemeContext } from '../../themes';
 // ---------- JS Utilities ----------
 import { replaceAll } from '../../utils/string';
+// ---------- Styled Components ----------
+const TextColor = styled.span`
+    & > * {
+      color: ${props => props.color || ''}
+    }
+
+    & > * a {
+      color: ${props => props.color || ''}
+    }
+  `;
 
 function Preview(props) {
   // pull needed values from props
-  const { isImage, showAllPreviews, url, title, markdownText, useSemicolon, hideIcon } = props;
+  const { isImage, showAllPreviews, url, title, markdownText, useSemicolon, hideIcon, fontColor } = props;
   // set initial show state to be showAllPreviews
   const [showPreview, togglePreview] = useState(showAllPreviews);
+  const { theme } = useContext(ThemeContext);
   const shown = showAllPreviews === true ? showAllPreviews : showPreview;
   const dotString = !useSemicolon ? '"..."' : '"...";';
   // remove bad characters sometimes sent by reddit
   const updatedMarkdown = markdownText && markdownText !== '' ? replaceAll(markdownText, '&amp;#x200B;', '') : "";
+  const { string } = theme.values;
+  const { background } = theme;
 
   const checkbox = !hideIcon && (
     <Checkbox
       checked={shown}
       onChange={() => togglePreview(!showPreview)}
-      bgColor='#4A4E63'
-      checkCheckedColor='#A1EF9D'
+      bgColor={background}
+      checkCheckedColor={string}
     />
   );
 
@@ -40,9 +56,9 @@ function Preview(props) {
       return (
         <React.Fragment>
           {checkbox}
-          <div className="cancelMargin string selftext_preview">
+          <TextColor color={fontColor && fontColor !== '' ? fontColor : 'black'}>
             <ReactMarkdown source={updatedMarkdown} />
-          </div>
+          </TextColor>
         </React.Fragment>
       );
     }
