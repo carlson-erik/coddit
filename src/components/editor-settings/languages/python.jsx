@@ -15,6 +15,7 @@ const PythonEditorSettings = (props) => {
 	const {progLang, colorTheme} = settings;
 	const { theme } = useContext(ThemeContext);
 	const { comment } = theme.general;
+	const { string } = theme.values;
 	return(
 		<header>
 			<Indentation depth={1}>
@@ -28,6 +29,7 @@ const PythonEditorSettings = (props) => {
 							options={progLangList} 
 							onChange={(option) => dropdownSelect(option, 'progLang')} 
 							placeholder={"\"" + progLang + "\""}
+							fontColor={string}
 						/>
 					</Keyword>
 				</DropdownLine>
@@ -38,6 +40,7 @@ const PythonEditorSettings = (props) => {
 							options={themeSpacedOptions} 
 							onChange={(option) => dropdownSelect(option, 'theme')} 
 							placeholder={"\"" + themeMap[colorTheme] + "\""}
+							fontColor={string}
 						/>
 					</Keyword>
 				</DropdownLine>

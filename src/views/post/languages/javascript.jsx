@@ -41,6 +41,7 @@ function Configuration({ subreddit, sort, sortChange }) {
               options={commentSortDisplayNames}
               onChange={sortChange}
               placeholder={"\"" + method + "\""}
+              fontColor={string}
             />
           </Keyword>;
         </DropdownLine>
@@ -76,7 +77,14 @@ function Header({ postHeaderData }) {
         <Keyword color={variableName} rightSpace={true}>image_link</Keyword>=
         <KeywordLink color={string} leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
         <Keyword leftSpace={true}>
-          <Preview url={url} title={title} showAllPreviews={true} isImage={true} hideIcon={true} useSemicolon={true} />
+          <Preview 
+            url={url} 
+            title={title} 
+            showAllPreviews={true} 
+            isImage={true} 
+            hideIcon={true} 
+            useSemicolon={true} 
+        />
         </Keyword>
       </Line>
     );
@@ -88,7 +96,16 @@ function Header({ postHeaderData }) {
           <Keyword color={constWord} rightSpace={true}>const</Keyword>
           <Keyword color={variableName} rightSpace={true}>self_text</Keyword>=
           <Keyword leftSpace={true}>
-            <Preview url={url} title={title} showAllPreviews={true} isImage={false} hideIcon={true} useSemicolon={true} markdownText={`"${selftext}";`} />
+            <Preview 
+              url={url} 
+              title={title} 
+              showAllPreviews={true} 
+              isImage={false} 
+              hideIcon={true} 
+              useSemicolon={true} 
+              markdownText={`"${selftext}";`}
+              fontColor={string}
+            />
           </Keyword>
         </Line>
       )

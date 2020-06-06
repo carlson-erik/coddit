@@ -16,6 +16,7 @@ const JavaScriptEditorSettings = (props) => {
 	const { theme } = useContext(ThemeContext);
 	const { constWord, variableName } = theme.languages.javascript;
 	const { comment } = theme.general;
+	const { string } = theme.values;
 	return(
 		<header>
 			<Indentation depth={1}>
@@ -30,6 +31,7 @@ const JavaScriptEditorSettings = (props) => {
 							options={progLangList} 
 							onChange={(option) => dropdownSelect(option, 'progLang')} 
 							placeholder={`"${progLang}"`}
+							fontColor={string}
 						/>
 					</Keyword>
 					;
@@ -42,6 +44,7 @@ const JavaScriptEditorSettings = (props) => {
 						options={themeOptions} 
 						onChange={(option) => dropdownSelect(option, 'theme')} 
 						placeholder={`"${colorTheme}"`}
+						fontColor={string}
 					/>
 				</Keyword>
 				;

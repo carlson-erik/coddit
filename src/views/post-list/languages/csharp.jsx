@@ -49,6 +49,7 @@ const CSharpHeader = (props) => {
           options={sortValues}
           onChange={onChangeSortBy}
           placeholder={method + ";"}
+          fontColor={usingPackage}
         />
       </DropdownLine>
       {method === "controversial" || method === "top"
@@ -59,6 +60,7 @@ const CSharpHeader = (props) => {
             options={linksFromDisplayNames}
             onChange={onChangeTimeFrame}
             placeholder={timeFrame + ";"}
+            fontColor={usingPackage}
           />
         </DropdownLine>
         : null
@@ -70,6 +72,7 @@ const CSharpHeader = (props) => {
           options={itemLimitValues}
           onChange={onChangePostCount}
           placeholder={itemLimit + ";"}
+          fontColor={usingPackage}
         />
       </DropdownLine>
     </Indentation>

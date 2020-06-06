@@ -25,7 +25,7 @@ const PythonHeader = (props) => {
     <Indentation depth={1}>
       <Line>
         curr_subreddit =
-        <KeywordLink leftSpace={true} href={"/r/" + subreddit}>"{subreddit}"</KeywordLink>
+        <KeywordLink color={string} leftSpace={true} href={"/r/" + subreddit}>"{subreddit}"</KeywordLink>
       </Line>
       <DropdownLine>
         show_all_previews =
@@ -46,6 +46,7 @@ const PythonHeader = (props) => {
             options={sortValues}
             onChange={onChangeSortBy}
             placeholder={"\"" + method + "\""}
+            fontColor={string}
           />
         </Keyword>
       </DropdownLine>
@@ -56,6 +57,7 @@ const PythonHeader = (props) => {
               options={linksFromDisplayNames}
               onChange={onChangeTimeFrame}
               placeholder={"\"" + linksFromMap[timeFrame] + "\""}
+              fontColor={string}
             />
           </DropdownLine>
         : null
@@ -67,6 +69,7 @@ const PythonHeader = (props) => {
             options={itemLimitValues}
             onChange={onChangePostCount}
             placeholder={"\"" + itemLimit + "\""}
+            fontColor={string}
           />
         </Keyword>
       </DropdownLine>

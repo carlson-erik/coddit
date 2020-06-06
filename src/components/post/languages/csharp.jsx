@@ -35,8 +35,13 @@ const CSharpPost = (props) => {
         <Keyword color={variableWord} rightSpace={true}>var</Keyword>
         <Keyword color={variableName} rightSpace={true}>image_link</Keyword>=
         <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
-        <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true} />
-
+        <Preview
+          url={url} 
+          title={title} 
+          showAllPreviews={showAllPreviews} 
+          useSemicolon={true} 
+          isImage={true} 
+        />
       </Line>
     );
   } else if (is_self) {
@@ -47,7 +52,15 @@ const CSharpPost = (props) => {
           <Keyword color={variableWord} rightSpace={true}>var</Keyword>
           <Keyword color={variableName} rightSpace={true}>self_text</Keyword>=
           <Keyword leftSpace={true}>
-            <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={false} markdownText={`"${selftext}";`} />
+            <Preview 
+              url={url} 
+              title={title} 
+              showAllPreviews={showAllPreviews} 
+              useSemicolon={true} 
+              isImage={false} 
+              markdownText={`"${selftext}";`} 
+              fontColor={string}
+            />
           </Keyword>
         </Line>
       )

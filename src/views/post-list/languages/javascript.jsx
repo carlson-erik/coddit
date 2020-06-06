@@ -20,7 +20,7 @@ const JavaScriptHeader = (props) => {
   const { theme } = useContext(ThemeContext);
   const { background } = theme;
   const { comment } = theme.general;
-  const { string } = theme.values;
+  const { string, integer } = theme.values;
 	const { constWord, variableName } = theme.languages.javascript;
   return (
     <Indentation depth={1}>
@@ -50,6 +50,7 @@ const JavaScriptHeader = (props) => {
             options={sortValues}
             onChange={onChangeSortBy}
             placeholder={`"${method}"`}
+            fontColor={string}
           />
         </Keyword>
         ;
@@ -63,6 +64,7 @@ const JavaScriptHeader = (props) => {
                 options={linksFromDisplayNames}
                 onChange={onChangeTimeFrame}
                 placeholder={`'${timeFrame}'`}
+                fontColor={string}
               />
             </Keyword>
             ;
@@ -77,6 +79,7 @@ const JavaScriptHeader = (props) => {
             options={itemLimitValues}
             onChange={onChangePostCount}
             placeholder={itemLimit}
+            fontColor={integer}
           />
         </Keyword>
         ;

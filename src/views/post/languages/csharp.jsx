@@ -20,7 +20,6 @@ function Configuration ({ subreddit, sort, sortChange }) {
   const { method } = sort;
   const { theme } = useContext(ThemeContext);
   const { comment } = theme.general;
-  const { string } = theme.values;
   const { using, usingPackage, namespace, namespaceName } = theme.languages.csharp;
   return (
     <React.Fragment>
@@ -28,7 +27,7 @@ function Configuration ({ subreddit, sort, sortChange }) {
         <Line>
           <Keyword color={using} rightSpace={true}>using</Keyword>
 					<Keyword color={usingPackage}>CurrentSubreddit</Keyword>.
-          <KeywordLink color={string} href={"/r/" + subreddit}>{subreddit}</KeywordLink>;
+          <KeywordLink color={usingPackage} href={"/r/" + subreddit}>{subreddit}</KeywordLink>;
         </Line>
         <Line>
           <Keyword color={comment}>{"// Reddit Settings"}</Keyword>
@@ -40,6 +39,7 @@ function Configuration ({ subreddit, sort, sortChange }) {
             options={commentSortDisplayNames}
             onChange={sortChange}
             placeholder={method}
+            fontColor={usingPackage}
           />;
         </DropdownLine>
       </Indentation>
@@ -73,7 +73,14 @@ function Header({ postHeaderData }) {
         <Keyword color={variableName} rightSpace={true}>image_link</Keyword>=
         <KeywordLink leftSpace={true} href={url} target="_blank" rel="noopener noreferrer">"{showURL}"</KeywordLink>;
         <Keyword leftSpace={true}>
-          <Preview url={url} title={title} showAllPreviews={true} useSemicolon={true} isImage={true} hideIcon={true} />
+          <Preview 
+            url={url} 
+            title={title} 
+            showAllPreviews={true} 
+            useSemicolon={true} 
+            isImage={true} 
+            hideIcon={true}
+          />
         </Keyword>
       </Line>
     );
@@ -85,7 +92,16 @@ function Header({ postHeaderData }) {
           <Keyword color={variableWord} rightSpace={true}>var</Keyword>
           <Keyword color={variableName} rightSpace={true}>self_text</Keyword>=
           <Keyword>
-            <Preview url={url} title={title} showAllPreviews={true} useSemicolon={true} isImage={false} hideIcon={true} markdownText={`"${selftext}";`} />
+            <Preview 
+              url={url} 
+              title={title} 
+              showAllPreviews={true} 
+              useSemicolon={true} 
+              isImage={false} 
+              hideIcon={true} 
+              markdownText={`"${selftext}";`} 
+              fontColor={string}
+            />
           </Keyword>
         </Line>
       )

@@ -29,6 +29,7 @@ const CSharpEditorSettings = (props) => {
 						options={progLangList} 
 						onChange={(option) => dropdownSelect(option, 'progLang')} 
 						placeholder={progLang + ";"}
+						fontColor={usingPackage}
 					/>
 				</DropdownLine>
 				<DropdownLine>
@@ -38,6 +39,7 @@ const CSharpEditorSettings = (props) => {
 						options={themeOptions} 
 						onChange={(option) => dropdownSelect(option, 'theme')} 
 						placeholder={colorTheme + ";"}
+						fontColor={usingPackage}
 					/>					
 				</DropdownLine>
 			</Indentation>

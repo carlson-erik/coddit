@@ -6,6 +6,10 @@ const OneDark = {
     boolean: '#d19a66',
     string: '#98c379',
   },
+  dropdown: {
+    hoverFontColor: '',
+    hoverBackground: '#444b58',
+  },
   general : {
     comment: '#5c6370',
     submitter: '#e06c75',

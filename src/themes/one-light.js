@@ -6,6 +6,10 @@ const OneLight = {
     boolean: '#d19a66',
     string: '#98c379',
   },
+  dropdown: {
+    hoverFontColor: '',
+    hoverBackground: '#f1f0f0',
+  },
   general : {
     comment: '#5c6370',
     submitter: '#e06c75',

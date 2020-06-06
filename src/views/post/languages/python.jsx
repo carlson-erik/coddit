@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';  
-import Dropdown from 'react-dropdown';
 // ---------- JS Utilities ----------
 import { isImageLink } from '../../../utils/image';
 import { getTimeDifferenceString } from '../../../utils/time';
@@ -10,6 +9,7 @@ import { ThemeContext } from '../../../themes';
 // ---------- Components ----------
 import Comment from '../../../components/comment';
 import Preview from '../../../components/preview';
+import Dropdown from '../../../components/dropdown';
 // ---------- Styled Components ----------
 import { Line, Indentation, Page } from '../../../styled-components';
 import { Keyword, KeywordLink, KarmaScore } from '../../../styled-components/keywords';
@@ -37,6 +37,7 @@ function Configuration ({ subreddit, sort, sortChange }) {
             options={commentSortDisplayNames}
             onChange={(option) => sortChange(option)}
             placeholder={"\"" + method + "\""}
+            fontColor={string}
           />
         </Keyword>
       </DropdownLine>
@@ -62,10 +63,15 @@ function Header({ postHeaderData: data }) {
       <Line>
         image_link =
         <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
-        <Keyword>
-          <Preview url={url} title={title} showAllPreviews={true} isImage={true} hideIcon={true} useSemicolon={false} />
-        </Keyword>
-      </Line>
+        <Preview 
+          url={url}
+          title={title}
+          showAllPreviews={true}
+          isImage={true}
+          hideIcon={true}
+          useSemicolon={false}
+        />
+    </Line>
     );
   } else if (is_self) {
     // show selftext if there is text to show
@@ -73,9 +79,16 @@ function Header({ postHeaderData: data }) {
       postContent = (
         <Line>
           self_text =
-          <Keyword>
-            <Preview url={url} title={title} showAllPreviews={true} isImage={false} hideIcon={true} useSemicolon={false} markdownText={`"${selftext}"`} />
-          </Keyword>
+          <Preview 
+              url={url} 
+              title={title} 
+              showAllPreviews={true} 
+              isImage={false} 
+              hideIcon={true} 
+              useSemicolon={false} 
+              markdownText={`"${selftext}"`} 
+              fontColor={string}
+            />
         </Line>
       )
     }

@@ -1,4 +1,5 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
+import styled from 'styled-components';
 // import PropTypes from 'prop-types';
 import Image from "./image";
 import Checkbox from '../checkbox';
@@ -7,10 +8,20 @@ import ReactMarkdown from 'react-markdown';
 import { ThemeContext } from '../../themes';
 // ---------- JS Utilities ----------
 import { replaceAll } from '../../utils/string';
+// ---------- Styled Components ----------
+const TextColor = styled.span`
+    & > * {
+      color: ${props => props.color || ''}
+    }
+
+    & > * a {
+      color: ${props => props.color || ''}
+    }
+  `;
 
 function Preview(props) {
   // pull needed values from props
-  const { isImage, showAllPreviews, url, title, markdownText, useSemicolon, hideIcon } = props;
+  const { isImage, showAllPreviews, url, title, markdownText, useSemicolon, hideIcon, fontColor } = props;
   // set initial show state to be showAllPreviews
   const [showPreview, togglePreview] = useState(showAllPreviews);
   const { theme } = useContext(ThemeContext);
@@ -45,7 +56,9 @@ function Preview(props) {
       return (
         <React.Fragment>
           {checkbox}
-          <ReactMarkdown source={updatedMarkdown} />
+          <TextColor color={fontColor && fontColor !== '' ? fontColor : 'black'}>
+            <ReactMarkdown source={updatedMarkdown} />
+          </TextColor>
         </React.Fragment>
       );
     }

@@ -35,7 +35,13 @@ const PythonPost = (props) => {
         image_link =
         <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>
         <Keyword>
-          <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={true} useSemicolon={false} />
+          <Preview 
+            url={url} 
+            title={title} 
+            showAllPreviews={showAllPreviews} 
+            isImage={true} 
+            useSemicolon={false} 
+          />
         </Keyword>
       </Line>
     );
@@ -46,7 +52,15 @@ const PythonPost = (props) => {
         <Line>
           self_text =
           <Keyword leftSpace={true}>
-            <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={false} markdownText={`"${selftext}"`} />
+            <Preview 
+              url={url} 
+              title={title} 
+              showAllPreviews={showAllPreviews} 
+              isImage={false}
+              useSemicolon={false} 
+              markdownText={`"${selftext}"`} 
+              fontColor={string}
+            />
           </Keyword>
         </Line>
       )

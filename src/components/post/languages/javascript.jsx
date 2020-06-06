@@ -34,7 +34,13 @@ const JavaScriptPost = (props) => {
         <Keyword rightSpace={true} color={variableName}>image_link</Keyword>=
         <KeywordLink color={string} href={url} target="_blank" rel="noopener noreferrer" leftSpace={true}>"{showURL}"</KeywordLink>;
         <Keyword leftSpace={true}>
-          <Preview url={url} title={title} showAllPreviews={showAllPreviews} useSemicolon={true} isImage={true} />
+          <Preview 
+            url={url} 
+            title={title} 
+            showAllPreviews={showAllPreviews} 
+            useSemicolon={true} 
+            isImage={true} 
+          />
         </Keyword>
       </Line>
     );
@@ -46,7 +52,15 @@ const JavaScriptPost = (props) => {
           <Keyword rightSpace={true} color={constWord}>const</Keyword>
           <Keyword rightSpace={true} color={variableName}>self_text</Keyword>=
           <Keyword leftSpace={true}>
-            <Preview url={url} title={title} showAllPreviews={showAllPreviews} isImage={false} useSemicolon={true} markdownText={`"${selftext}";`} />
+            <Preview 
+              url={url} 
+              title={title} 
+              showAllPreviews={showAllPreviews} 
+              isImage={false} 
+              useSemicolon={true} 
+              markdownText={`"${selftext}";`} 
+              fontColor={string}
+            />
           </Keyword>
         </Line>
       )
