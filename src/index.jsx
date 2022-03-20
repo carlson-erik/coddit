@@ -10,10 +10,8 @@ import * as actionCreators from './redux/actions';
 // ---------- Components ----------
 import EditorSettings from './components/editor-settings';
 // ---------- Views ----------
-import About from './views/about';
 import Post from './views/post';
 import PostList from './views/post-list';
-import User from './views/user';
 // ---------- Themes ----------
 import { getTheme, ThemeContext } from './themes';
 // ---------- Reset Default CSS ----------
@@ -27,7 +25,6 @@ const Coddit = (props) => {
     theme: getTheme(colorTheme),
     setTheme: (newThemeName) => {
       const {itemLimit, showAllPreviews, progLang} = props.settings;
-      console.log('newThemeName: ', newThemeName);
       updateSettings(itemLimit, progLang, showAllPreviews, newThemeName);
     },
   }
@@ -60,11 +57,6 @@ const Coddit = (props) => {
       <EditorSettings {...props}/>
       <Route
         exact
-        path="/about"
-        component={() => <About />}
-      />
-      <Route
-        exact
         path="/"
         render={(routeprops) => <PostList {...props} {...routeprops} />}
       />
@@ -82,11 +74,6 @@ const Coddit = (props) => {
         exact
         path="/r/:subreddit_id/comments/:post_id/:post_title?"
         render={(routeprops) => <Post {...props} {...routeprops} />}
-      />
-      <Route
-        exact
-        path="/u/:user_id"
-        render={(routeprops) => <User {...props} {...routeprops} />}
       />
     </ThemeContext.Provider>
   )

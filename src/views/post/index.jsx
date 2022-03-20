@@ -14,9 +14,20 @@ function getPostURL(match, sort) {
   return `https://www.reddit.com/r/${subreddit}/comments/${postID}/${postTitle}/.json?sort=${method}`;
 }
 
+function getPostTitle(headerData, isLoading) {
+  const PREFIX = 'coddit.dev | ';
+  if(isLoading || !headerData.data) {
+    return PREFIX + 'loading';
+  }
+  return PREFIX + headerData.data.title;
+}
+
 function Post(props) {
-  const { settings } = props;
+  const { settings, data, isLoading } = props;
   const { progLang } = settings;
+  const { headerData } = data;
+
+  document.title = getPostTitle(headerData, isLoading);
 
   const sortChange = (option) => {
     const { sort, updateSort, clearPageData } = props;

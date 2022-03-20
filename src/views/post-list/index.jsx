@@ -14,6 +14,7 @@ function PostList(props) {
   const { match, settings } = props;
   const { progLang } = settings;
   const subreddit = getSubreddit(match);
+  document.title = `coddit | ${ subreddit === 'all' ? 'all subreddits' : `r/${subreddit}`}`;
   // This method handles checkbox changes
   const onChangeShowPreviews = () => {
     const { settings, updateSettings } = props;
